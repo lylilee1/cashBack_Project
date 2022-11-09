@@ -41,6 +41,9 @@ dependencies:
   flutter_svg: ^1.1.6
   lottie: ^1.4.3
   lint: ^1.10.0
+  smooth_page_indicator: ^1.0.0+2
+  liquid_swipe: ^3.0.0
+  get: ^4.6.5
 
 flutter_native_splash:
   color: "#FFFFFF"
@@ -77,6 +80,7 @@ flutter:
     - assets/images/on_boarding_images/
     - assets/images/splash_images/
     - assets/images/welcome_images/
+    - assets/images/background/
     - assets/images/svg/
 
   # The following line ensures that the Material Icons font is

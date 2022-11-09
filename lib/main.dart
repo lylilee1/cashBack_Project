@@ -1,3 +1,5 @@
+import 'package:cashback/src/features/authentication/screens/onboarding/on_boarding_screen.dart';
+import 'package:cashback/src/features/authentication/screens/welcome_screen/welcome_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -13,13 +15,8 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'CashBack',
-      home: Scaffold(
-        body: Center(
-          child: Text(
-            'Demo Page'
-          ),
-        ),
-      ),
+      themeMode: ThemeMode.system,
+      home: OnBoardingScreen(),
     );
   }
 }

@@ -6,7 +6,7 @@ import 'package:splash_screen_with_animation/src/utils/theme/outlined_button_the
 import 'package:splash_screen_with_animation/src/utils/theme/text_theme.dart';
 
 class CbTheme{
-
+/*prevent user for accessing the page theme*/
   CbTheme._();
 
   static ThemeData lightTheme = ThemeData(
