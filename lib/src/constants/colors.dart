@@ -25,6 +25,7 @@ class CbColors{
 
 
   static const cbWhiteColor                 = Color(0xFFF7F6F1);
+  static const cbDarkColor                  = Color(0xFF000000);
   static const cbBlueColor                  = Color(0xFF2B4C9B);
   static const cbSecondaryColor             = Color(0xFF272727);
 
@@ -35,9 +36,9 @@ class CbColors{
 
 
 // -- onBoarding Screen Colors
-  static const cbOnBoardingPage1Color      = Color(0xFFF7F6F1);
+  static const cbOnBoardingPage1Color      = Color(0xFFD6EFED);
   static const cbOnBoardingPage2Color      = Color(0xFFB7D3DF);
-  static const cbOnBoardingPage3Color      = Color(0xFF90C8AC);
+  static const cbOnBoardingPage3Color      = Color(0xFF94C0D0);
 
 
 }

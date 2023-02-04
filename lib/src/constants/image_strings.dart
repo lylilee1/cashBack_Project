@@ -33,6 +33,15 @@ class CbImageStrings{
   static const String cbOnBoardingImage3   = "assets/images/on_boarding_images/on-boarding-image3.png";
 
 
+// -- Login Screen Images
+  static const String cbLoginScreenImage1   = "assets/images/on_boarding_images/onboarding1.png";
+  static const String cbGoogleLogoImage   = "assets/images/on_boarding_images/onboarding1.png";
+
+
+// -- Welcome Screen Images
+  static const String cbWelcomeScreenImage1   = "assets/images/on_boarding_images/onboarding1.png";
+
+
   // -- svg Images
   static const String cbSvgArrow   = "./assets/images/svg/arrow.svg";
   static const String cbSvgBank    = "./assets/images/svg/bank.svg";

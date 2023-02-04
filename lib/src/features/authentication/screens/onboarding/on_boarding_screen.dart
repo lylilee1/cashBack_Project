@@ -3,6 +3,7 @@ import 'package:cashback/src/constants/image_strings.dart';
 import 'package:cashback/src/constants/sizes.dart';
 import 'package:cashback/src/constants/text_strings.dart';
 import 'package:cashback/src/features/authentication/models/onboarding_screen_model.dart';
+import 'package:cashback/src/features/authentication/screens/login/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -27,37 +28,34 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     final pages = [
       onBoardingPageWidget(
           model: OnBoardingModel(
-            image: CbImageStrings.cbOnBoardingImage0,
-            title: CbTextStrings.cbOnBoardingTitle1,
-            subTitle: CbTextStrings.cbOnBoardingSubTitle1,
-            counterText: CbTextStrings.cbOnBoardingCounter1,
-            bgColor: CbColors.cbOnBoardingPage1Color,
-            textColor: CbColors.cbBlueColor,
-            height: size.height,
-          )
-      ),
+        image: CbImageStrings.cbOnBoardingImage0,
+        title: CbTextStrings.cbOnBoardingTitle1,
+        subTitle: CbTextStrings.cbOnBoardingSubTitle1,
+        counterText: CbTextStrings.cbOnBoardingCounter1,
+        bgColor: CbColors.cbOnBoardingPage1Color,
+        textColor: CbColors.cbBlueColor,
+        height: size.height,
+      )),
       onBoardingPageWidget(
           model: OnBoardingModel(
-            image: CbImageStrings.cbOnBoardingImage1,
-            title: CbTextStrings.cbOnBoardingTitle2,
-            subTitle: CbTextStrings.cbOnBoardingSubTitle2,
-            counterText: CbTextStrings.cbOnBoardingCounter2,
-            bgColor: CbColors.cbOnBoardingPage2Color,
-            textColor: CbColors.cbWhiteColor,
-            height: size.height,
-          )
-      ),
+        image: CbImageStrings.cbOnBoardingImage1,
+        title: CbTextStrings.cbOnBoardingTitle2,
+        subTitle: CbTextStrings.cbOnBoardingSubTitle2,
+        counterText: CbTextStrings.cbOnBoardingCounter2,
+        bgColor: CbColors.cbOnBoardingPage2Color,
+        textColor: CbColors.cbWhiteColor,
+        height: size.height,
+      )),
       onBoardingPageWidget(
           model: OnBoardingModel(
-            image: CbImageStrings.cbOnBoardingImage2,
-            title: CbTextStrings.cbOnBoardingTitle3,
-            subTitle: CbTextStrings.cbOnBoardingSubTitle3,
-            counterText: CbTextStrings.cbOnBoardingCounter3,
-            bgColor: CbColors.cbOnBoardingPage3Color,
-            textColor: CbColors.cbWhiteColor,
-            height: size.height,
-          )
-      ),
+        image: CbImageStrings.cbOnBoardingImage2,
+        title: CbTextStrings.cbOnBoardingTitle3,
+        subTitle: CbTextStrings.cbOnBoardingSubTitle3,
+        counterText: CbTextStrings.cbOnBoardingCounter3,
+        bgColor: CbColors.cbOnBoardingPage3Color,
+        textColor: CbColors.cbWhiteColor,
+        height: size.height,
+      )),
     ];
 
     return Scaffold(
@@ -72,44 +70,55 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           //button scroll page
           Positioned(
             bottom: 60.0,
-              child: OutlinedButton(
-                onPressed: (){
+            child: OutlinedButton(
+              onPressed: () {
+                if (currentPage == 2) {
+                  //Navigator.pushNamed(context, '/login_screen');
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginScreen(),));
+                } else {
                   int nextPage = controller.currentPage + 1;
-                  controller.animateToPage(page: nextPage, duration: 500);
-                },
-                style: ElevatedButton.styleFrom(
-                  side: const BorderSide(
-                    color: Colors.black26,
-                  ),
-                  shape: const CircleBorder(),
-                  padding: const EdgeInsets.all(20),
-                  foregroundColor: Colors.white,
+                  controller.animateToPage(
+                    page: nextPage,
+                    duration: 500,
+                  );
+                }
+              },
+              style: ElevatedButton.styleFrom(
+                side: const BorderSide(
+                  color: Colors.black26,
                 ),
-                child: Container(
-                  padding: const EdgeInsets.all(15),
-                  decoration: const BoxDecoration(
-                    color: CbColors.cbSecondaryColor,
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black26,
-                        blurRadius: 10.0,
-                        spreadRadius: 1.0,
-                        offset: Offset(3, 3),
-                      ),
-                    ],
-                  ),
-                  child: const Icon(Icons.arrow_forward_ios),
-                ),
+                shape: const CircleBorder(),
+                padding: const EdgeInsets.all(20),
+                foregroundColor: Colors.white,
               ),
+              child: Container(
+                padding: const EdgeInsets.all(15),
+                decoration: const BoxDecoration(
+                  color: CbColors.cbSecondaryColor,
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: 10.0,
+                      spreadRadius: 1.0,
+                      offset: Offset(3, 3),
+                    ),
+                  ],
+                ),
+                child: const Icon(Icons.arrow_forward_ios),
+              ),
+            ),
           ),
           //skip button
           Positioned(
             top: 50,
             right: 20,
             child: TextButton(
-                onPressed: () => controller.jumpToPage(page: 2),
-                child: const Text('Skip', style: TextStyle(color: CbColors.cbBlueColor),),
+              onPressed: () => controller.jumpToPage(page: 2),
+              child: const Text(
+                'Skip',
+                style: TextStyle(color: CbColors.cbBlueColor),
+              ),
             ),
           ),
           //page indicator
@@ -122,10 +131,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 activeDotColor: CbColors.cbBlueColor,
                 dotHeight: 5.0,
               ),
-            )
-          )
+            ),
+          ),
         ],
-      )
+      ),
     );
   }
 

@@ -26,7 +26,7 @@ class onBoardingPageWidget extends StatelessWidget {
               children: [
                 Text(
                     model.title,
-                    style: Theme.of(context).textTheme.headline5!.copyWith(
+                    style: Theme.of(context).textTheme.headline6!.copyWith(
                       color: model.textColor,
                     )
                 ),
