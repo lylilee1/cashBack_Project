@@ -1,7 +1,6 @@
+import 'package:cashback/src/constants/colors.dart';
+import 'package:cashback/src/constants/sizes.dart';
 import 'package:flutter/material.dart';
-
-import '../../constants/colors.dart';
-import '../../constants/sizes.dart';
 
 class CbOutlinedButtonTheme {
   CbOutlinedButtonTheme._();
@@ -15,7 +14,7 @@ class CbOutlinedButtonTheme {
       shape: RoundedRectangleBorder(),
       foregroundColor: cbSecondaryColor,
       side: BorderSide(color: cbSecondaryColor),
-      padding: EdgeInsets.symmetric(vertical: cbButtonHeight),
+      padding: EdgeInsets.symmetric(vertical: CbSizings.cbButtonHeight),
     ),
   );
 
@@ -25,7 +24,7 @@ class CbOutlinedButtonTheme {
       shape: RoundedRectangleBorder(),
       foregroundColor: cbWhiteColor,
       side: BorderSide(color: cbWhiteColor),
-      padding: EdgeInsets.symmetric(vertical: cbButtonHeight),
+      padding: EdgeInsets.symmetric(vertical: CbSizings.cbButtonHeight),
     ),
   );
 }

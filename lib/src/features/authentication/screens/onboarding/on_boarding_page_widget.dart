@@ -26,20 +26,20 @@ class onBoardingPageWidget extends StatelessWidget {
               children: [
                 Text(
                     model.title,
-                    style: Theme.of(context).textTheme.headline6!.copyWith(
-                      color: model.textColor,
-                    )
+                    style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                      fontSize: 23,
+                    ),
                 ),
                 Text(
                   model.subTitle,
                   textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
                     color: model.textColor,
                   ),
                 ),
               ],
             ),
-            Text(model.counterText),
+            Text(model.counterText,style: Theme.of(context).textTheme.titleLarge,),
             SizedBox(height: 50.0)
           ],
         )

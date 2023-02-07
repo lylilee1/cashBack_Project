@@ -4,6 +4,7 @@ import 'package:cashback/src/constants/sizes.dart';
 import 'package:cashback/src/constants/text_strings.dart';
 import 'package:cashback/src/features/authentication/models/onboarding_screen_model.dart';
 import 'package:cashback/src/features/authentication/screens/login/login_screen.dart';
+import 'package:cashback/src/features/authentication/screens/signup/signup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -74,7 +75,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               onPressed: () {
                 if (currentPage == 2) {
                   //Navigator.pushNamed(context, '/login_screen');
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginScreen(),));
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const SignUpScreen(),));
                 } else {
                   int nextPage = controller.currentPage + 1;
                   controller.animateToPage(

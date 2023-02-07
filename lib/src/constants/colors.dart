@@ -2,11 +2,6 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-/* -- LIST OF COLORS -- */
-
-const cbPrimaryColor              = Color(0xFFFEE400);
-const cbPrimaryColor2             = Color(0xFF3FA036);
-const cbPrimaryColor3             = Color(0xFF2B4C9B);
 const cbSecondaryColor            = Color(0xFF272727);
 const cbAccentColor               = Color(0xFF001BFF);
 
@@ -22,6 +17,11 @@ const cbOnBoardingPage3Color      = Color(0xffffdcbd);
 
 class CbColors{
   CbColors._();
+
+/* -- LIST OF COLORS -- */
+  static const cbPrimaryColor              = Color(0xFFFEE400);
+  static const cbPrimaryColor2             = Color(0xFF3FA036);
+  static const cbPrimaryColor3             = Color(0xFF2B4C9B);
 
 
   static const cbWhiteColor                 = Color(0xFFF7F6F1);

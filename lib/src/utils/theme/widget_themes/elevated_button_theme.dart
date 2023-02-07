@@ -1,7 +1,6 @@
+import 'package:cashback/src/constants/colors.dart';
+import 'package:cashback/src/constants/sizes.dart';
 import 'package:flutter/material.dart';
-
-import '../../constants/colors.dart';
-import '../../constants/sizes.dart';
 
 class CbElevatedButtonTheme {
   CbElevatedButtonTheme._();
@@ -16,7 +15,7 @@ class CbElevatedButtonTheme {
       foregroundColor: cbWhiteColor,
       backgroundColor: cbSecondaryColor,
       side: BorderSide(color: cbSecondaryColor),
-      padding: EdgeInsets.symmetric(vertical: cbButtonHeight),
+      padding: EdgeInsets.symmetric(vertical: CbSizings.cbButtonHeight),
     ),
   );
 
@@ -27,7 +26,7 @@ class CbElevatedButtonTheme {
       foregroundColor: cbSecondaryColor,
       backgroundColor: cbWhiteColor,
       side: BorderSide(color: cbWhiteColor),
-      padding: EdgeInsets.symmetric(vertical: cbButtonHeight),
+      padding: EdgeInsets.symmetric(vertical: CbSizings.cbButtonHeight),
     ),
   );
 }

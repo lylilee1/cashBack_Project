@@ -1,3 +1,11 @@
+import 'package:cashback/src/common_widgets/form/form_footer_widget.dart';
+import 'package:cashback/src/constants/image_strings.dart';
+import 'package:cashback/src/constants/sizes.dart';
+import 'package:cashback/src/constants/text_strings.dart';
+import 'package:cashback/src/features/authentication/screens/login/login_footer_widget.dart';
+import 'package:cashback/src/features/authentication/screens/login/login_form_widget.dart';
+import 'package:cashback/src/features/authentication/screens/login/login_header_widget.dart';
+import 'package:cashback/src/features/authentication/screens/signup/signup_screen.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -5,62 +13,36 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-          padding: const EdgeInsets.all(20.0),
+    final size = MediaQuery.of(context).size;
+    return SafeArea(
+      child: Scaffold(
+        body: SingleChildScrollView(
+            child: Container(
+          padding: const EdgeInsets.all(CbSizings.cbDefaultSize),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 100.0),
-              const Text(
-                'Login',
-                style: TextStyle(
-                  fontSize: 30.0,
-                  fontWeight: FontWeight.bold,
-                ),
+              /* -- Section 1 -- */
+              LoginHeaderWidget(size: size),
+              /* -- /.end Section 1 -- */
+
+              /* -- Section 2 [Form] -- */
+              LoginFormWidget(),
+              /* -- /.end Section 2 -- */
+
+              /* -- Section 3 -- */
+              FormFooterWidget(
+                size: size,
+                image: CbImageStrings.cbGoogleLogoImage,
+                label: CbTextStrings.cbSignInWithGoogle,
+                route: const SignUpScreen(),
+                text1: CbTextStrings.cbDontHaveAnAccount,
+                text2: CbTextStrings.cbSignup,
               ),
-              const SizedBox(height: 20.0),
-              const Text(
-                'Login to your account',
-                style: TextStyle(
-                  fontSize: 15.0,
-                  color: Colors.grey,
-                ),
-              ),
-              const SizedBox(height: 50.0),
-              TextField(
-                decoration: const InputDecoration(
-                  labelText: 'Email',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              const SizedBox(height: 20.0),
-              TextField(
-                obscureText: true,
-                decoration: const InputDecoration(
-                  labelText: 'Password',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              const SizedBox(height: 20.0),
-              ElevatedButton(
-                onPressed: () {},
-                child: const Text('Login'),
-              ),
-              const SizedBox(height: 20.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text('Don\'t have an account?'),
-                  TextButton(
-                    onPressed: () {},
-                    child: const Text('Register'),
-                  ),
-                ],
-              ),
+              /* -- /.end Section 3 -- */
             ],
           ),
-        )
+        )),
       ),
     );
   }
