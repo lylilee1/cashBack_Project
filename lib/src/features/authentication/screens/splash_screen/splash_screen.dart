@@ -1,17 +1,18 @@
+
+
+import 'package:cashback/src/common_widgets/fade_in_animation/animation_design.dart';
+import 'package:cashback/src/constants/colors.dart';
+import 'package:cashback/src/constants/image_strings.dart';
+import 'package:cashback/src/constants/sizes.dart';
+import 'package:cashback/src/constants/text_strings.dart';
+import 'package:cashback/src/features/authentication/controllers/fade_in_animation_controller.dart';
+import 'package:cashback/src/features/authentication/models/fade_in_animation_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:splash_screen_with_animation/src/constants/colors.dart';
-import 'package:splash_screen_with_animation/src/constants/image_strings.dart';
-import 'package:splash_screen_with_animation/src/constants/sizes.dart';
-import 'package:splash_screen_with_animation/src/constants/text_strings.dart';
-import 'package:splash_screen_with_animation/src/features/authentication/models/fade_in_animation_model.dart';
-
-import '../../../../common_widgets/fade_in_animation/animation_design.dart';
-import '../../controllers/fade_in_animation_controller.dart';
-import '../welcome_screen/welcome_screen.dart';
 
 class SplashScreen extends StatelessWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+  const SplashScreen({Key? key}) : super(key: key);;
+  static String routeName = '/splash';
 
 
   @override
@@ -38,18 +39,18 @@ class SplashScreen extends StatelessWidget {
             animate: CbAnimationPosition(
               topAfter: 80,
               topBefore: 80,
-              leftAfter: cbDefaultSize,
+              leftAfter: CbSizings.cbDefaultSize,
               leftBefore: -80,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  cbAppName,
+                  CbTextStrings.cbAppName,
                   style: Theme.of(context).textTheme.headline5,
                 ),
                 Text(
-                  cbAppTagLine,
+                  CbTextStrings.cbAppTagLine,
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
               ],
@@ -70,15 +71,15 @@ class SplashScreen extends StatelessWidget {
             animate: CbAnimationPosition(
               bottomAfter: 60,
               bottomBefore: 0,
-              rightAfter: cbDefaultSize,
-              rightBefore: cbDefaultSize,
+              rightAfter: CbSizings.cbDefaultSize,
+              rightBefore: CbSizings.cbDefaultSize,
             ),
             child: Container(
-              width: cbSplashContainerSize,
-              height: cbSplashContainerSize,
+              width: CbSizings.cbSplashContainerSize,
+              height: CbSizings.cbSplashContainerSize,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(100),
-                color: cbPrimaryColor2,
+                color: CbColors.cbPrimaryColor2,
               ),
 
             ),

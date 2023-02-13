@@ -3,8 +3,7 @@ import 'package:cashback/src/constants/image_strings.dart';
 import 'package:cashback/src/constants/sizes.dart';
 import 'package:cashback/src/constants/text_strings.dart';
 import 'package:cashback/src/features/authentication/models/onboarding_screen_model.dart';
-import 'package:cashback/src/features/authentication/screens/login/login_screen.dart';
-import 'package:cashback/src/features/authentication/screens/signup/signup_screen.dart';
+import 'package:cashback/src/features/authentication/screens/main/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -13,6 +12,7 @@ import 'on_boarding_page_widget.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({Key? key}) : super(key: key);
+  static String routeName = '/onboarding';
 
   @override
   State<OnBoardingScreen> createState() => _OnBoardingScreenState();
@@ -74,8 +74,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             child: OutlinedButton(
               onPressed: () {
                 if (currentPage == 2) {
-                  //Navigator.pushNamed(context, '/login_screen');
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const SignUpScreen(),));
+                  Navigator.pushNamedAndRemoveUntil(context, MainScreen.routeName, (route) => false);
+                  //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const SignUpScreen(),));
                 } else {
                   int nextPage = controller.currentPage + 1;
                   controller.animateToPage(

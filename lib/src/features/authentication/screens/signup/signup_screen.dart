@@ -11,6 +11,7 @@ import 'widget/signup_footer_widget.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({Key? key}) : super(key: key);
+  static String routeName = '/signup';
 
   @override
   Widget build(BuildContext context) {

@@ -47,4 +47,7 @@ class CbImageStrings{
   static const String cbSvgKey     = "./assets/images/svg/key.svg";
   static const String cbSvgShop    = "./assets/images/svg/shop.svg";
   static const String cbSvgStore   = "./assets/images/svg/store.svg";
+
+  static const String cbC1        = "./assets/Offer4.jpg";
+  static const String cbC2        = "./assets/Offer5.jpg";
 }

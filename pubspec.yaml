@@ -45,6 +45,7 @@ dependencies:
   liquid_swipe: ^3.0.0
   get: ^4.6.5
   flutter_otp_text_field: ^1.1.1
+  sizer: ^2.0.15
 
 flutter_native_splash:
   color: "#FFFFFF"
@@ -77,6 +78,8 @@ dev_dependencies:
 flutter:
   assets:
     - assets/
+    - assets/Offer4.jpg
+    - assets/Offer5.jpg
     - assets/images/
     - assets/logo/
     - assets/images/on_boarding_images/
