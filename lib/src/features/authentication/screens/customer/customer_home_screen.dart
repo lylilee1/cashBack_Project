@@ -1,19 +1,27 @@
+import 'package:carousel_slider/carousel_options.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cashback/src/common_widgets/search/search.dart';
 import 'package:cashback/src/common_widgets/search/search_bar_widget.dart';
 import 'package:cashback/src/constants/colors.dart';
 import 'package:cashback/src/constants/image_strings.dart';
 import 'package:cashback/src/constants/sizes.dart';
 import 'package:cashback/src/constants/text_strings.dart';
+import 'package:cashback/src/features/authentication/screens/search/search_screen.dart';
 import 'package:flutter/material.dart';
 
 class CustomerHomeScreen extends StatefulWidget {
   const CustomerHomeScreen({Key? key}) : super(key: key);
+  static String routeName = '/customer_home';
 
   @override
   State<CustomerHomeScreen> createState() => _CustomerHomeScreenState();
 }
 
 class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
+  final ads = [
+    CbImageStrings.cbC1,
+    CbImageStrings.cbC2,
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -51,10 +59,16 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
               ),
             ),*/
             IconButton(
-              onPressed: () => showSearch(
+              /*onPressed: () => showSearch(
                 context: context,
                 delegate: Search(),
-              ),
+              )*/
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const SearchScreen()));
+              },
               icon: const Icon(
                 Icons.search,
                 color: Colors.black,
@@ -73,15 +87,24 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
             indicatorColor: CbColors.cbPrimaryColor2,
             indicatorWeight: 4,
             tabs: [
-              CategoryTabWidget(label: 'Men',),
-              CategoryTabWidget(label: 'Women',),
-              CategoryTabWidget(label: 'Kids',),
-              CategoryTabWidget(label: 'Shoes',),
-              CategoryTabWidget(label: 'Home & Garden',),
+              CategoryTabWidget(
+                label: 'Men',
+              ),
+              CategoryTabWidget(
+                label: 'Women',
+              ),
+              CategoryTabWidget(
+                label: 'Kids',
+              ),
+              CategoryTabWidget(
+                label: 'Shoes',
+              ),
+              CategoryTabWidget(
+                label: 'Home & Garden',
+              ),
             ],
           ),
         ),
-
         body: const TabBarView(
           children: [
             Center(
@@ -133,8 +156,10 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
 
 class CategoryTabWidget extends StatelessWidget {
   const CategoryTabWidget({
-    super.key, required this.label,
+    super.key,
+    required this.label,
   });
+
   final String label;
 
   @override

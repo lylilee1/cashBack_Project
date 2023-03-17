@@ -4,6 +4,7 @@ import 'package:cashback/src/constants/sizes.dart';
 import 'package:cashback/src/constants/text_strings.dart';
 import 'package:cashback/src/features/authentication/models/onboarding_screen_model.dart';
 import 'package:cashback/src/features/authentication/screens/main/main_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -22,6 +23,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   final controller = LiquidController();
 
   int currentPage = 0;
+  bool procesing = false;
 
   @override
   Widget build(BuildContext context) {
@@ -72,10 +74,27 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           Positioned(
             bottom: 60.0,
             child: OutlinedButton(
-              onPressed: () {
+              onPressed: () async {
                 if (currentPage == 2) {
-                  Navigator.pushNamedAndRemoveUntil(context, MainScreen.routeName, (route) => false);
-                  //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const SignUpScreen(),));
+                    await FirebaseAuth.instance
+                        .signInAnonymously();/*
+                        .whenComplete(() async {
+                      _uid = FirebaseAuth.instance.currentUser!.uid;
+                      await anonymous.doc(_uid).set({
+                        'name': 'Invité',
+                        'email': 'guest@example.com',
+                        'profileimage': '',
+                        'phone': '11111',
+                        'address': 'Guest place area',
+                        'cid': _uid
+                      });
+                    });*/
+
+                    await Future.delayed(const Duration(microseconds: 100))
+                        .whenComplete(() {
+                      Navigator.pushReplacementNamed(
+                          context, MainScreen.routeName);
+                    });
                 } else {
                   int nextPage = controller.currentPage + 1;
                   controller.animateToPage(

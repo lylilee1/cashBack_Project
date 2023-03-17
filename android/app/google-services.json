@@ -1,0 +1,90 @@
+{
+  "project_info": {
+    "project_number": "221814894500",
+    "project_id": "multi-store-ac7da",
+    "storage_bucket": "multi-store-ac7da.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:221814894500:android:8343501b18645ae37fdb31",
+        "android_client_info": {
+          "package_name": "com.example.cash_Back"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "221814894500-j8td77enuh5b96fvuaafk3utj603bpcr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.cash_Back",
+            "certificate_hash": "cbc7cf5f5f5f504a4917968f31d8a62b30b3e07d"
+          }
+        },
+        {
+          "client_id": "221814894500-rgkd6kbbiobtk8dc8mogv5rm3pb4a2uh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACLTZRD4aZv0ysSQ8527G8X_d6aU990js"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "221814894500-rgkd6kbbiobtk8dc8mogv5rm3pb4a2uh.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "221814894500-mb11orehb1s7q3b8qsp3k7brkk0t4t4e.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.cashBack"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:221814894500:android:0e39eb086ec985157fdb31",
+        "android_client_info": {
+          "package_name": "com.example.cashback"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "221814894500-rgkd6kbbiobtk8dc8mogv5rm3pb4a2uh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACLTZRD4aZv0ysSQ8527G8X_d6aU990js"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "221814894500-rgkd6kbbiobtk8dc8mogv5rm3pb4a2uh.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "221814894500-mb11orehb1s7q3b8qsp3k7brkk0t4t4e.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.cashBack"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

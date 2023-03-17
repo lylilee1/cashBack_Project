@@ -1,8 +1,9 @@
-
-
+import 'package:cashback/src/constants/colors.dart';
 import 'package:cashback/src/constants/sizes.dart';
 import 'package:cashback/src/constants/text_strings.dart';
+import 'package:cashback/src/features/authentication/controllers/signup_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class SignUpFormWidget extends StatelessWidget {
   const SignUpFormWidget({
@@ -11,13 +12,18 @@ class SignUpFormWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(SignUpController());
+    final _formKey = GlobalKey<FormState>();
+
     return Container(
       padding: EdgeInsets.symmetric(vertical: CbSizings.cbFormHeight - 10),
       child: Form(
+        key: _formKey,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextFormField(
+              controller: controller.firstName,
               decoration: const InputDecoration(
                 label: Text(CbTextStrings.cbFirstName),
                 hintText: CbTextStrings.cbHintFirstName,
@@ -29,6 +35,7 @@ class SignUpFormWidget extends StatelessWidget {
             ),
             const SizedBox(height: CbSizings.cbFormHeight - 20),
             TextFormField(
+              controller: controller.lastName,
               decoration: const InputDecoration(
                 label: Text(CbTextStrings.cbLastName),
                 hintText: CbTextStrings.cbHintLastName,
@@ -40,6 +47,7 @@ class SignUpFormWidget extends StatelessWidget {
             ),
             const SizedBox(height: CbSizings.cbFormHeight - 20),
             TextFormField(
+              controller: controller.email,
               decoration: const InputDecoration(
                 label: Text(CbTextStrings.cbSignUpEmail),
                 hintText: CbTextStrings.cbHintSignUpEmail,
@@ -51,6 +59,7 @@ class SignUpFormWidget extends StatelessWidget {
             ),
             const SizedBox(height: CbSizings.cbFormHeight - 20),
             TextFormField(
+              controller: controller.phoneNo,
               decoration: const InputDecoration(
                 label: Text(CbTextStrings.cbSignUpPhone),
                 hintText: CbTextStrings.cbHintSignUpPhone,
@@ -62,6 +71,7 @@ class SignUpFormWidget extends StatelessWidget {
             ),
             const SizedBox(height: CbSizings.cbFormHeight - 20),
             TextFormField(
+              controller: controller.password,
               decoration: const InputDecoration(
                 label: Text(CbTextStrings.cbSignUpPassword),
                 hintText: CbTextStrings.cbHintSignUpPassword,
@@ -75,7 +85,18 @@ class SignUpFormWidget extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: (){},
+                style: ElevatedButton.styleFrom(
+                  primary: CbColors.cbPrimaryColor2,
+                  // padding: EdgeInsets.symmetric(vertical: CbSizings.cbFormHeight),
+                  /*shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),*/
+                ),
+                onPressed: () {
+                  if(_formKey.currentState!.validate()){
+                    SignUpController.instance.registerUser(controller.email.text.trim(), controller.password.text.trim());
+                  }
+                },
                 child: Text(CbTextStrings.cbSignup.toUpperCase()),
               ),
             ),

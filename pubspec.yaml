@@ -38,7 +38,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_native_splash: ^2.2.14
   google_fonts: ^3.0.1
-  flutter_svg: ^1.1.6
+  flutter_svg: ^2.0.2
   lottie: ^1.4.3
   lint: ^1.10.0
   smooth_page_indicator: ^1.0.0+2
@@ -46,6 +46,14 @@ dependencies:
   get: ^4.6.5
   flutter_otp_text_field: ^1.1.1
   sizer: ^2.0.15
+  firebase_core: ^2.8.0
+  firebase_auth: ^4.2.6
+  carousel_slider: ^4.2.1
+  font_awesome_flutter: ^10.4.0
+  flutter_iconly: ^1.0.2
+  image_picker: ^0.8.7
+  cloud_firestore: ^4.4.5
+  firebase_storage: ^11.0.16
 
 flutter_native_splash:
   color: "#FFFFFF"
@@ -87,6 +95,15 @@ flutter:
     - assets/images/welcome_images/
     - assets/images/background/
     - assets/images/svg/
+    - assets/images/errors/
+    - assets/images/user_images/
+    - assets/images/articles/men/
+    - assets/images/forget_password/
+    - assets/images/articles/women/
+    - assets/images/articles/kids/
+    - assets/images/articles/electronics/
+    - assets/images/articles/beauty/
+    - assets/images/articles/homegarden/
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

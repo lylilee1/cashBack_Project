@@ -1,7 +1,15 @@
 import 'package:cashback/src/constants/colors.dart';
-import 'package:cashback/src/features/authentication/screens/customer/customer_home_screen.dart';
-import 'package:cashback/src/features/authentication/screens/profile/profile_screen.dart';
+import 'package:cashback/src/constants/image_strings.dart';
+import 'package:cashback/src/constants/text_strings.dart';
+import 'package:cashback/src/features/authentication/screens/cart/cart_screen.dart';
+import 'package:cashback/src/features/authentication/screens/category/category_screen2.dart';
+import 'package:cashback/src/features/authentication/screens/search/search_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import '../customer/customer_home_screen4.dart';
+import '../profile/profile_screen2.dart';
+
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -14,186 +22,87 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
 
+  final List<Map<String, dynamic>> _pages = [
+    {
+      'page': const CustomerHomeScreen(),
+      'title': 'Home Screen',
+      'icon': const Icon(FontAwesomeIcons.home),
+    },
+    {
+      'page': const CategoryScreen(),
+      'title': 'Category Screen',
+      'icon': const Icon(FontAwesomeIcons.list),
+    },
+    {
+      'page': const CartScreen(),
+      'title': 'cart Screen',
+      'icon': const Icon(FontAwesomeIcons.cartShopping),
+    },
+    {
+      'page': const ProfileScreen(),
+      'title': 'profile Screen',
+      'icon': const Icon(FontAwesomeIcons.user),
+    },
+  ];
+
+  void _selectedPage(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    PageController myPage = PageController(initialPage: _selectedIndex);
-
     final size = MediaQuery.of(context).size;
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    return Scaffold(
-      resizeToAvoidBottomInset: true,
-      //bottom navigation bar
-      bottomNavigationBar: BottomAppBar(
-        notchMargin: 5.0,
-        shape: const CircularNotchedRectangle(),
-        child: Container(
-          width: width,
-          height: height * 0.08,
-          margin: const EdgeInsets.only(
-            left: 20,
-            right: 20,
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              CustomBottomBar(
-                onTap: () {
-                  setState(
-                    () {
-                      _selectedIndex = 0;
-                      myPage.jumpToPage(_selectedIndex);
-                    },
-                  );
-                },
-                title: 'Accueil',
-                iconColor: _selectedIndex == 0
-                    ? CbColors.cbPrimaryColor2
-                    : CbColors.cbSecondaryColor,
-                textColor: _selectedIndex == 0
-                    ? CbColors.cbPrimaryColor2
-                    : CbColors.cbSecondaryColor,
-                iconData: Icons.home,
-              ),
-              CustomBottomBar(
-                onTap: () {
-                  setState(
-                    () /* {
-                      _selectedIndex = 1;
-                      myPage.animateToPage(_selectedIndex,
-                          duration: const Duration(milliseconds: 500),
-                          curve: Curves.ease);
-                    },*/
-                    {
-                      _selectedIndex = 1;
-                      myPage.jumpToPage(_selectedIndex);
-                    },
-                  );
-                },
-                title: 'Categories',
-                iconColor: _selectedIndex == 1
-                    ? CbColors.cbPrimaryColor2
-                    : CbColors.cbSecondaryColor,
-                textColor: _selectedIndex == 1
-                    ? CbColors.cbPrimaryColor2
-                    : CbColors.cbSecondaryColor,
-                iconData: Icons.search,
-              ),
-              /*
-              CustomBottomBar(
-                onTap: () {},
-                title: 'Magasins',
-                iconColor: CbColors.cbPrimaryColor2,
-                textColor: CbColors.cbPrimaryColor2,
-                iconData: Icons.shop_outlined,
-              ),*/
-              CustomBottomBar(
-                onTap: () {
-                  setState(
-                    () {
-                      _selectedIndex = 2;
-                      myPage.jumpToPage(_selectedIndex);
-                    },
-                  );
-                },
-                title: 'Panier',
-                iconColor: _selectedIndex == 2
-                    ? CbColors.cbPrimaryColor2
-                    : CbColors.cbSecondaryColor,
-                textColor: _selectedIndex == 2
-                    ? CbColors.cbPrimaryColor2
-                    : CbColors.cbSecondaryColor,
-                iconData: Icons.shopping_cart,
-              ),
-              //profile page button
-              CustomBottomBar(
-                onTap: () {
-                  setState(
-                    () {
-                      _selectedIndex = 3;
-                      myPage.jumpToPage(_selectedIndex);
-                    },
-                  );
-                },
-                title: 'Profile',
-                iconColor: _selectedIndex == 3
-                    ? CbColors.cbPrimaryColor2
-                    : CbColors.cbSecondaryColor,
-                textColor: _selectedIndex == 3
-                    ? CbColors.cbPrimaryColor2
-                    : CbColors.cbSecondaryColor,
-                iconData: Icons.person,
-              ),
-            ],
-          ),
-        ),
-      ),
-      body: PageView(
-        controller: myPage,
-        physics: const NeverScrollableScrollPhysics(),
-        children: <Widget>[
-          CustomerHomeScreen(),
-          Center(
-            child: Text('Categories'),
-          ),
-          Center(
-            child: Text('Panier'),
-          ),
-          //profile page
-          ProfileScreen(),
-        ],
-      ),
 
-      //middle floating button
-      floatingActionButton: SizedBox(
-        height: height * 0.08,
-        width: width * 0.16,
-        child: FittedBox(
-          child: FloatingActionButton(
-            onPressed: () {},
-            backgroundColor: CbColors.cbPrimaryColor2,
-            child: const Icon(Icons.add),
-          ),
+    return Scaffold(
+      //backgroundColor: Color(0xFFF3F6FF),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
         ),
+        backgroundColor: CbColors.cbPrimaryColor2,
+        //mini: true,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      body: _pages[_selectedIndex]['page'],
+
+      bottomNavigationBar: BottomNavigationBar(
+          currentIndex: _selectedIndex,
+          selectedItemColor: CbColors.cbPrimaryColor2,
+          unselectedItemColor: const Color(0xff757575),
+          type: BottomNavigationBarType.fixed,
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+          onTap: _selectedPage,
+          items: _navBarItems),
     );
   }
 }
 
-class CustomBottomBar extends StatelessWidget {
-  const CustomBottomBar(
-      {Key? key,
-      required this.onTap,
-      required this.title,
-      required this.iconColor,
-      required this.textColor,
-      required this.iconData})
-      : super(key: key);
-  final VoidCallback onTap;
-  final String title;
-  final Color iconColor;
-  final Color textColor;
-  final IconData iconData;
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Icon(iconData, color: iconColor),
-          SizedBox(height: 5),
-          Text(title,
-              style: Theme.of(context)
-                  .textTheme
-                  .subtitle2!
-                  .copyWith(color: textColor)),
-        ],
-      ),
-    );
-  }
-}
+const _navBarItems = [
+  BottomNavigationBarItem(
+    icon: Icon(Icons.home_outlined),
+    activeIcon: Icon(Icons.home_rounded),
+    label: 'Home',
+  ),
+  BottomNavigationBarItem(
+    icon: Icon(Icons.category_outlined),
+    activeIcon: Icon(Icons.category_rounded),
+    label: 'Categories',
+  ),
+  BottomNavigationBarItem(
+    icon: Icon(Icons.shopping_bag_outlined),
+    activeIcon: Icon(Icons.shopping_bag),
+    label: 'Cart',
+  ),
+  BottomNavigationBarItem(
+    icon: Icon(Icons.person_outline_rounded),
+    activeIcon: Icon(Icons.person_rounded),
+    label: 'Profile',
+  ),
+];

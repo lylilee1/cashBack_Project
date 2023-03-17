@@ -1,17 +1,18 @@
 import 'dart:ui';
 
 /* -- App Image Strings -- */
-
-// -- Splash Screen Images
-const String cbSplashTopIcon      = "assets/images/splash-top-icon.png";
-const String cbSplashImage        = "assets/images/splash-screen-image.png";
+const String cbSplashTopIcon                  = "assets/images/splash-top-icon.png";
+const String cbSplashImage                    = "assets/images/splash-screen-image.png";
 
 // -- Welcome Screen Images
-const String cbWelcomeImage1      = "assets/images/welcome_images/welcome-image1.png";
-const String cbWelcomeImage2      = "assets/images/welcome_images/welcome-image2.png";
+const String cbWelcomeImage1                  = "assets/images/welcome_images/welcome-image1.png";
+const String cbWelcomeImage2                  = "assets/images/welcome_images/welcome-image2.png";
 
 class CbImageStrings{
   CbImageStrings._();
+
+// -- logo Images
+  static const String cbLogo                           = "assets/images/splash_images/splash_light.png";
 
 
 // -- onBoarding Screen Images
@@ -50,4 +51,8 @@ class CbImageStrings{
 
   static const String cbC1        = "./assets/Offer4.jpg";
   static const String cbC2        = "./assets/Offer5.jpg";
+
+
+  // -- svg Images
+  static const String cbError404   = "./assets/images/errors/not_found.png";
 }
