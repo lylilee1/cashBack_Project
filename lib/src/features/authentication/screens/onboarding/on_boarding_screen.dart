@@ -4,6 +4,7 @@ import 'package:cashback/src/constants/sizes.dart';
 import 'package:cashback/src/constants/text_strings.dart';
 import 'package:cashback/src/features/authentication/models/onboarding_screen_model.dart';
 import 'package:cashback/src/features/authentication/screens/main/main_screen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
@@ -24,6 +25,41 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
   int currentPage = 0;
   bool procesing = false;
+  CollectionReference anonymous =
+      FirebaseFirestore.instance.collection('anonymous');
+  late String _uid;
+
+  //function to validate the form
+  void anonymousAuth() async {
+    setState(() {
+      procesing = true;
+    });
+    await FirebaseAuth.instance.signInAnonymously().whenComplete(() async {
+      _uid = FirebaseAuth.instance.currentUser!.uid;
+      await anonymous.doc(_uid).set({
+        'name': '',
+        'email': '',
+        'profileimage': '',
+        'phone': '',
+        'address': '',
+        'cid': _uid
+      });
+    });
+  }
+
+  /*
+  _storeOnboarding() async {
+    await anonymous.doc(_uid).update({
+      'onboarding': true,
+    });
+  }*/
+
+  /*
+  _storeOnboarding() async {
+    int isViewed = 0;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('onboarding', isViewed);
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -76,25 +112,13 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             child: OutlinedButton(
               onPressed: () async {
                 if (currentPage == 2) {
-                    await FirebaseAuth.instance
-                        .signInAnonymously();/*
-                        .whenComplete(() async {
-                      _uid = FirebaseAuth.instance.currentUser!.uid;
-                      await anonymous.doc(_uid).set({
-                        'name': 'Invité',
-                        'email': 'guest@example.com',
-                        'profileimage': '',
-                        'phone': '11111',
-                        'address': 'Guest place area',
-                        'cid': _uid
-                      });
-                    });*/
+                  anonymousAuth();
 
-                    await Future.delayed(const Duration(microseconds: 100))
-                        .whenComplete(() {
-                      Navigator.pushReplacementNamed(
-                          context, MainScreen.routeName);
-                    });
+                  await Future.delayed(const Duration(microseconds: 100))
+                      .whenComplete(() {
+                    Navigator.pushReplacementNamed(
+                        context, MainScreen.routeName);
+                  });
                 } else {
                   int nextPage = controller.currentPage + 1;
                   controller.animateToPage(

@@ -24,7 +24,7 @@ class WomenCategory extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CategoryHeaderLabel(
-                    headerLabel: 'Women',
+                    headerLabel: 'femmes',
                   ),
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.68,
@@ -33,9 +33,15 @@ class WomenCategory extends StatelessWidget {
                       crossAxisSpacing: 15,
                       crossAxisCount: 3,
                       children: List.generate(
-                        women.length,
-                            (index) {
-                          return SubCategoryModel(subCategName: women[index], mainCategName: 'women', assetName: 'assets/images/articles/women/women$index.jpg', subCategLabel: women[index],);
+                        femmes.length - 1,
+                        (index) {
+                          return SubCategoryModel(
+                            subCategName: femmes[index + 1],
+                            mainCategName: 'femmes',
+                            assetName:
+                                'assets/images/articles/femmes/femmes$index.jpg',
+                            subCategLabel: femmes[index + 1],
+                          );
                           /*return Container(
                           //color: Colors.blue,
                           margin: EdgeInsets.only(right: 10),
@@ -62,7 +68,11 @@ class WomenCategory extends StatelessWidget {
           Positioned(
             bottom: 0,
             right: 0,
-            child: SliderBar(height: height, width: width, mainCategoryName: 'women',),
+            child: SliderBar(
+              height: height,
+              width: width,
+              mainCategoryName: 'femmes',
+            ),
           ),
         ],
       ),

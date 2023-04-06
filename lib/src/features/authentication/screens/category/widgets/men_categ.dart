@@ -26,7 +26,7 @@ class MenCategory extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CategoryHeaderLabel(
-                    headerLabel: 'Men',
+                    headerLabel: 'hommes',
                   ),
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.68,
@@ -35,9 +35,15 @@ class MenCategory extends StatelessWidget {
                       crossAxisSpacing: 15,
                       crossAxisCount: 3,
                       children: List.generate(
-                        men.length,
+                        hommes.length - 1,
                         (index) {
-                          return SubCategoryModel(subCategName: men[index], mainCategName: 'men', assetName: 'assets/images/articles/men/men$index.jpg', subCategLabel: men[index],);
+                          return SubCategoryModel(
+                            subCategName: hommes[index + 1],
+                            mainCategName: 'hommes',
+                            assetName:
+                                'assets/images/articles/hommes/hommes$index.jpg',
+                            subCategLabel: hommes[index + 1],
+                          );
                           /*return Container(
                           //color: Colors.blue,
                           margin: EdgeInsets.only(right: 10),
@@ -64,7 +70,11 @@ class MenCategory extends StatelessWidget {
           Positioned(
             bottom: 0,
             right: 0,
-            child: SliderBar(height: height, width: width, mainCategoryName: 'men',),
+            child: SliderBar(
+              height: height,
+              width: width,
+              mainCategoryName: 'hommes',
+            ),
           ),
         ],
       ),

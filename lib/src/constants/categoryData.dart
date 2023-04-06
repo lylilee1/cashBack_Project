@@ -22,24 +22,24 @@ class CbCategory {
 // list of all categories
 }
 
-
 List<String> maincateg = [
-  "men",
-  "women",
-  "electronics",
-  "shoes",
-  "accessories",
-  "kids",
-  "home & garden",
-  "sports",
-  "beauty",
-  "health",
-  "automobile",
-  "bags",
+  'choix categorie',
+  'hommes',
+  'femmes',
+  'enfants',
+  'electroniques',
+  'accessoires',
+  'maison & jardin',
+  'automobiles',
+  'sport & loisirs',
+  'autres'
 ];
 
-List<String> men = [
-  'shoes',
+List<String> hommes = [
+  'sous categorie',
+  'montre',
+  'chaussure',
+  /*
   't-shirt',
   'hoddies',
   'sweater',
@@ -51,11 +51,25 @@ List<String> men = [
   'socks',
   'suit',
   'underwear',
+  'sac',
+  'bijoux',
+  'ceinture',
+  'chapeau',
+  'lunette',
+  'parfum',*/
 ];
 
-List<String> women = [
+List<String> femmes = [
+  'sous categorie',
+  'montre',
+  'bijoux',
+  'ceinture',
+  'chapeau',
+  'lunette',
+  'sac',
+  /*
   'dress',
-  'sets'
+  'sets',
   't-shirt',
   'top',
   'skirt',
@@ -69,9 +83,17 @@ List<String> women = [
   'socks',
   'suit',
   'underwear',
+  'sac',
+  'montre',
+  'bijoux',
+  'ceinture',
+  'chapeau',
+  'lunette',
+  'parfum',*/
 ];
 
-List<String> kids = [
+List<String> enfants = [
+  'sous categorie',
   'hoodies',
   't-shirt',
   'jeans',
@@ -91,23 +113,38 @@ List<String> kids = [
   'shoes',
 ];
 
-List<String> electronics = [
-  'laptop',
-  'mobile',
-  'tablet',
+List<String> electroniques = [
+  'sous categorie',
+  'ordinateur',
+  'clavier',
+  'souris',
+  'cable USB',
+  'téléphone',
+  'tablette',
   'headphone',
   'camera',
-  'tv',
+  'smart tv',
   'speaker',
-  'watch',
+  'smart watch',
   'gaming',
-  'accessories',
+  'accessoires',
 ];
 
+List<String> accessoires = [
+  'sous categorie',
+  'cosmetique',
+  'accessoires de cheveux',
+  'accessoires de voiture',
+  'accessoires de maison',
+  'accessoires de sport',
+  'accessoires de loisir',
+];
+
+/*
 List<String> shoes = [
   'men slippers'
-  'men classic'
-  'men casual',
+      'men classic'
+      'men casual',
   'men boots',
   'men boots',
   'men canvas',
@@ -117,9 +154,10 @@ List<String> shoes = [
   'women boots',
   'women heels',
   'women sport',
-];
+];*/
 
-List<String> homeandgarden = [
+List<String> maisonetjardin = [
+  'sous categorie',
   'bedding',
   'bath',
   'kitchen',
@@ -130,4 +168,126 @@ List<String> homeandgarden = [
   'outdoor',
   'tools',
   'appliances',
+];
+
+List<String> automobiles = [
+  'sous categorie',
+  'voiture',
+  'moto',
+  'velo',
+  'accessoires',
+  /*
+
+  'motorcycle',
+  'truck',
+  'suv',
+  'van',
+  'bus',
+  'boat',
+  'atv',
+  'snowmobile',
+  'trailer',
+  'rv',
+  'motorhome',
+  'tires',
+  'wheels',
+  'parts',
+  'accessories',
+  * */
+];
+
+List<String> sportetloisirs = [
+  'sous categorie',
+  'football',
+  'basketball',
+  'tennis',
+  'golf',
+  'volleyball',
+  'rugby',
+  'handball',
+  'athletisme',
+  'swimming',
+  'boxing',
+  'ski',
+  'snowboard',
+  'hockey',
+  'baseball',
+  'cricket',
+  'badminton',
+  'fishing',
+  'gym',
+  'yoga',
+  'pilates',
+  'dance',
+  'running',
+  'cycling',
+  'hiking',
+  'climbing',
+  'surfing',
+  'kayaking',
+  'skating',
+  'skateboarding',
+  'scooter',
+  'other',
+];
+
+List<String> autres = [
+  'sous categorie',
+  'livre',
+  'musique',
+  'jeux',
+  'jouet',
+  'animal',/*
+  'fleure',
+  'fourniture',
+  'materiel',
+  'outillage',
+  'materiel de bureau',
+  'materiel de cuisine',
+  'materiel de jardin',
+  'materiel de bricolage',
+  'materiel de decoration',
+  'materiel de peinture',
+  'materiel de nettoyage',
+  'materiel de couture',
+  'materiel de jardinage',
+  'materiel de piscine',
+  'materiel de bricolage',
+  'materiel de decoration',
+  'materiel de peinture',
+  'materiel de nettoyage',
+  'materiel de couture',
+  'materiel de jardinage',
+  'materiel de piscine',
+  'materiel de bricolage',
+  'materiel de decoration',
+  'materiel de peinture',
+  'materiel de nettoyage',
+  'materiel de couture',
+  'materiel de jardinage',
+  'materiel de piscine',
+  'materiel de bricolage',
+  'materiel de decoration',
+  'materiel de peinture',
+  'materiel de nettoyage',
+  'materiel de couture',
+  'materiel de jardinage',
+  'materiel de piscine',
+  'materiel de bricolage',
+  'materiel de decoration',
+  'materiel de peinture',
+  'materiel de nettoyage',
+  'materiel de couture',
+  'materiel de jardinage',
+  'materiel de piscine',
+  'materiel de bricolage',
+  'materiel de decoration',
+  'materiel de peinture',
+  'materiel de nettoyage',
+  'materiel de couture',
+  'materiel de jardinage',
+  'materiel de piscine',
+  'materiel de bricolage',
+  'materiel de decoration',
+  'materiel de peinture',*/
 ];

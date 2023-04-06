@@ -146,7 +146,7 @@ class _CartScreenState extends State<CartScreen> {
                       ),
                 ),
                 SvgPicture.asset(
-                  CbImageStrings.cbSvgArrow,
+                  CbImageStrings.cbSvgBackArrow,
                   height: height * 0.02,
                 ),
               ],

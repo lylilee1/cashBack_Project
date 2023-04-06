@@ -40,7 +40,8 @@ class CbImageStrings{
 
 
   // -- svg Images
-  static const String cbSvgArrow   = "./assets/images/svg/arrow.svg";
+  static const String cbSvgBackArrow   = "./assets/images/svg/arrow-ios-back-outline.svg";
+  static const String cbSvgFrontArrow   = "./assets/images/svg/arrow.svg";
   static const String cbSvgBank    = "./assets/images/svg/bank.svg";
   static const String cbSvgCards   = "./assets/images/svg/cards.svg";
   static const String cbSvgCart    = "./assets/images/svg/cart.svg";
@@ -48,6 +49,18 @@ class CbImageStrings{
   static const String cbSvgKey     = "./assets/images/svg/key.svg";
   static const String cbSvgShop    = "./assets/images/svg/shop.svg";
   static const String cbSvgStore   = "./assets/images/svg/store.svg";
+
+  // -- svg Images
+  static const String cbIconHome          = "./assets/images/svg23/not_found.png";
+  static const String cbIconPlayOnTv      = "./assets/images/svg23/not_found.png";
+  static const String cbIconCategories    = "./assets/images/svg23/not_found.png";
+  static const String cbIconDownload      = "./assets/images/svg23/not_found.png";
+  static const String cbIconSearch        = "./assets/images/svg23/not_found.png";
+  static const String cbIconMic           = "./assets/images/svg23/not_found.png";
+  static const String cbIconPlay          = "./assets/images/svg23/not_found.png";
+  static const String cbIconBack          = "assets/images/svg23/icon-back.svg";
+  static const String cbIconMenu          = "./assets/images/svg23/icon-menu.svg";
+  static const String cbIconPlus          = "assets/images/svg23/icon-plus.svg";
 
   static const String cbC1        = "./assets/Offer4.jpg";
   static const String cbC2        = "./assets/Offer5.jpg";

@@ -48,6 +48,8 @@ class CbTextStrings{
 // -- SignUp Screen Text
   static const String cbSignUpTitle                 = "Get On Board!";
   static const String cbSignUpSubTitle              = "create your profile to start your journey.";
+  static const String cbName                        = "Name";
+  static const String cbHintName                    = "Enter your name...";
   static const String cbLastName                    = "Last Name";
   static const String cbHintLastName                = "Enter your last name...";
   static const String cbFirstName                   = "First Name";

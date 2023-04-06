@@ -1,5 +1,7 @@
 import 'package:cashback/src/constants/colors.dart';
+import 'package:cashback/src/constants/sizes.dart';
 import 'package:cashback/src/constants/text_strings.dart';
+import 'package:cashback/src/features/authentication/screens/supplier/upload_product_screen.dart';
 import 'package:flutter/material.dart';
 
 class AuthMainButton extends StatelessWidget {
@@ -19,7 +21,7 @@ class AuthMainButton extends StatelessWidget {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           primary: CbColors.cbPrimaryColor2,
-          // padding: EdgeInsets.symmetric(vertical: CbSizings.cbFormHeight),
+          padding: EdgeInsets.symmetric(vertical: CbSizings.cbFormHeight -10),
           /*shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),*/
@@ -73,6 +75,7 @@ class TextFieldDecoration extends StatelessWidget {
   final IconData? iconImage, iconImage2;
   final VoidCallback? onPressed;
   final bool? obscureText;
+  final int? maxlength, maxlins;
   //final TextEditingController? controllerValue;
   final void Function(String?)? onChanged;
 
@@ -85,7 +88,7 @@ class TextFieldDecoration extends StatelessWidget {
     this.iconImage2,
     this.onPressed,
     this.obscureText,
-    this.emptyFieldError, this.onChanged, //this.controllerValue,
+    this.emptyFieldError, this.onChanged, this.maxlength, this.maxlins, //this.controllerValue,
   });
 
   @override
@@ -93,6 +96,8 @@ class TextFieldDecoration extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: TextFormField(
+        maxLength: maxlength,
+        //maxLines: maxlins,
         validator: (value) {
           if (label == CbTextStrings.cbSignUpEmail){
             if (value!.isEmpty) {
@@ -106,6 +111,36 @@ class TextFieldDecoration extends StatelessWidget {
             }
             return null;
           }
+          else if (label == 'Prix'){
+            if (value!.isEmpty) {
+              return emptyFieldError;
+            }
+            else if (value.isValidPrice() != true) {
+              return 'Format du montant invalide';
+            }
+            return null;
+          }
+          else if (label == 'Quantité'){
+            if (value!.isEmpty) {
+              return emptyFieldError;
+            }
+            else if (value.isValidQuantity() != true) {
+              return 'Format de la Quantité invalide';
+            }
+            return null;
+          }/*
+          else if (label == 'Téléphone'){
+            if (value!.isEmpty) {
+              return emptyFieldError;
+            }
+            else if (value.isValidPhone() == false) {
+              return 'Invalid phone number';
+            }
+            else if (value.isValidPhone() == true) {
+              return null;
+            }
+            return null;
+          }*/
           else{
             if (value!.isEmpty) {
               return emptyFieldError;
@@ -115,7 +150,7 @@ class TextFieldDecoration extends StatelessWidget {
 
         },
         //controller: controllerValue,
-        onChanged: onChanged,
+        onSaved: onChanged,
         obscureText: obscureText ?? false,
         keyboardType: textType,
         decoration: InputDecoration(
@@ -135,11 +170,87 @@ class TextFieldDecoration extends StatelessWidget {
   }
 }
 
-extension EmailValidator on String {
-  bool isValidEmail() {
-    return RegExp(
-            //r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-            r"^([a-zA-Z0-9.]+)([\-\_\.]*)([a-zA-Z0-9.]*)([@])([a-zA-Z0-9]{2,})([\.][a-zA-Z]{2,3})$")
-        .hasMatch(this);
+class TextFieldDecoration2 extends StatelessWidget {
+  final String label, hintLabel;
+  final String? emptyFieldError;
+  final TextInputType? textType;
+  final IconData? iconImage, iconImage2;
+  final VoidCallback? onPressed;
+  final bool? obscureText;
+  final int? maxlength, maxlins;
+
+  //final TextEditingController? controllerValue;
+  final void Function(String?)? onChanged;
+
+  const TextFieldDecoration2({
+    super.key,
+    required this.width,
+    required this.label,
+    required this.hintLabel,
+    this.iconImage,
+    this.textType,
+    this.iconImage2,
+    this.onPressed,
+    this.obscureText,
+    this.emptyFieldError,
+    this.onChanged, this.maxlength, this.maxlins, //this.co
+  });
+
+  final double width;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: width * 0.45,
+      child: TextFormField(
+        maxLength: maxlength,
+        maxLines: maxlins,
+        validator: (value) {
+          if (value!.isEmpty) {
+            return emptyFieldError;
+          }
+          return null;
+        },
+        //controller: controllerValue,
+        onSaved: onChanged,
+        obscureText: obscureText ?? false,
+        keyboardType: textType,
+        decoration: InputDecoration(
+          label: Text(label), //
+          hintText: hintLabel,
+          suffixIcon: IconButton(
+            onPressed: onPressed,
+            icon: Icon(iconImage2, color: CbColors.cbPrimaryColor2),
+          ),
+        ),
+      ),
+    );
   }
 }
+
+extension EmailValidator on String {
+  bool isValidEmail() {
+    final emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
+    return emailRegex.hasMatch(this);
+  }
+
+  /*
+  bool emailValid = RegExp(
+                          r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+  * */
+
+}
+
+extension QuantityValidator on String {
+  bool isValidQuantity (){
+    return RegExp(r'^[1-9][0-9]*$').hasMatch(this);
+  }
+}
+
+extension PriceValidator on String {
+  bool isValidPrice (){
+    return RegExp(r'^((([1-9][0-9]*[\.])||([0][\.]*)([0-9]{1,2}))$').hasMatch(this);
+  }
+}
+
+

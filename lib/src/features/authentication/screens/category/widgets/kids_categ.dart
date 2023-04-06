@@ -24,7 +24,7 @@ class KidsCategory extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CategoryHeaderLabel(
-                    headerLabel: 'Kids',
+                    headerLabel: 'enfants',
                   ),
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.68,
@@ -33,9 +33,15 @@ class KidsCategory extends StatelessWidget {
                       crossAxisSpacing: 15,
                       crossAxisCount: 3,
                       children: List.generate(
-                        kids.length,
-                            (index) {
-                          return SubCategoryModel(subCategName: kids[index], mainCategName: 'kids', assetName: 'assets/images/articles/kids/kids$index.jpg', subCategLabel: kids[index],);
+                        enfants.length - 1,
+                        (index) {
+                          return SubCategoryModel(
+                            subCategName: enfants[index + 1],
+                            mainCategName: 'enfants',
+                            assetName:
+                                'assets/images/articles/enfants/enfants$index.jpg',
+                            subCategLabel: enfants[index + 1],
+                          );
                           /*return Container(
                           //color: Colors.blue,
                           margin: EdgeInsets.only(right: 10),
@@ -62,7 +68,11 @@ class KidsCategory extends StatelessWidget {
           Positioned(
             bottom: 0,
             right: 0,
-            child: SliderBar(height: height, width: width, mainCategoryName: 'kids',),
+            child: SliderBar(
+              height: height,
+              width: width,
+              mainCategoryName: 'enfants',
+            ),
           ),
         ],
       ),

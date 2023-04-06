@@ -1,10 +1,11 @@
 import 'package:cashback/src/constants/colors.dart';
 import 'package:cashback/src/constants/image_strings.dart';
-import 'package:cashback/src/constants/text_strings.dart';
 import 'package:cashback/src/features/authentication/screens/cart/cart_screen.dart';
 import 'package:cashback/src/features/authentication/screens/category/category_screen2.dart';
 import 'package:cashback/src/features/authentication/screens/search/search_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../customer/customer_home_screen4.dart';
@@ -39,7 +40,7 @@ class _MainScreenState extends State<MainScreen> {
       'icon': const Icon(FontAwesomeIcons.cartShopping),
     },
     {
-      'page': const ProfileScreen(),
+      'page': ProfileScreen(documentId: FirebaseAuth.instance.currentUser!.uid,),
       'title': 'profile Screen',
       'icon': const Icon(FontAwesomeIcons.user),
     },
@@ -59,6 +60,7 @@ class _MainScreenState extends State<MainScreen> {
 
     return Scaffold(
       //backgroundColor: Color(0xFFF3F6FF),
+      /*
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
         child: const Icon(
@@ -67,8 +69,53 @@ class _MainScreenState extends State<MainScreen> {
         ),
         backgroundColor: CbColors.cbPrimaryColor2,
         //mini: true,
+      ),*/
+
+
+      floatingActionButton: Container(
+        height: 64,
+        width: 64,
+        padding: const EdgeInsets.all(4),
+        //margin: const EdgeInsets.only(top: 40),
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              CbColors.cbPrimaryColor2.withOpacity(0.2),
+              CbColors.cbPrimaryColor3.withOpacity(0.2)
+            ],
+          ),
+        ),
+        child: Container(
+          height: 60,
+          width: 60,
+          padding: const EdgeInsets.all(4),
+          decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                CbColors.cbPrimaryColor2,
+                CbColors.cbPrimaryColor3,
+              ],
+            ),
+          ),
+          child: RawMaterialButton(
+            onPressed: () {},
+            shape: const CircleBorder(),
+            fillColor: const Color(0xff404c57),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15.0),
+              child: SvgPicture.asset(CbImageStrings.cbIconPlus),
+            ),
+          ),
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+
       body: _pages[_selectedIndex]['page'],
 
       bottomNavigationBar: BottomNavigationBar(

@@ -11,12 +11,13 @@ class FormFooterWidget extends StatelessWidget {
     required this.label,
     required this.text1,
     required this.text2,
-    required this.route,
+    required this.onPressed,
   }) : super(key: key);
 
   final Size size;
   final String image, label, text1, text2;
-  final Widget route;
+  final VoidCallback onPressed;
+
 
   @override
   Widget build(BuildContext context) {
@@ -34,13 +35,7 @@ class FormFooterWidget extends StatelessWidget {
           ),
         ),
         TextButton(
-          onPressed: () {
-            Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => route,
-                ),);
-          },
+          onPressed: onPressed,
           child: Text.rich(
             TextSpan(
               text: text1,

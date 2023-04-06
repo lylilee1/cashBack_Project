@@ -137,6 +137,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.5"
+  equatable:
+    dependency: "direct main"
+    description:
+      name: equatable
+      sha256: c2b87cb7756efdf69892005af546c56c0b5037f54d2a88269b4f347a505e3ca2
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.5"
   fake_async:
     dependency: transitive
     description:
@@ -278,6 +286,30 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.9"
+  flutter_rating:
+    dependency: "direct main"
+    description:
+      name: flutter_rating
+      sha256: "407f3a581adf90e124d44f568d9c6094e8757e075622d2fbd48498578f24fcca"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.2"
+  flutter_rating_bar:
+    dependency: "direct main"
+    description:
+      name: flutter_rating_bar
+      sha256: d2af03469eac832c591a1eba47c91ecc871fe5708e69967073c043b2d775ed93
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.0.1"
+  flutter_spinkit:
+    dependency: "direct main"
+    description:
+      name: flutter_spinkit
+      sha256: "77a2117c0517ff909221f3160b8eb20052ab5216107581168af574ac1f05dff8"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.1.0"
   flutter_svg:
     dependency: "direct main"
     description:
@@ -286,6 +318,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.2"
+  flutter_swiper_null_safety:
+    dependency: "direct main"
+    description:
+      name: flutter_swiper_null_safety
+      sha256: "5a855e0080d035c08e82f8b7fd2f106344943a30c9ab483b2584860a2f22eaaf"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.2"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -584,6 +624,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.0.5"
+  readmore:
+    dependency: "direct main"
+    description:
+      name: readmore
+      sha256: "99c2483202f7c7e98c50834d72be2b119aefecf4497ca1960ae9d5f418eb1481"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.2.0"
   sizer:
     dependency: "direct main"
     description:
@@ -621,6 +669,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.11.0"
+  staggered_grid_view_flutter:
+    dependency: "direct main"
+    description:
+      name: staggered_grid_view_flutter
+      sha256: d46b27d1b57344945edf9eadbd5ee03a667a6599fd87e79f9a2d5e717e6accf3
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.4"
   stream_channel:
     dependency: transitive
     description:

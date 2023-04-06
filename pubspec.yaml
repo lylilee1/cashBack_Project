@@ -54,6 +54,13 @@ dependencies:
   image_picker: ^0.8.7
   cloud_firestore: ^4.4.5
   firebase_storage: ^11.0.16
+  flutter_spinkit: ^5.1.0
+  staggered_grid_view_flutter: ^0.0.4
+  flutter_swiper_null_safety: ^1.0.2
+  flutter_rating: ^0.0.2
+  equatable: ^2.0.5
+  readmore: ^2.2.0
+  flutter_rating_bar: ^4.0.1
 
 flutter_native_splash:
   color: "#FFFFFF"
@@ -95,6 +102,7 @@ flutter:
     - assets/images/welcome_images/
     - assets/images/background/
     - assets/images/svg/
+    - assets/images/svg23/
     - assets/images/errors/
     - assets/images/user_images/
     - assets/images/articles/men/
@@ -104,6 +112,8 @@ flutter:
     - assets/images/articles/electronics/
     - assets/images/articles/beauty/
     - assets/images/articles/homegarden/
+    - assets/images/articles/shoes/
+    - assets/images/add-video-2969396.png
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

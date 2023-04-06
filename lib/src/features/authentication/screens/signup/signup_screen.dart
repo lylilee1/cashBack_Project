@@ -3,7 +3,7 @@ import 'package:cashback/src/common_widgets/form/form_header_widget.dart';
 import 'package:cashback/src/constants/image_strings.dart';
 import 'package:cashback/src/constants/sizes.dart';
 import 'package:cashback/src/constants/text_strings.dart';
-import 'package:cashback/src/features/authentication/screens/login/login_screen.dart';
+import 'package:cashback/src/features/authentication/screens/customer/customer_hom_screen2.dart';
 import 'package:cashback/src/features/authentication/screens/signup/widget/signup_form_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -33,7 +33,14 @@ class SignUpScreen extends StatelessWidget {
                   size: size,
                   image: CbImageStrings.cbGoogleLogoImage,
                   label: CbTextStrings.cbSignUpWithGoogle,
-                  route: const LoginScreen(),
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const CustomerHomeScreen(),
+                      ),
+                    );
+                  },
                   text1: CbTextStrings.cbSignUpAlreadyHaveAccount,
                   text2: CbTextStrings.cbLogin,
                 ),

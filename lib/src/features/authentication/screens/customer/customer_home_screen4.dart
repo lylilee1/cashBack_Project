@@ -3,8 +3,20 @@ import 'package:cashback/src/common_widgets/app_bar/appBarWidget.dart';
 import 'package:cashback/src/constants/colors.dart';
 import 'package:cashback/src/constants/image_strings.dart';
 import 'package:cashback/src/constants/text_strings.dart';
+import 'package:cashback/src/features/authentication/screens/customer/minor_screen/accessories_gallery_screen.dart';
+import 'package:cashback/src/features/authentication/screens/customer/minor_screen/electronics_gallery_screen.dart';
+import 'package:cashback/src/features/authentication/screens/customer/minor_screen/home&garden_gallery_screen.dart';
+import 'package:cashback/src/features/authentication/screens/customer/minor_screen/kids_gallery_screen.dart';
+import 'package:cashback/src/features/authentication/screens/customer/minor_screen/men_gallery_screen.dart';
+import 'package:cashback/src/features/authentication/screens/customer/minor_screen/women_gallery_screen.dart';
+import 'package:cashback/src/features/authentication/screens/login/customer_signin_screen.dart';
 import 'package:cashback/src/features/authentication/screens/search/search_screen.dart';
+import 'package:cashback/src/features/authentication/screens/supplier/supplier_signin_screen2.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import '../main/main_screen2.dart';
 
 class CustomerHomeScreen extends StatefulWidget {
   const CustomerHomeScreen({Key? key}) : super(key: key);
@@ -45,33 +57,36 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen>
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
-        leading:
-        AppBarButton(prefixIcon: Icons.notifications, onTap: () {},),
-        /*Container(
-          margin: const EdgeInsets.only(left: 10),
-          child: Image.asset(
-            CbImageStrings.cbLogo,
-            height: height * 0.05,
-            width: width * 0.1,
-          ),
-        ),*/
-        /*IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.menu),
-          color: Colors.black,
-        ),*/
-        title: AppBarTitle(title: CbTextStrings.cbAppName,),
-        centerTitle: true,
-        actions: [
-          AppBarButton(prefixIcon: Icons.search, onTap: () {
+        leading: AppBarButton(
+          prefixIcon: Icons.search,
+          onTap: () {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const SearchScreen()),
             );
-          },),
-          AppBarButton(prefixIcon: Icons.shopping_cart, onTap: () {},),
+          },
+        ),
+        title: const AppBarTitle(
+          title: CbTextStrings.cbAppName,
+        ),
+        centerTitle: true,
+        actions: [
+          //user profile icon
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8.0),
+            child: CircleAvatar(
+              child: _ProfileIcon(),
+            ),
+          ),
+
+          //cart icon
+          AppBarButton(
+            prefixIcon: Icons.add_shopping_cart,
+            onTap: () {},
+          ),
         ],
       ),
+
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -87,7 +102,8 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen>
                     children: [
                       CarouselSlider(
                         items: _carouselImages
-                            .map((image) => Image(image: image, fit: BoxFit.cover))
+                            .map((image) =>
+                                Image(image: image, fit: BoxFit.cover))
                             .toList(),
                         options: CarouselOptions(
                           height: size.height * 0.2,
@@ -96,12 +112,13 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen>
                           aspectRatio: 16 / 9,
                           autoPlayCurve: Curves.fastOutSlowIn,
                           enableInfiniteScroll: true,
-                          autoPlayAnimationDuration: Duration(milliseconds: 800),
+                          autoPlayAnimationDuration:
+                              Duration(milliseconds: 800),
                           viewportFraction: 0.8,
                         ),
                       ),
                       Container(
-                        child:TabBar(
+                        child: TabBar(
                           isScrollable: true,
                           controller: tabController,
                           indicatorSize: TabBarIndicatorSize.label,
@@ -109,22 +126,22 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen>
                           indicatorWeight: 5,
                           tabs: [
                             RepeatedTab(
-                              label: 'Men',
+                              label: 'Hommes',
                             ),
                             RepeatedTab(
-                              label: 'Women',
+                              label: 'Femmes',
                             ),
                             RepeatedTab(
-                              label: 'Kids',
+                              label: 'Enfants',
                             ),
                             RepeatedTab(
-                              label: 'Electronics',
+                              label: 'Electroniques',
                             ),
                             RepeatedTab(
-                              label: 'Accessories',
+                              label: 'Accessoires',
                             ),
                             RepeatedTab(
-                              label: 'Home & Garden',
+                              label: 'Maison & Jardin',
                             ),
                             /*Tab(
                 child: Container(
@@ -141,28 +158,16 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen>
                         ),
                       ),
                       Container(
-                        height: size.height,
+                        height: size.width + 40.0,
                         child: TabBarView(
                           controller: tabController,
                           children: [
-                            Container(
-                              color: Colors.red,
-                            ),
-                            Container(
-                              color: Colors.blue,
-                            ),
-                            Container(
-                              color: Colors.yellow,
-                            ),
-                            Container(
-                              color: Colors.pink,
-                            ),
-                            Container(
-                              color: Colors.orange,
-                            ),
-                            Container(
-                              color: Colors.purple,
-                            ),
+                            MenGalleryScreen(),
+                            WomenGalleryScreen(),
+                            KidsGalleryScreen(),
+                            ElectronicsGalleryScreen(),
+                            AccessoriesGalleryScreen(),
+                            HomeGardenGalleryScreen(),
                           ],
                         ),
                       ),
@@ -193,6 +198,71 @@ class RepeatedTab extends StatelessWidget {
         label,
         style: TextStyle(color: Colors.grey.shade600),
       ),
+    );
+  }
+}
+
+final List<String> _menuItems = <String>[
+  'Particulier',
+  'Entreprise',
+  'Sign Out',
+];
+
+enum Menu { itemOne, itemTwo, itemThree }
+
+class _ProfileIcon extends StatelessWidget {
+  const _ProfileIcon({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return PopupMenuButton<Menu>(
+      itemBuilder: (BuildContext context) {
+        return _menuItems.map((String item) {
+          Menu menu;
+          switch (item) {
+            case 'Particulier':
+              menu = Menu.itemOne;
+              break;
+            case 'Entreprise':
+              menu = Menu.itemTwo;
+              break;
+            case 'Sign Out':
+              menu = Menu.itemThree;
+              break;
+            default:
+              throw ArgumentError('Invalid menu item: $item');
+          }
+          return PopupMenuItem<Menu>(
+            value: menu,
+            child: Text(item),
+          );
+        }).toList();
+      },
+      icon: const Icon(
+        FontAwesomeIcons.user,
+        color: Colors.white,
+      ),
+      onSelected: (Menu result) async {
+        switch (result) {
+          case Menu.itemOne:
+            Navigator.pushReplacementNamed(
+                context, CustomerSignInScreen.routeName);
+            //Navigator.push(context, MaterialPageRoute(builder: (context) => const CustomerSignInScreen()));
+            break;
+          case Menu.itemTwo:
+            // navigate to screen for Entreprise
+            Navigator.pushReplacementNamed(
+                context, SupplierSignInScreen.routeName);
+            //Navigator.push(context, MaterialPageRoute(builder: (context) => const SupplierSignInScreen()));
+            break;
+          case Menu.itemThree:
+            // perform sign out action
+            await FirebaseAuth.instance.signOut();
+            //Navigator.pop(context);
+            Navigator.pushReplacementNamed(context, MainScreen.routeName);
+            break;
+        }
+      },
     );
   }
 }

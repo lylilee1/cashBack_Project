@@ -19,16 +19,16 @@ class CustomerSignUp extends StatefulWidget {
 }
 
 class _CustomerSignUpState extends State<CustomerSignUp> {
-  String? firstName;
-  String? lastName;
-  String? email;
-  String? phoneNumber;
-  String? password;
 
   //final _formKey = GlobalKey<FormState>();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldMessengerState> _scaffoldkey =
       GlobalKey<ScaffoldMessengerState>();
+  late String firstName;
+  late String lastName;
+  late String email;
+  late String phoneNumber;
+  late String password;
   bool passwordNotVisible = true;
 
   final ImagePicker _picker = ImagePicker();
@@ -275,13 +275,13 @@ class _CustomerSignUpState extends State<CustomerSignUp> {
                       AuthMainButton(
                         label: CbTextStrings.cbSignup,
                         onPressed: () {
+                          signUp();
                         },
                       ),
                       HaveAccount(
                         haveAccount: 'Already have an account?',
                         actionLabel: 'Sign In',
                         onPressed: () {
-                          signUp();
                         },
                       ),
                     ],
