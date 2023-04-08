@@ -7,8 +7,8 @@ import 'package:cashback/src/features/authentication/screens/customer/minor_scre
 import 'package:cashback/src/features/authentication/screens/customer/minor_screen/electronics_gallery_screen.dart';
 import 'package:cashback/src/features/authentication/screens/customer/minor_screen/home&garden_gallery_screen.dart';
 import 'package:cashback/src/features/authentication/screens/customer/minor_screen/kids_gallery_screen.dart';
-import 'package:cashback/src/features/authentication/screens/customer/minor_screen/men_gallery_screen.dart';
 import 'package:cashback/src/features/authentication/screens/customer/minor_screen/women_gallery_screen.dart';
+import 'package:cashback/src/features/authentication/screens/galleries/men_gallery_screen.dart';
 import 'package:cashback/src/features/authentication/screens/login/customer_signin_screen.dart';
 import 'package:cashback/src/features/authentication/screens/search/search_screen.dart';
 import 'package:cashback/src/features/authentication/screens/supplier/supplier_signin_screen2.dart';

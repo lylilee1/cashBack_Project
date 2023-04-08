@@ -37,11 +37,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     await FirebaseAuth.instance.signInAnonymously().whenComplete(() async {
       _uid = FirebaseAuth.instance.currentUser!.uid;
       await anonymous.doc(_uid).set({
-        'name': '',
-        'email': '',
+        'name': 'Invité',
+        'email': 'guest@example.com',
         'profileimage': '',
-        'phone': '',
-        'address': '',
+        'phone': '11111',
+        'address': 'Guest place area',
         'cid': _uid
       });
     });
