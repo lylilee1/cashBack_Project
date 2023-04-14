@@ -1,7 +1,7 @@
 import 'package:cashback/src/constants/colors.dart';
 import 'package:cashback/src/features/authentication/screens/category/category_screen2.dart';
 import 'package:cashback/src/features/authentication/screens/dashboard/screens/my_store_screen.dart';
-import 'package:cashback/src/features/authentication/screens/supplier/upload_product_screen3.dart';
+import 'package:cashback/src/features/authentication/screens/supplier/upload_product_screen_walty.dart';
 //import 'package:cashback/src/features/authentication/screens/supplier/upload_product_screen2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -44,7 +44,7 @@ class _SupplierHomeScreenState extends State<SupplierHomeScreen> {
       'icon': const Icon(FontAwesomeIcons.dashboard),
     },
     {
-      'page': const UploadProductsScreen(),
+      'page': const UploadProductScreen(),
       //'page': ManageProductsScreen(documentId: FirebaseAuth.instance.currentUser!.uid,),
       'title': 'Chargement',
       'icon': Svg,
