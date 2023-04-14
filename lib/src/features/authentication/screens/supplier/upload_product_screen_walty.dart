@@ -25,8 +25,15 @@ class _UploadProductScreenState extends State<UploadProductScreen> {
   GlobalKey<ScaffoldMessengerState>();
 
   late double price;
+  late double proWeight;
+  late double proSize;
   late int quantity;
   late String proName;
+  late String proBrand;
+  late String proModel;
+  late String proColor;
+  late String proMaterial;
+  late String proMarketDesc;
   late String proDesc;
   late String proId;
   int? discount = 0;
@@ -147,8 +154,15 @@ class _UploadProductScreenState extends State<UploadProductScreen> {
         'maincateg': mainCategValue,
         'subcateg': subCategValue,
         'price': price,
+        'weight': proWeight,
+        'size': proSize,
         'instock': quantity,
         'proname': proName,
+        'brand': proBrand,
+        'model': proModel,
+        'color': proColor,
+        'material': proMaterial,
+        'marketDesc': proMarketDesc,
         'prodesc': proDesc,
         'sid': FirebaseAuth.instance.currentUser!.uid,
         'proimages': imagesUrlList,
@@ -358,6 +372,52 @@ class _UploadProductScreenState extends State<UploadProductScreen> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.45,
+                        child: TextFormField(
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Veuillez entrer la taille';
+                              } else if (value.isValidSize() != true) {
+                                return 'Taille non valide';
+                              }
+                              return null;
+                            },
+                            onSaved: (value) {
+                              proSize = double.parse(value!);
+                            },
+                            keyboardType: TextInputType.number,
+                            decoration: textFormDecoration.copyWith(
+                              labelText: 'Taille',
+                              hintText: 'Ajouter une taille',
+                            )),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.45,
+                        child: TextFormField(
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Veuillez entrer le poids';
+                              } else if (value.isValidWeight() != true) {
+                                return 'Poids non valide';
+                              }
+                              return null;
+                            },
+                            onSaved: (value) {
+                              proWeight = double.parse(value!);
+                            },
+                            keyboardType: TextInputType.number,
+                            decoration: textFormDecoration.copyWith(
+                              labelText: 'Quantité',
+                              hintText: 'Ajouter une quantité',
+                            )),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SizedBox(
                         width: MediaQuery.of(context).size.width,
                         child: TextFormField(
                             validator: (value) {
@@ -374,6 +434,116 @@ class _UploadProductScreenState extends State<UploadProductScreen> {
                             decoration: textFormDecoration.copyWith(
                               labelText: 'Nom du produit',
                               hintText: 'Entrez le nom du produit',
+                            )),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        child: TextFormField(
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Veuillez entrer la marque du produit';
+                              }
+                              return null;
+                            },
+                            onSaved: (value) {
+                              proBrand = value!;
+                            },
+                            maxLength: 100,
+                            maxLines: 3,
+                            decoration: textFormDecoration.copyWith(
+                              labelText: 'Marque du produit',
+                              hintText: 'Entrez la marque du produit',
+                            )),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        child: TextFormField(
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Veuillez entrer le modèle du produit';
+                              }
+                              return null;
+                            },
+                            onSaved: (value) {
+                              proModel = value!;
+                            },
+                            maxLength: 100,
+                            maxLines: 3,
+                            decoration: textFormDecoration.copyWith(
+                              labelText: 'Modèle du produit',
+                              hintText: 'Entrez le modèle du produit',
+                            )),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        child: TextFormField(
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Veuillez entrer la couleur du produit';
+                              }
+                              return null;
+                            },
+                            onSaved: (value) {
+                              proColor = value!;
+                            },
+                            maxLength: 100,
+                            maxLines: 3,
+                            decoration: textFormDecoration.copyWith(
+                              labelText: 'Couleur du produit',
+                              hintText: 'Entrez la couleur du produit',
+                            )),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        child: TextFormField(
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Veuillez entrer le matériel du produit';
+                              }
+                              return null;
+                            },
+                            onSaved: (value) {
+                              proMaterial = value!;
+                            },
+                            maxLength: 100,
+                            maxLines: 3,
+                            decoration: textFormDecoration.copyWith(
+                              labelText: 'Matériel du produit',
+                              hintText: 'Entrez le matériel du produit',
+                            )),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        child: TextFormField(
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Veuillez entrer la description marketing du produit';
+                              }
+                              return null;
+                            },
+                            onSaved: (value) {
+                              proMarketDesc = value!;
+                            },
+                            maxLength: 100,
+                            maxLines: 3,
+                            decoration: textFormDecoration.copyWith(
+                              labelText: 'Description marketing du produit',
+                              hintText: 'Entrez la description marketing du produit',
                             )),
                       ),
                     ),
@@ -469,6 +639,19 @@ var textFormDecoration = InputDecoration(
 extension QuantityValidator on String {
   bool isValidQuantity() {
     return RegExp(r'^[1-9][0-9]*$').hasMatch(this);
+  }
+}
+
+extension WeightValidator on String {
+  bool isValidWeight() {
+    return RegExp(r'^((([1-9][0-9]*\.*)|(0\.*))([0-9]{1,2}))$')
+        .hasMatch(this);
+    }
+  }
+extension SizeValidator on String {
+  bool isValidSize() {
+    return RegExp(r'^((([1-9][0-9]*\.*)|(0\.*))([0-9]{1,2}))$')
+        .hasMatch(this);
   }
 }
 
