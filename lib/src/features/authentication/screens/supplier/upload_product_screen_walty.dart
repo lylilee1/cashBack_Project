@@ -96,12 +96,12 @@ class _UploadProductScreenState extends State<UploadProductScreen> {
     print(value);
     setState(() {
       mainCategValue = value!;
-      subCategValue = 'sous-catégorie';
+      subCategValue = 'sous categorie';
     });
   }
 
   Future<void> uploadImages() async {
-    if (mainCategValue != 'choix categorie' && subCategValue != 'sous-catégorie') {
+    if (mainCategValue != 'choix categorie' && subCategValue != 'sous categorie') {
       if (_formKey.currentState!.validate()) {
         _formKey.currentState!.save();
         if (imagesFileList!.isNotEmpty) {
