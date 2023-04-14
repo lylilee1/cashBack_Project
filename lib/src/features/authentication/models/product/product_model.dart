@@ -1,5 +1,3 @@
-
-
 import 'package:cashback/src/constants/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -8,15 +6,22 @@ import '../../screens/product/product_details_screen7.dart';
 
 class ProductModel extends StatelessWidget {
   final dynamic products;
+
   const ProductModel({
     super.key,
-    required this.isFavorite, this.products,
+    required this.isFavorite,
+    this.products,
   });
 
   final bool isFavorite;
 
   @override
   Widget build(BuildContext context) {
+
+    var size = MediaQuery.of(context).size;
+    var height = size.height;
+    var width = size.width;
+
     return Padding(
       padding: EdgeInsets.only(
         top: 15.0,
@@ -30,7 +35,8 @@ class ProductModel extends StatelessWidget {
             context,
             MaterialPageRoute(
               //builder: (context) => ProductDetailsScreen(prodList: products,
-              builder: (context) => ProductDetailsScreen(prodList: products,
+              builder: (context) => ProductDetailsScreen(
+                prodList: products,
               ),
             ),
           );
@@ -60,13 +66,13 @@ class ProductModel extends StatelessWidget {
                   children: [
                     isFavorite
                         ? Icon(
-                      Icons.favorite,
-                      color: Colors.red,
-                    )
+                            Icons.favorite,
+                            color: Colors.red,
+                          )
                         : Icon(
-                      Icons.favorite_border,
-                      color: CbColors.cbPrimaryColor2,
-                    ),
+                            Icons.favorite_border,
+                            color: CbColors.cbPrimaryColor2,
+                          ),
                   ],
                 ),
               ),
@@ -80,8 +86,7 @@ class ProductModel extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15.0),
                     image: DecorationImage(
-                      image: NetworkImage(
-                          products['proimages'][0]),
+                      image: NetworkImage(products['proimages'][0]),
                       fit: BoxFit.contain,
                     ),
                   ),
@@ -97,9 +102,33 @@ class ProductModel extends StatelessWidget {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                    fontSize:
-                    13), //Theme.of(context).textTheme.labelLarge,
+                    fontSize: height * 0.016), //Theme.of(context).textTheme.labelLarge,
               ),
+
+              /*
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      products['price'].toStringAsFixed(0) + ' \XAF',
+                      style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                        color: CbColors.cbPrimaryColor2,
+                        fontWeight: FontWeight.w700,
+                      ), //Theme.of(context).textTheme.labelLarge,
+                    ),
+                    CircleAvatar(
+                      backgroundColor: CbColors.cbPrimaryColor2,
+                      child: Icon(
+                        Icons.add,
+                        color: Colors.white,
+                        size: 15,
+                      ),
+                    )
+                  ],
+                ),
+              ),*/
 
               //product price
               Text(

@@ -8,7 +8,8 @@ import 'package:cashback/src/features/authentication/screens/customer/minor_scre
 import 'package:cashback/src/features/authentication/screens/customer/minor_screen/home&garden_gallery_screen.dart';
 import 'package:cashback/src/features/authentication/screens/customer/minor_screen/kids_gallery_screen.dart';
 import 'package:cashback/src/features/authentication/screens/customer/minor_screen/women_gallery_screen.dart';
-import 'package:cashback/src/features/authentication/screens/galleries/men_gallery_screen.dart';
+import 'package:cashback/src/features/authentication/screens/customer/minor_screen/men_gallery_screen.dart';
+//import 'package:cashback/src/features/authentication/screens/galleries/men_gallery_screen.dart';
 import 'package:cashback/src/features/authentication/screens/login/customer_signin_screen.dart';
 import 'package:cashback/src/features/authentication/screens/search/search_screen.dart';
 import 'package:cashback/src/features/authentication/screens/supplier/supplier_signin_screen2.dart';
@@ -81,7 +82,7 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen>
 
           //cart icon
           AppBarButton(
-            prefixIcon: Icons.add_shopping_cart,
+            prefixIcon: Icons.shopping_bag_outlined,
             onTap: () {},
           ),
         ],
@@ -158,6 +159,10 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen>
                         ),
                       ),
                       Container(
+                        decoration: BoxDecoration(
+                          color: CbColors.cbPrimaryColor2.withOpacity(0.05),  //CbColors.cbPrimaryColor2,Colors.grey.withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(15),
+                        ),
                         height: size.width + 40.0,
                         child: TabBarView(
                           controller: tabController,

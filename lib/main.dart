@@ -1,9 +1,9 @@
-
 import 'package:cashback/firebase_options.dart';
+import 'package:cashback/src/features/authentication/models/cart/cart_model.dart';
 import 'package:cashback/src/features/authentication/screens/customer/customer_home_screen4.dart';
 import 'package:cashback/src/features/authentication/screens/dashboard/dashboard_screen2.dart';
 import 'package:cashback/src/features/authentication/screens/login/customer_signin_screen.dart';
-import 'package:cashback/src/features/authentication/screens/onboarding/on_boarding_screen.dart';
+import 'package:cashback/src/features/authentication/screens/onboarding/on_boarding_screen4.dart';
 import 'package:cashback/src/features/authentication/screens/profile/profile_screen2.dart';
 import 'package:cashback/src/features/authentication/screens/signup/customer_signup_screen.dart';
 import 'package:cashback/src/features/authentication/screens/supplier/supplier_home_screen2.dart';
@@ -13,6 +13,7 @@ import 'package:cashback/src/utils/theme/theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'src/features/authentication/screens/cart/cart_screen.dart';
 import 'src/features/authentication/screens/category/category_screen2.dart';
@@ -23,7 +24,14 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   //await Firebase.initializeApp();
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => Cart()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -45,14 +53,20 @@ class MyApp extends StatelessWidget {
         DashboardScreen.routeName: (context) => const DashboardScreen(),
         MainScreen.routeName: (context) => const MainScreen(),
         CategoryScreen.routeName: (context) => const CategoryScreen(),
-        ProfileScreen.routeName: (context) =>  ProfileScreen(documentId: FirebaseAuth.instance.currentUser!.uid,),
+        ProfileScreen.routeName: (context) => ProfileScreen(
+              documentId: FirebaseAuth.instance.currentUser!.uid,
+            ),
         CartScreen.routeName: (context) => const CartScreen(),
         WishlistScreen.routeName: (context) => const WishlistScreen(),
         CustomerHomeScreen.routeName: (context) => const CustomerHomeScreen(),
-        CustomerSignUpScreen.routeName: (context) => const CustomerSignUpScreen(),
-        CustomerSignInScreen.routeName: (context) => const CustomerSignInScreen(),
-        SupplierSignInScreen.routeName: (context) => const SupplierSignInScreen(),
-        SupplierSignUpScreen.routeName: (context) => const SupplierSignUpScreen(),
+        CustomerSignUpScreen.routeName: (context) =>
+            const CustomerSignUpScreen(),
+        CustomerSignInScreen.routeName: (context) =>
+            const CustomerSignInScreen(),
+        SupplierSignInScreen.routeName: (context) =>
+            const SupplierSignInScreen(),
+        SupplierSignUpScreen.routeName: (context) =>
+            const SupplierSignUpScreen(),
         SupplierHomeScreen.routeName: (context) => const SupplierHomeScreen(),
       },
     );

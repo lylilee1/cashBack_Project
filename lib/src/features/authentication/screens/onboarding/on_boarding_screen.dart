@@ -1,6 +1,5 @@
 import 'package:cashback/src/constants/colors.dart';
 import 'package:cashback/src/constants/image_strings.dart';
-import 'package:cashback/src/constants/sizes.dart';
 import 'package:cashback/src/constants/text_strings.dart';
 import 'package:cashback/src/features/authentication/models/onboarding_screen_model.dart';
 import 'package:cashback/src/features/authentication/screens/main/main_screen.dart';
@@ -35,7 +34,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
       procesing = true;
     });
     await FirebaseAuth.instance.signInAnonymously().whenComplete(() async {
-      _uid = FirebaseAuth.instance.currentUser!.uid;
+      _uid = FirebaseAuth.instance.currentUser !.uid;
       await anonymous.doc(_uid).set({
         'name': 'Invité',
         'email': 'guest@example.com',

@@ -16,10 +16,10 @@ class CbImageStrings{
 
 
 // -- onBoarding Screen Images
-  static const String cbOnBoardingImage0      = "assets/images/on_boarding_images/onboarding1.png";
-  static const String cbOnBoardingImage1      = "assets/images/on_boarding_images/onboarding2.png";
-  static const String cbOnBoardingImage2      = "assets/images/on_boarding_images/onboarding3.png";
-  static const String cbOnBoardingImage3      = "assets/images/on_boarding_images/on-boarding-image3.png";
+  static const String cbOnBoardingImage0      = "assets/images/on_boarding_images/on-boarding-image-0.png";
+  static const String cbOnBoardingImage1      = "assets/images/on_boarding_images/on-boarding-image-1.png";
+  static const String cbOnBoardingImage2      = "assets/images/on_boarding_images/on-boarding-image-2.png";
+  static const String cbOnBoardingImage3      = "assets/images/on_boarding_images/on-boarding-image-3.png";
 
 
 // -- Login Screen Images
