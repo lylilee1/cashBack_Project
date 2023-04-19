@@ -410,8 +410,8 @@ class _UploadProductScreenState extends State<UploadProductScreen> {
                             },
                             keyboardType: TextInputType.number,
                             decoration: textFormDecoration.copyWith(
-                              labelText: 'Quantité',
-                              hintText: 'Ajouter une quantité',
+                              labelText: 'Poids',
+                              hintText: 'Ajouter un poids',
                             )),
                       ),
                     ),
