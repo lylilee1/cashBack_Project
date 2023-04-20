@@ -19,9 +19,9 @@ class _UploadProductsScreenState extends State<UploadProductsScreen> {
   final GlobalKey<ScaffoldMessengerState> _scaffoldkey =
       GlobalKey<ScaffoldMessengerState>();
 
-  late double _proWeight, _proSize, _price;
-  late int _quantity;
-  late String _proName,
+  double? _proWeight, _proSize, _price;
+  int? _quantity;
+  String? _proName,
       _proBrand,
       _proModel,
       _proColor,
@@ -341,7 +341,7 @@ class _UploadProductsScreenState extends State<UploadProductsScreen> {
                       }
                       return null;
                     },
-                    onSaved: (value) {
+                    onChanged: (value) {
                       _proMarketDesc = value!;
                     },
                     keyboardType: TextInputType.text,
@@ -377,7 +377,7 @@ class _UploadProductsScreenState extends State<UploadProductsScreen> {
                       }
                       return null;
                     },
-                    onSaved: (value) {
+                    onChanged: (value) {
                       _proDescription = value!;
                     },
                     keyboardType: TextInputType.text,
@@ -439,9 +439,17 @@ class _UploadProductsScreenState extends State<UploadProductsScreen> {
                         print('valid');
                         print(_price);
                         print(_proName);
+                        print(_proBrand);
+                        print(_proModel);
+                        print(_proColor);
+                        print(_proMaterial);
+                        print(_proSize);
+                        print(_proWeight);
+                        print(_proMarketDesc);
+                        print(_proDescription);
                       } else {
                         MyMessageHandler.showSnackBar(
-                            _scaffoldkey, 'please fill all fields');
+                            _scaffoldkey, 'please fill all fields in the form');
                       }
                       //uploadProduct();
                     },
@@ -493,10 +501,12 @@ class CustomeSmallTextField extends StatelessWidget {
                 return 'Format du montant invalide';
               }
               return null;
-            } else if (labelText == 'Quantité') {
+            }
+            else if (labelText == 'Quantité') {
               if (value!.isEmpty) {
                 return emptyFieldError;
-              } else if (value.isValidQuantity() != true) {
+              }
+              else if (value.isValidQuantity() != true) {
                 return 'Format de la Quantité invalide';
               }
               return null;
