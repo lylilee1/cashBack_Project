@@ -89,7 +89,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   Container(
                     margin: EdgeInsets.only(top: size.height * 0.3),
                     decoration: BoxDecoration(
-                      color: CbColors.cbPrimaryColor2!.withOpacity(0.3),
+                      color: CbColors.cbPrimaryColor2.withOpacity(0.3),
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(24),
                         topRight: Radius.circular(24),

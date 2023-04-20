@@ -48,7 +48,7 @@ class _UploadProductsScreenState extends State<UploadProductsScreen> {
           maxWidth: 300, maxHeight: 300, imageQuality: 95);
 
       setState(() {
-        _imagesFileList = pickedImages!;
+        _imagesFileList = pickedImages;
       });
     } catch (e) {
       setState(() {
