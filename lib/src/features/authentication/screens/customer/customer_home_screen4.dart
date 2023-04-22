@@ -114,7 +114,7 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen>
                           autoPlayCurve: Curves.fastOutSlowIn,
                           enableInfiniteScroll: true,
                           autoPlayAnimationDuration:
-                              Duration(milliseconds: 800),
+                              const Duration(milliseconds: 800),
                           viewportFraction: 0.8,
                         ),
                       ),

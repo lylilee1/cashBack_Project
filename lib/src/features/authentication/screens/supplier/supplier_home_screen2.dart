@@ -44,7 +44,7 @@ class _SupplierHomeScreenState extends State<SupplierHomeScreen> {
       'icon': const Icon(FontAwesomeIcons.dashboard),
     },
     {
-      'page': const UploadProductScreen(),
+      'page': const UploadProductsScreen(),
       //'page': ManageProductsScreen(documentId: FirebaseAuth.instance.currentUser!.uid,),
       'title': 'Chargement',
       'icon': Svg,

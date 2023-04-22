@@ -25,7 +25,7 @@ class _UploadProductsScreenState extends State<UploadProductsScreen> {
 
   late double _price;
   late int _quantity;
-  late String _proName, _proBrand, _proModel, _proColor, _proSize,_proMarketDesc, _proDescription;
+  String? _proName, _proBrand, _proModel, _proColor, _proSize,_proMarketDesc, _proDescription;
   late String _proLabel;
   String mainCategValue = 'choix categorie';
   String subCategValue = 'sous categorie';
@@ -208,9 +208,9 @@ class _UploadProductsScreenState extends State<UploadProductsScreen> {
         'subcateg': subCategValue,
         'price': _price,
         'discount': 0,
-        'instock': _quantity,
-        'proname': _proName,
-        'prodesc': _proDescription,
+        'instock': _quantity!,
+        'proname': _proName!,
+        'prodesc': _proDescription!,
         'promarketing': _proMarketDesc,
         'probrand': _proBrand,
         'promodel': _proModel,

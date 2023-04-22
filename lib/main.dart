@@ -1,5 +1,6 @@
 import 'package:cashback/firebase_options.dart';
-import 'package:cashback/src/features/authentication/models/cart/cart_model.dart';
+import 'package:cashback/src/features/authentication/controllers/cart/cart_controller.dart';
+import 'package:cashback/src/features/authentication/controllers/wishlist/wishlist_controller.dart';
 import 'package:cashback/src/features/authentication/screens/customer/customer_home_screen4.dart';
 import 'package:cashback/src/features/authentication/screens/dashboard/dashboard_screen2.dart';
 import 'package:cashback/src/features/authentication/screens/login/customer_signin_screen.dart';
@@ -28,6 +29,7 @@ void main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => Cart()),
+        ChangeNotifierProvider(create: (_) => Wish()),
       ],
       child: const MyApp(),
     ),

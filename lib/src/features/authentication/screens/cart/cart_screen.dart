@@ -1,7 +1,7 @@
 import 'package:cashback/src/common_widgets/app_bar/appBarWidget.dart';
 import 'package:cashback/src/constants/colors.dart';
 import 'package:cashback/src/constants/text_strings.dart';
-import 'package:cashback/src/features/authentication/models/cart/cart_model.dart';
+import 'package:cashback/src/features/authentication/controllers/cart/cart_controller.dart';
 import 'package:cashback/src/features/authentication/screens/search/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

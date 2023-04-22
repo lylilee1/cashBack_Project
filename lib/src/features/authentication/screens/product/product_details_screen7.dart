@@ -6,10 +6,12 @@ import 'package:cashback/src/common_widgets/snackBar/snackBarWidget.dart';
 import 'package:cashback/src/constants/colors.dart';
 import 'package:cashback/src/constants/image_strings.dart';
 import 'package:cashback/src/constants/text_strings.dart';
-import 'package:cashback/src/features/authentication/models/cart/cart_model.dart';
+import 'package:cashback/src/features/authentication/controllers/cart/cart_controller.dart';
 import 'package:cashback/src/features/authentication/models/product/product_model.dart';
-import 'package:cashback/src/features/authentication/screens/cart/cart_screen.dart';
+
+//import 'package:cashback/src/features/authentication/screens/cart/cart_screen.dart';
 import 'package:cashback/src/features/authentication/screens/customer/minor_screen/full_screen_view.dart';
+import 'package:cashback/src/features/authentication/screens/wishlist/wishlist_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -20,6 +22,8 @@ import 'package:readmore/readmore.dart';
 import 'package:staggered_grid_view_flutter/widgets/staggered_grid_view.dart';
 import 'package:staggered_grid_view_flutter/widgets/staggered_tile.dart';
 import 'package:collection/collection.dart';
+
+import '../cart/cart_screen3.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
   final dynamic prodList;
@@ -34,6 +38,7 @@ class ProductDetailsScreen extends StatefulWidget {
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   final GlobalKey<ScaffoldMessengerState> _scaffoldkey =
       GlobalKey<ScaffoldMessengerState>();
+
   final Counter _counter = Counter();
   late List<dynamic> imagesList = widget.prodList['proimages'];
 
@@ -74,6 +79,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 children: [
+//cart page button
                   InkWell(
                     onTap: () {
                       Navigator.push(
@@ -132,6 +138,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             isFavorite,
                           )*/
                               : context.read<Cart>().addItem(
+                                    widget.prodList['probrand'],
+                                    widget.prodList['promodelqq'],
                                     widget.prodList['proname'],
                                     widget.prodList['price'],
                                     1,
@@ -284,12 +292,16 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                   ],
                                 ),
                                 child: IconButton(
-                                  icon: SvgPicture.asset(
-                                    CbImageStrings.cbIconMenu,
+                                  icon: const Icon(
+                                    Icons.favorite_border,
                                     color: CbColors.cbPrimaryColor2,
                                   ),
                                   onPressed: () {
-                                    Navigator.pop(context);
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => const WishlistScreen(),),
+                                    );
                                   },
                                 ),
                               ),
@@ -824,3 +836,4 @@ class ProDetailsHeaderWidget extends StatelessWidget {
     );
   }
 }
+

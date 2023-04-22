@@ -1,36 +1,5 @@
-import 'package:flutter/cupertino.dart';
-
-class Product {
-  String name;
-  double price;
-  int quantity = 1;
-  int qntty; //total in stock
-  List imagesUrl;
-  String documentId;
-  String suppId;
-  bool isFavorite;
-
-  Product({
-    required this.name,
-    required this.price,
-    required this.quantity,
-    required this.qntty,
-    required this.imagesUrl,
-    required this.documentId,
-    required this.suppId,
-    this.isFavorite = false,
-  });
-
-  void increase () {
-    quantity++;
-    //notifyListeners();
-  }
-  void decrease () {
-    quantity--;
-    //notifyListeners();
-  }
-
-}
+import 'package:cashback/src/features/authentication/controllers/product/product_controller.dart';
+import 'package:flutter/foundation.dart';
 
 class Cart extends ChangeNotifier {
   final List<Product> _list = [];
@@ -39,21 +8,39 @@ class Cart extends ChangeNotifier {
     return _list;
   }
 
+  //getter
+  double get totalPrice {
+    var total = 0.0;
+
+    for(var item in _list){
+      total += item.price * item.quantity;
+    }
+
+    /*_list.forEach((product) {
+      total += product.price * product.quantity;
+    });*/
+    return total;
+  }
+
   int? get itemCount {
     _list.length;
   }
 
   void addItem(
-    String name,
-    double price,
-    int quantity,
-    int qntty, //total in stock
-    List imagesUrl,
-    String documentId,
-    String suppId,
-    bool isFavorite,
-  ) {
+      String brand,
+      String model,
+      String name,
+      double price,
+      int quantity,
+      int qntty, //total in stock
+      List imagesUrl,
+      String documentId,
+      String suppId,
+      bool isFavorite,
+      ) {
     final product = Product(
+      brand: brand,
+      model: model,
       name: name,
       price: price,
       quantity: quantity,
