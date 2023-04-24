@@ -50,35 +50,9 @@ class Wish extends ChangeNotifier {
     notifyListeners();
   }
 
-
-
-/*
-  List<Product> _items = [];
-
-  List<Product> get items => _items;
-
-  int get itemCount => _items.length;
-
-  double get totalAmount {
-    double total = 0.0;
-    _items.forEach((product) {
-      total += product.price * product.quantity;
-    });
-    return total;
-  }
-
-  void addItem(Product product) {
-    _items.add(product);
+  void removeThis (String id){
+    _list.removeWhere((element) => element.documentId == id);
     notifyListeners();
   }
 
-  void removeItem(Product product) {
-    _items.remove(product);
-    notifyListeners();
-  }
-
-  void clear() {
-    _items = [];
-    notifyListeners();
-  }*/
 }

@@ -7,6 +7,7 @@ import 'package:cashback/src/constants/colors.dart';
 import 'package:cashback/src/constants/image_strings.dart';
 import 'package:cashback/src/constants/text_strings.dart';
 import 'package:cashback/src/features/authentication/controllers/cart/cart_controller.dart';
+import 'package:cashback/src/features/authentication/controllers/wishlist/wishlist_controller.dart';
 import 'package:cashback/src/features/authentication/models/product/product_model.dart';
 
 //import 'package:cashback/src/features/authentication/screens/cart/cart_screen.dart';
@@ -104,9 +105,20 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           color: CbColors.cbPrimaryColor2,
                         ),
                       ),
-                      child: const Padding(
+                      child: Padding(
                         padding: EdgeInsets.all(8.0),
-                        child: Icon(
+                        child: context
+                            .watch<Cart>()
+                            .getitems
+                            .firstWhereOrNull((product) =>
+                        product.documentId ==
+                            widget.prodList['proid']) !=
+                            null
+                            ? const Icon(
+                          Icons.shopping_bag,
+                          color: CbColors.cbPrimaryColor2,
+                        )
+                        : const Icon(
                           Icons.shopping_bag_outlined,
                           color: CbColors.cbPrimaryColor2,
                         ),
@@ -127,19 +139,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                   null
                               ? MyMessageHandler.showSnackBar(
                                   _scaffoldkey, 'produit déja ajouté au panier')
-                              /*updateItem(
-                            widget.prodList['proname'],
-                            widget.prodList['price'],
-                            1,
-                            widget.prodList['instock'],
-                            widget.prodList['proimages'],
-                            widget.prodList['proid'],
-                            widget.prodList['sid'],
-                            isFavorite,
-                          )*/
                               : context.read<Cart>().addItem(
-                                    widget.prodList['probrand'],
-                                    widget.prodList['promodelqq'],
+                                    widget.prodList['brand'],
+                                    widget.prodList['model'],
                                     widget.prodList['proname'],
                                     widget.prodList['price'],
                                     1,
@@ -274,7 +276,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                 ),
                               ),
 
-                              //menu or share button
+                              //wishlist button
                               Container(
                                 height: height * 0.05,
                                 width: height * 0.05,
@@ -292,16 +294,42 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                   ],
                                 ),
                                 child: IconButton(
-                                  icon: const Icon(
-                                    Icons.favorite_border,
+                                  icon: context
+                                      .watch<Wish>()
+                                      .getWishItems
+                                      .firstWhereOrNull((product) =>
+                                  product.documentId ==
+                                      widget.prodList['proid']) !=
+                                      null
+                                      ? const Icon(
+                                    Icons.favorite,
+                                    color: CbColors.cbPrimaryColor2,
+                                  )
+                                  : const Icon(
+                                    Icons.favorite_border_outlined,
                                     color: CbColors.cbPrimaryColor2,
                                   ),
                                   onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => const WishlistScreen(),),
-                                    );
+                                    context
+                                                .read<Wish>()
+                                                .getWishItems
+                                                .firstWhereOrNull((product) =>
+                                                    product.documentId ==
+                                                    widget.prodList['proid']) !=
+                                            null
+                                        ? context.read<Wish>().removeThis(widget.prodList['proid'])
+                                        : context.read<Wish>().addWishItem(
+                                              widget.prodList['brand'],
+                                              widget.prodList['model'],
+                                              widget.prodList['proname'],
+                                              widget.prodList['price'],
+                                              1,
+                                              widget.prodList['instock'],
+                                              widget.prodList['proimages'],
+                                              widget.prodList['proid'],
+                                              widget.prodList['sid'],
+                                              isFavorite,
+                                            );
                                   },
                                 ),
                               ),
@@ -836,4 +864,3 @@ class ProDetailsHeaderWidget extends StatelessWidget {
     );
   }
 }
-

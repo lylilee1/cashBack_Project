@@ -58,17 +58,6 @@ class _WishlistScreenState extends State<WishlistScreen> {
                             CbColors.cbPrimaryColor2,
                           ),
                         ),
-
-                        /*ElevatedButton.styleFrom(
-                              primary: CbColors.cbPrimaryColor2,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 30,
-                                vertical: 15,
-                              ),
-                            ),*/
                         child: Text(
                           'passer à la caisse'.toUpperCase(),
                           style: const TextStyle(
@@ -288,156 +277,33 @@ class _WishlistScreenState extends State<WishlistScreen> {
                                                     MainAxisAlignment
                                                         .spaceBetween,
                                                 children: [
-                                                  const Align(
-                                                    alignment:
-                                                        Alignment.topRight,
-                                                    child: Icon(
-                                                      Icons.close,
-                                                      color: CbColors
-                                                          .cbPrimaryColor2,
-                                                      size: 15,
+                                                  InkWell(
+                                                    onTap: () {
+                                                      context.read<Wish>().removeWishItem(product);
+                                                    },
+                                                    child: const Align(
+                                                      alignment:
+                                                          Alignment.topRight,
+                                                      child: Icon(
+                                                        Icons.close,
+                                                        color: CbColors
+                                                            .cbPrimaryColor2,
+                                                        size: 20,
+                                                      ),
                                                     ),
                                                   ),
-
-                                                  //quantity
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: [
-                                                      //decrement button
-                                                      product.quantity == 1
-                                                          ? GestureDetector(
-                                                              onTap: () {
-                                                                wish.removeWishItem(
-                                                                    product);
-                                                              },
-                                                              child: Container(
-                                                                height: 25,
-                                                                width: 25,
-                                                                decoration:
-                                                                    BoxDecoration(
-                                                                  border: Border
-                                                                      .all(
-                                                                    color: CbColors
-                                                                        .cbPrimaryColor2,
-                                                                    width: 1,
-                                                                  ),
-                                                                  shape: BoxShape
-                                                                      .circle,
-                                                                  color: Colors
-                                                                      .white,
-                                                                ),
-                                                                child:
-                                                                    const Icon(
-                                                                  Icons
-                                                                      .delete_forever,
-                                                                  color: CbColors
-                                                                      .cbPrimaryColor2,
-                                                                  size: 14,
-                                                                ),
-                                                              ),
-                                                            )
-                                                          : GestureDetector(
-                                                              onTap: () {},
-                                                              child: Container(
-                                                                height: 25,
-                                                                width: 25,
-                                                                decoration:
-                                                                    BoxDecoration(
-                                                                  border: Border
-                                                                      .all(
-                                                                    color: Colors
-                                                                        .grey,
-                                                                    width: 1,
-                                                                  ),
-                                                                  shape: BoxShape
-                                                                      .circle,
-                                                                  color: Colors
-                                                                      .white,
-                                                                ),
-                                                                child:
-                                                                    const Icon(
-                                                                  Icons.remove,
-                                                                  color: Colors
-                                                                      .grey,
-                                                                  size: 18,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .symmetric(
-                                                                horizontal:
-                                                                    8.0),
-                                                        child: Text(
-                                                          product.quantity
-                                                              .toString(),
-                                                          style: product
-                                                                      .quantity ==
-                                                                  product.qntty
-                                                              ? Theme.of(
-                                                                      context)
-                                                                  .textTheme
-                                                                  .displayLarge!
-                                                                  .copyWith(
-                                                                    fontSize:
-                                                                        height *
-                                                                            0.02,
-                                                                    color: Colors
-                                                                        .red,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold,
-                                                                  )
-                                                              : Theme.of(
-                                                                      context)
-                                                                  .textTheme
-                                                                  .displayLarge!
-                                                                  .copyWith(
-                                                                    fontSize:
-                                                                        height *
-                                                                            0.02,
-                                                                    color: CbColors
-                                                                        .cbPrimaryColor2,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold,
-                                                                  ),
-                                                        ),
+                                                  InkWell(
+                                                    onTap: () {},
+                                                    child: const Align(
+                                                      alignment:
+                                                          Alignment.bottomRight,
+                                                      child: Icon(
+                                                        Icons.shopping_bag_outlined,
+                                                        color: CbColors
+                                                            .cbPrimaryColor2,
+                                                        size: 20,
                                                       ),
-
-                                                      //increment button
-                                                      GestureDetector(
-                                                        onTap: product
-                                                                    .quantity ==
-                                                                product.qntty
-                                                            ? null
-                                                            : () {},
-                                                        child: Container(
-                                                          height: 25,
-                                                          width: 25,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            border: Border.all(
-                                                              color: CbColors
-                                                                  .cbPrimaryColor2,
-                                                              width: 1,
-                                                            ),
-                                                            shape:
-                                                                BoxShape.circle,
-                                                            color: Colors.white,
-                                                          ),
-                                                          child: const Icon(
-                                                            Icons.add,
-                                                            color: CbColors
-                                                                .cbPrimaryColor2,
-                                                            size: 18,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
+                                                    ),
                                                   ),
                                                 ],
                                               ),

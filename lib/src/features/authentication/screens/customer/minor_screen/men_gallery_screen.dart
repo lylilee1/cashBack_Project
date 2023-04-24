@@ -47,8 +47,7 @@ class _MenGalleryScreenState extends State<MenGalleryScreen> {
             crossAxisCount: 2,
             itemBuilder: (context, index) {
               return ProductModel(
-                  products: snapshot.data!.docs[index],
-                  isFavorite: isFavorite);
+                  products: snapshot.data!.docs[index] ,isFavorite: isFavorite);
             },
             staggeredTileBuilder: (context) =>
             const StaggeredTile.fit(1),

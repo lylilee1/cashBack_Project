@@ -3,6 +3,7 @@ import 'package:cashback/src/constants/image_strings.dart';
 import 'package:cashback/src/features/authentication/screens/cart/cart_screen.dart';
 import 'package:cashback/src/features/authentication/screens/category/category_screen2.dart';
 import 'package:cashback/src/features/authentication/screens/search/search_screen.dart';
+import 'package:cashback/src/features/authentication/screens/wishlist/wishlist_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -24,6 +25,7 @@ class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
 
   final List<Map<String, dynamic>> _pages = [
+    //CustomerHomeScreen
     {
       'page': const CustomerHomeScreen(),
       'title': 'Home Screen',
@@ -34,11 +36,25 @@ class _MainScreenState extends State<MainScreen> {
       'title': 'Category Screen',
       'icon': const Icon(FontAwesomeIcons.list),
     },
+    //SearchScreen
+    {
+      'page': const SearchScreen(),
+      'title': 'Search Screen',
+      'icon': const Icon(FontAwesomeIcons.search),
+    },
+    //WishlistScreen
+    {
+      'page': const WishlistScreen(),
+      'title': 'wishlist Screen',
+      'icon': const Icon(FontAwesomeIcons.heartCircleCheck),
+    },
+    //CartScreen
     {
       'page': const CartScreen(),
       'title': 'cart Screen',
       'icon': const Icon(FontAwesomeIcons.cartShopping),
     },
+    //ProfileScreen
     {
       'page': ProfileScreen(documentId: FirebaseAuth.instance.currentUser!.uid,),
       'title': 'profile Screen',
@@ -141,6 +157,16 @@ const _navBarItems = [
     icon: Icon(Icons.category_outlined),
     activeIcon: Icon(Icons.category_rounded),
     label: 'Categories',
+  ),
+  BottomNavigationBarItem(
+    icon: Icon(Icons.search_outlined),
+    activeIcon: Icon(Icons.search_rounded),
+    label: 'Search',
+  ),
+  BottomNavigationBarItem(
+    icon: Icon(Icons.favorite_outline),
+    activeIcon: Icon(Icons.favorite_border_rounded),
+    label: 'Wishlist',
   ),
   BottomNavigationBarItem(
     icon: Icon(Icons.shopping_bag_outlined),

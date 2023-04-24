@@ -42,7 +42,8 @@ class _ElectronicsGalleryScreenState extends State<ElectronicsGalleryScreen> {
           itemCount: snapshot.data!.docs.length,
           crossAxisCount: 2,
           itemBuilder: (context, index) {
-            return ProductModel(products: snapshot.data!.docs[index] ,isFavorite: isFavorite);
+            return ProductModel(products: snapshot.data!.docs[index],
+                isFavorite: isFavorite);
 
             /*Padding(
               padding: EdgeInsets.only(
