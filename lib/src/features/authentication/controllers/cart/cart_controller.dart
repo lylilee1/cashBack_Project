@@ -74,6 +74,11 @@ class Cart extends ChangeNotifier {
     notifyListeners();
   }
 
+  void removeThis (String id){
+    _list.removeWhere((element) => element.documentId == id);
+    notifyListeners();
+  }
+
 
 
 /*

@@ -36,12 +36,6 @@ class _MainScreenState extends State<MainScreen> {
       'title': 'Category Screen',
       'icon': const Icon(FontAwesomeIcons.list),
     },
-    //SearchScreen
-    {
-      'page': const SearchScreen(),
-      'title': 'Search Screen',
-      'icon': const Icon(FontAwesomeIcons.search),
-    },
     //WishlistScreen
     {
       'page': const WishlistScreen(),
@@ -157,11 +151,6 @@ const _navBarItems = [
     icon: Icon(Icons.category_outlined),
     activeIcon: Icon(Icons.category_rounded),
     label: 'Categories',
-  ),
-  BottomNavigationBarItem(
-    icon: Icon(Icons.search_outlined),
-    activeIcon: Icon(Icons.search_rounded),
-    label: 'Search',
   ),
   BottomNavigationBarItem(
     icon: Icon(Icons.favorite_outline),

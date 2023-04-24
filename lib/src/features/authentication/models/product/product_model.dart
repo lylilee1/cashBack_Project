@@ -1,4 +1,5 @@
 import 'package:cashback/src/constants/colors.dart';
+import 'package:cashback/src/features/authentication/controllers/cart/cart_controller.dart';
 import 'package:cashback/src/features/authentication/controllers/wishlist/wishlist_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -61,11 +62,11 @@ class _ProductModelState extends State<ProductModel> {
               ),
             ],
           ),
-          child: Stack(
+          child: Column(
             children: [
               //wishlist icon
               Padding(
-                padding: const EdgeInsets.all(4.0),
+                padding: const EdgeInsets.all(1.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -112,64 +113,98 @@ class _ProductModelState extends State<ProductModel> {
                 ),
               ),
               //Image
-              Padding(
-                padding: EdgeInsets.only(bottom: 110),
-                child: Image(
-                  image: NetworkImage(widget.products['proimages'][0]),
-                  height: 200,
-                  width: 100,
-                  //fit: BoxFit.cover,
-                ),
+              Image(
+                image: NetworkImage(widget.products['proimages'][0]),
+                height: 130,
+                width: 130,
+                //fit: BoxFit.cover,
               ),
               //Model Name
-              Positioned(
-                top: 155,
-                left: 0,
-                right: 0,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    widget.products['model'],
-                    style: Theme.of(context).textTheme.titleLarge!.copyWith(),
-                  ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    Text(
+                      widget.products['model'],
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context).textTheme.titleLarge!.copyWith(),
+                    ),
+                    Text(
+                      widget.products['brand'],
+                      style: Theme.of(context).textTheme.labelLarge!.copyWith(),
+                    ),
+                  ],
                 ),
               ),
 
-              Positioned(
-                top: 210,
-                right: 0,
-                left: 0,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        widget.products['price'].toStringAsFixed(0) + ' \XAF',
-                        style: Theme.of(context).textTheme.titleLarge!.copyWith(
+              //Price and Add to cart
+              Padding(
+                padding: EdgeInsets.only(
+                  left: width * 0.03,
+                  right: width * 0.001,
+                  bottom: height * 0.005,),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    //Price
+                    Text(
+                      widget.products['price'].toStringAsFixed(0) + ' \XAF',
+                      style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                        color: CbColors.cbPrimaryColor2,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+
+                    //Add to cart
+                    Padding(
+                      padding: const EdgeInsets.all(0.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          IconButton(
+                            icon: context
+                                .watch<Cart>()
+                                .getitems
+                                .firstWhereOrNull((product) =>
+                            product.documentId ==
+                                widget.products['proid']) !=
+                                null
+                                ? const Icon(
+                              Icons.shopping_bag,
                               color: CbColors.cbPrimaryColor2,
-                              fontWeight: FontWeight.bold,
+                            )
+                                : const Icon(
+                              Icons.shopping_bag_outlined,
+                              color: CbColors.cbPrimaryColor2,
                             ),
+                            onPressed: () {
+                              context
+                                  .read<Cart>()
+                                  .getitems
+                                  .firstWhereOrNull((product) =>
+                              product.documentId ==
+                                  widget.products['proid']) !=
+                                  null
+                                  ? context.read<Cart>().removeThis(widget.products['proid'])
+                                  : context.read<Cart>().addItem(
+                                widget.products['brand'],
+                                widget.products['model'],
+                                widget.products['proname'],
+                                widget.products['price'],
+                                1,
+                                widget.products['instock'],
+                                widget.products['proimages'],
+                                widget.products['proid'],
+                                widget.products['sid'],
+                                widget.isFavorite,
+                              );
+                            },
+                          ),
+                        ],
                       ),
-                      Container(
-                        width: 40,
-                          height: 40,
-                        decoration: BoxDecoration(
-                          color: CbColors.cbPrimaryColor2.withOpacity(0.7),
-                          borderRadius: BorderRadius.circular(15.0),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 1,
-                              blurRadius: 5,
-                              offset: const Offset(
-                                  0, 3), // changes position of shadow
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ],

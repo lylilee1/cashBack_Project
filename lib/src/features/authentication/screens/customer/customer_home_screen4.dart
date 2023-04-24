@@ -73,7 +73,7 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen>
         centerTitle: true,
         actions: [
           //user profile icon
-          Padding(
+          const Padding(
             padding: EdgeInsets.symmetric(horizontal: 8.0),
             child: CircleAvatar(
               child: _ProfileIcon(),
