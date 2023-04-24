@@ -3,6 +3,7 @@ import 'package:cashback/src/common_widgets/app_bar/appBarWidget.dart';
 import 'package:cashback/src/common_widgets/form/auth_widget.dart';
 import 'package:cashback/src/constants/colors.dart';
 import 'package:cashback/src/constants/text_strings.dart';
+import 'package:cashback/src/features/authentication/controllers/cart/cart_controller.dart';
 import 'package:cashback/src/features/authentication/controllers/wishlist/wishlist_controller.dart';
 import 'package:cashback/src/features/authentication/screens/search/search_screen.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,7 @@ import 'package:provider/provider.dart';
 
 import '../../../../common_widgets/snackBar/snackBarWidget.dart';
 import '../customer/customer_home_screen4.dart';
+import 'package:collection/collection.dart';
 
 class WishlistScreen extends StatefulWidget {
   const WishlistScreen({Key? key}) : super(key: key);
@@ -279,7 +281,10 @@ class _WishlistScreenState extends State<WishlistScreen> {
                                                 children: [
                                                   InkWell(
                                                     onTap: () {
-                                                      context.read<Wish>().removeWishItem(product);
+                                                      context
+                                                          .read<Wish>()
+                                                          .removeWishItem(
+                                                              product);
                                                     },
                                                     child: const Align(
                                                       alignment:
@@ -292,19 +297,55 @@ class _WishlistScreenState extends State<WishlistScreen> {
                                                       ),
                                                     ),
                                                   ),
-                                                  InkWell(
-                                                    onTap: () {},
-                                                    child: const Align(
-                                                      alignment:
-                                                          Alignment.bottomRight,
-                                                      child: Icon(
-                                                        Icons.shopping_bag_outlined,
-                                                        color: CbColors
-                                                            .cbPrimaryColor2,
-                                                        size: 20,
-                                                      ),
-                                                    ),
-                                                  ),
+                                                  context
+                                                              .read<Cart>()
+                                                              .getitems
+                                                              .firstWhereOrNull(
+                                                                  (element) =>
+                                                                      element
+                                                                          .documentId ==
+                                                                      product
+                                                                          .documentId) !=
+                                                          null
+                                                      ? const SizedBox()
+                                                      : InkWell(
+                                                          onTap: () { context
+                                                                    .read<
+                                                                        Cart>()
+                                                                    .addItem(
+                                                                      product
+                                                                          .brand,
+                                                                      product
+                                                                          .model,
+                                                                      product
+                                                                          .name,
+                                                                      product
+                                                                          .price,
+                                                                      1,
+                                                                      product
+                                                                          .quantity,
+                                                                      product
+                                                                          .imagesUrl,
+                                                                      product
+                                                                          .documentId,
+                                                                      product
+                                                                          .suppId,
+                                                                      product
+                                                                          .isFavorite,
+                                                                    );
+                                                          },
+                                                          child: const Align(
+                                                            alignment: Alignment
+                                                                .bottomRight,
+                                                            child: Icon(
+                                                              Icons
+                                                                  .shopping_bag_outlined,
+                                                              color: CbColors
+                                                                  .cbPrimaryColor2,
+                                                              size: 20,
+                                                            ),
+                                                          ),
+                                                        ),
                                                 ],
                                               ),
                                             ),

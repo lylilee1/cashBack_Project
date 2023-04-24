@@ -80,7 +80,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 children: [
-//cart page button
+                  //Cart page button
                   InkWell(
                     onTap: () {
                       Navigator.push(
@@ -766,7 +766,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 Divider(height: 1, color: Colors.grey.shade300),
 
                 const SizedBox(height: 15),
-                ProDetailsHeaderWidget(
+                const ProDetailsHeaderWidget(
                   label: '  Produits similaires  ',
                 ),
 
@@ -836,7 +836,7 @@ class ProDetailsHeaderWidget extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(
+          const SizedBox(
             height: 20,
             width: 30,
             child: Divider(
@@ -851,7 +851,7 @@ class ProDetailsHeaderWidget extends StatelessWidget {
                 .displayLarge!
                 .copyWith(fontSize: 20),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
             width: 30,
             child: Divider(

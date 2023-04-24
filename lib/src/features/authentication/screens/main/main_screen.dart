@@ -42,12 +42,6 @@ class _MainScreenState extends State<MainScreen> {
       'title': 'wishlist Screen',
       'icon': const Icon(FontAwesomeIcons.heartCircleCheck),
     },
-    //CartScreen
-    {
-      'page': const CartScreen(),
-      'title': 'cart Screen',
-      'icon': const Icon(FontAwesomeIcons.cartShopping),
-    },
     //ProfileScreen
     {
       'page': ProfileScreen(documentId: FirebaseAuth.instance.currentUser!.uid,),
@@ -156,11 +150,6 @@ const _navBarItems = [
     icon: Icon(Icons.favorite_outline),
     activeIcon: Icon(Icons.favorite_border_rounded),
     label: 'Wishlist',
-  ),
-  BottomNavigationBarItem(
-    icon: Icon(Icons.shopping_bag_outlined),
-    activeIcon: Icon(Icons.shopping_bag),
-    label: 'Cart',
   ),
   BottomNavigationBarItem(
     icon: Icon(Icons.person_outline_rounded),

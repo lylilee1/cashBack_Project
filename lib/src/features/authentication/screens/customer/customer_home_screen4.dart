@@ -17,6 +17,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../cart/cart_screen3.dart';
 import '../main/main_screen2.dart';
 
 class CustomerHomeScreen extends StatefulWidget {
@@ -83,7 +84,16 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen>
           //cart icon
           AppBarButton(
             prefixIcon: Icons.shopping_bag_outlined,
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const CartScreen(
+                    back: AppBarBackButton(),
+                  ),
+                ),
+              );
+            },
           ),
         ],
       ),
@@ -125,7 +135,7 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen>
                           indicatorSize: TabBarIndicatorSize.label,
                           indicatorColor: CbColors.cbPrimaryColor2,
                           indicatorWeight: 5,
-                          tabs: [
+                          tabs: const [
                             RepeatedTab(
                               label: 'Hommes',
                             ),
@@ -166,7 +176,7 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen>
                         height: size.width + 40.0,
                         child: TabBarView(
                           controller: tabController,
-                          children: [
+                          children: const [
                             MenGalleryScreen(),
                             WomenGalleryScreen(),
                             KidsGalleryScreen(),
