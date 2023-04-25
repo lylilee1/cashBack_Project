@@ -10,9 +10,7 @@ import 'package:cashback/src/features/authentication/controllers/cart/cart_contr
 import 'package:cashback/src/features/authentication/controllers/wishlist/wishlist_controller.dart';
 import 'package:cashback/src/features/authentication/models/product/product_model.dart';
 
-//import 'package:cashback/src/features/authentication/screens/cart/cart_screen.dart';
 import 'package:cashback/src/features/authentication/screens/customer/minor_screen/full_screen_view.dart';
-import 'package:cashback/src/features/authentication/screens/wishlist/wishlist_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';

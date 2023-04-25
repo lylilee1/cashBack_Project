@@ -6,6 +6,7 @@ import 'package:cashback/src/constants/text_strings.dart';
 import 'package:cashback/src/features/authentication/controllers/cart/cart_controller.dart';
 import 'package:cashback/src/features/authentication/controllers/wishlist/wishlist_controller.dart';
 import 'package:cashback/src/features/authentication/screens/search/search_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dash/flutter_dash.dart';
 import 'package:get/get.dart';
@@ -284,7 +285,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
                                                       context
                                                           .read<Wish>()
                                                           .removeWishItem(
-                                                              product);
+                                                          product);
                                                     },
                                                     child: const Align(
                                                       alignment:
@@ -309,30 +310,26 @@ class _WishlistScreenState extends State<WishlistScreen> {
                                                           null
                                                       ? const SizedBox()
                                                       : InkWell(
-                                                          onTap: () { context
-                                                                    .read<
-                                                                        Cart>()
-                                                                    .addItem(
-                                                                      product
-                                                                          .brand,
-                                                                      product
-                                                                          .model,
-                                                                      product
-                                                                          .name,
-                                                                      product
-                                                                          .price,
-                                                                      1,
-                                                                      product
-                                                                          .quantity,
-                                                                      product
-                                                                          .imagesUrl,
-                                                                      product
-                                                                          .documentId,
-                                                                      product
-                                                                          .suppId,
-                                                                      product
-                                                                          .isFavorite,
-                                                                    );
+                                                          onTap: () {
+                                                            context
+                                                                .read<Cart>()
+                                                                .addItem(
+                                                                  product.brand,
+                                                                  product.model,
+                                                                  product.name,
+                                                                  product.price,
+                                                                  1,
+                                                                  product
+                                                                      .quantity,
+                                                                  product
+                                                                      .imagesUrl,
+                                                                  product
+                                                                      .documentId,
+                                                                  product
+                                                                      .suppId,
+                                                                  product
+                                                                      .isFavorite,
+                                                                );
                                                           },
                                                           child: const Align(
                                                             alignment: Alignment
