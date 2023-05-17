@@ -1,0 +1,213 @@
+import 'package:cashback/src/constants/colors.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+
+class ProfileScreen extends StatefulWidget {
+  final String documentId;
+
+  const ProfileScreen({Key? key, required this.documentId}) : super(key: key);
+  static String routeName = '/profile';
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  CollectionReference customers =
+  FirebaseFirestore.instance.collection('customers');
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<DocumentSnapshot>(
+      future: customers.doc(widget.documentId).get(),
+      builder:
+          (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+        if (snapshot.hasError) {
+          return const Text("Something went wrong");
+        }
+
+        if (snapshot.hasData && !snapshot.data!.exists) {
+          return const Text("Document does not exist");
+        }
+
+        if (snapshot.connectionState == ConnectionState.done) {
+          Map<String, dynamic> data =
+          snapshot.data!.data() as Map<String, dynamic>;
+          return Scaffold(
+            appBar: AppBar(
+              backgroundColor: CbColors.cbPrimaryColor2,
+              elevation: 0,
+            ),
+            body: Padding(
+              padding: const EdgeInsets.only(
+                left: 15,
+                right: 15,
+              ),
+              child: Column(
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: Stack(
+                      fit: StackFit.expand,
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.only(bottom: 50),
+                          decoration: const BoxDecoration(
+                              gradient: LinearGradient(
+                                  begin: Alignment.bottomCenter,
+                                  end: Alignment.topCenter,
+                                  colors: [Color(0xff0043ba), Color(0xff006df1)]),
+                              borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(50),
+                                bottomRight: Radius.circular(50),
+                              )),
+                        ),
+                        Align(
+                          alignment: Alignment.bottomCenter,
+                          child: SizedBox(
+                            width: 150,
+                            height: 150,
+                            child: Stack(
+                              fit: StackFit.expand,
+                              children: [
+                                Container(
+                                  decoration:  BoxDecoration(
+                                    color: Colors.black,
+                                    shape: BoxShape.circle,
+                                    image: DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image: NetworkImage(
+                                          data['profileImage'] ?? 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'),
+                                    ),
+                                  ),
+                                ),
+                                Positioned(
+                                  bottom: 0,
+                                  right: 0,
+                                  child: CircleAvatar(
+                                    radius: 20,
+                                    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                                    child: Container(
+                                      margin: const EdgeInsets.all(8.0),
+                                      decoration: const BoxDecoration(
+                                          color: Colors.green, shape: BoxShape.circle),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    flex: 3,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        children: [
+                          Text(
+                            data['name'],
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline6
+                                ?.copyWith(fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(height: 16),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              FloatingActionButton.extended(
+                                onPressed: () {},
+                                heroTag: 'follow',
+                                elevation: 0,
+                                label: const Text("Follow"),
+                                icon: const Icon(Icons.person_add_alt_1),
+                              ),
+                              const SizedBox(width: 16.0),
+                              FloatingActionButton.extended(
+                                onPressed: () {},
+                                heroTag: 'mesage',
+                                elevation: 0,
+                                backgroundColor: Colors.red,
+                                label: const Text("Message"),
+                                icon: const Icon(Icons.message_rounded),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 16),
+                          const _ProfileInfoRow()
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        }
+
+        return const Center(
+          child: CircularProgressIndicator(color: CbColors.cbPrimaryColor2,),);
+      },
+    );
+  }
+}
+
+class _ProfileInfoRow extends StatelessWidget {
+  const _ProfileInfoRow({Key? key}) : super(key: key);
+
+  final List<ProfileInfoItem> _items = const [
+    ProfileInfoItem("Posts", 900),
+    ProfileInfoItem("Followers", 120),
+    ProfileInfoItem("Following", 200),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 80,
+      constraints: const BoxConstraints(maxWidth: 400),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: _items
+            .map((item) => Expanded(
+            child: Row(
+              children: [
+                if (_items.indexOf(item) != 0) const VerticalDivider(),
+                Expanded(child: _singleItem(context, item)),
+              ],
+            )))
+            .toList(),
+      ),
+    );
+  }
+
+  Widget _singleItem(BuildContext context, ProfileInfoItem item) => Column(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text(
+          item.value.toString(),
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+          ),
+        ),
+      ),
+      Text(
+        item.title,
+        style: Theme.of(context).textTheme.caption,
+      )
+    ],
+  );
+}
+
+class ProfileInfoItem {
+  final String title;
+  final int value;
+
+  const ProfileInfoItem(this.title, this.value);
+}

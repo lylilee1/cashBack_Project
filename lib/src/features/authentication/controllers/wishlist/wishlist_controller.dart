@@ -12,7 +12,7 @@ class Wish extends ChangeNotifier {
     _list.length;
   }
 
-  void addWishItem(
+  Future<void> addWishItem(
       String brand,
       String model,
       String name,
@@ -23,7 +23,7 @@ class Wish extends ChangeNotifier {
       String documentId,
       String suppId,
       bool isFavorite,
-      ) {
+      ) async {
     final product = Product(
       brand: brand,
       model: model,

@@ -1,4 +1,5 @@
 import 'package:cashback/src/constants/image_strings.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -13,8 +14,10 @@ class OnBoardingScreen extends StatelessWidget {
     return Scaffold(
       body: OnboardingPagePresenter(pages: [
         OnboardingPageModel(
-          title: 'Bienvenue sur Cashback',//Fast, Fluid and Secure
-          description: 'Achetez et vendez vos articles remis à neuf et d\'occasion abordables',
+          title: 'Bienvenue sur Cashback',
+          //Fast, Fluid and Secure
+          description:
+              'Achetez et vendez vos articles remis à neuf et d\'occasion abordables',
           //description: 'Profitez du meilleur du pays dans la paume de vos mains.',
           imageUrl: CbImageStrings.cbOnBoardingImage1,
           bgColor: Colors.indigo,
@@ -60,6 +63,11 @@ class OnboardingPagePresenter extends StatefulWidget {
 class _OnboardingPageState extends State<OnboardingPagePresenter> {
   // Store the currently visible page
   int _currentPage = 0;
+  bool processing = false;
+  CollectionReference customers =
+      FirebaseFirestore.instance.collection('customers');
+
+  late String _uid;
 
   // Define a controller for the pageview
   final PageController _pageController = PageController(initialPage: 0);
@@ -91,14 +99,14 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
                         Expanded(
                           flex: 3,
                           child: Padding(
-                            padding: const EdgeInsets.all(32.0),
-                            child: Image.asset(
-                              item.imageUrl,
-                            )
-                            /*child: Image.network(
+                              padding: const EdgeInsets.all(32.0),
+                              child: Image.asset(
+                                item.imageUrl,
+                              )
+                              /*child: Image.network(
                               item.imageUrl,
                             ),*/
-                          ),
+                              ),
                         ),
                         Expanded(
                             flex: 1,
@@ -169,54 +177,78 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
                           widget.onSkip?.call();
                         },
                         child: const Text("Skip")),
-                    TextButton(
-                      style: TextButton.styleFrom(
-                          visualDensity: VisualDensity.comfortable,
-                          foregroundColor: Colors.white,
-                          textStyle: const TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold)),
-                      onPressed: () async {
-                        if (_currentPage == widget.pages.length - 1) {
 
-                          // Sign in anonymously with Firebase
-                          try {
-                            UserCredential userCredential =
-                            await FirebaseAuth.instance.signInAnonymously();
-                            User? user = userCredential.user;
-                            if (user != null) {
-                              // Navigate to the home screen after successful sign-in
-                              Navigator.pushReplacementNamed(context, MainScreen.routeName);
-                            }
-                          } catch (e) {
-                            print('Error signing in anonymously: $e');
-                            // Show error message to the user
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('Error signing in anonymously.'),
-                              ),
-                            );
-                          }
-                          //widget.onFinish?.call();
-                        } else {
-                          _pageController.animateToPage(_currentPage + 1,
-                              curve: Curves.easeInOutCubic,
-                              duration: const Duration(milliseconds: 250));
-                        }
-                      },
-                      child: Row(
-                        children: [
-                          Text(
-                            _currentPage == widget.pages.length - 1
-                                ? "Finish"
-                                : "Next",
+                    // Check if the bool is true to display the progress indicator
+                    processing == true
+                        ? const CircularProgressIndicator()
+                        : TextButton(
+                            style: TextButton.styleFrom(
+                                visualDensity: VisualDensity.comfortable,
+                                foregroundColor: Colors.white,
+                                textStyle: const TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.bold)),
+                            onPressed: () async {
+                              if (_currentPage == widget.pages.length - 1) {
+                                setState(() {
+                                  bool processing = true;
+                                });
+
+                                // Sign in anonymously with Firebase
+                                try {
+                                  UserCredential userCredential =
+                                      await FirebaseAuth.instance
+                                          .signInAnonymously()
+                                          .whenComplete(() async {
+                                    _uid =
+                                        FirebaseAuth.instance.currentUser!.uid;
+                                    await customers.doc(_uid).set({
+                                      'name': 'Anonymous',
+                                      'email': '',
+                                      'profileImage': '',
+                                      'phone': '',
+                                      'adress': '',
+                                      'cid': _uid,
+                                    });
+                                  });
+
+                                  User? user = userCredential.user;
+                                  if (user != null) {
+                                    // Navigate to the home screen after successful sign-in
+                                    Navigator.pushReplacementNamed(
+                                        context, MainScreen.routeName);
+                                  }
+                                } catch (e) {
+                                  print('Error signing in anonymously: $e');
+                                  // Show error message to the user
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content:
+                                          Text('Error signing in anonymously.'),
+                                    ),
+                                  );
+                                }
+                                //widget.onFinish?.call();
+                              } else {
+                                _pageController.animateToPage(_currentPage + 1,
+                                    curve: Curves.easeInOutCubic,
+                                    duration:
+                                        const Duration(milliseconds: 250));
+                              }
+                            },
+                            child: Row(
+                              children: [
+                                Text(
+                                  _currentPage == widget.pages.length - 1
+                                      ? "Finish"
+                                      : "Next",
+                                ),
+                                const SizedBox(width: 8),
+                                Icon(_currentPage == widget.pages.length - 1
+                                    ? Icons.done
+                                    : Icons.arrow_forward),
+                              ],
+                            ),
                           ),
-                          const SizedBox(width: 8),
-                          Icon(_currentPage == widget.pages.length - 1
-                              ? Icons.done
-                              : Icons.arrow_forward),
-                        ],
-                      ),
-                    ),
                   ],
                 ),
               )

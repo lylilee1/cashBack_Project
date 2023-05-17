@@ -5,7 +5,7 @@ import 'package:cashback/src/features/authentication/screens/customer/customer_h
 import 'package:cashback/src/features/authentication/screens/dashboard/dashboard_screen2.dart';
 import 'package:cashback/src/features/authentication/screens/login/customer_signin_screen.dart';
 import 'package:cashback/src/features/authentication/screens/onboarding/on_boarding_screen4.dart';
-import 'package:cashback/src/features/authentication/screens/profile/profile_screen2.dart';
+import 'package:cashback/src/features/authentication/screens/profile/profile_screen6.dart';
 import 'package:cashback/src/features/authentication/screens/signup/customer_signup_screen.dart';
 import 'package:cashback/src/features/authentication/screens/supplier/supplier_home_screen2.dart';
 import 'package:cashback/src/features/authentication/screens/supplier/supplier_signin_screen2.dart';
@@ -20,9 +20,14 @@ import 'src/features/authentication/screens/cart/cart_screen.dart';
 import 'src/features/authentication/screens/category/category_screen2.dart';
 import 'src/features/authentication/screens/main/main_screen.dart';
 import 'src/features/authentication/screens/wishlist/wishlist_screen.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  //French language
+  timeago.setLocaleMessages('fr', timeago.FrMessages());
+
+
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   //await Firebase.initializeApp();
   runApp(

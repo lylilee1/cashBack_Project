@@ -4,15 +4,16 @@ import 'package:cashback/src/common_widgets/form/auth_widget.dart';
 import 'package:cashback/src/constants/colors.dart';
 import 'package:cashback/src/constants/text_strings.dart';
 import 'package:cashback/src/features/authentication/controllers/cart/cart_controller.dart';
+import 'package:cashback/src/features/authentication/controllers/wishlist/wishlist_controller.dart';
+import 'package:cashback/src/features/authentication/screens/orders/orders_screen.dart';
 import 'package:cashback/src/features/authentication/screens/search/search_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dash/flutter_dash.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:cashback/src/common_widgets/counter/counter.dart';
-
-import '../../../../common_widgets/snackBar/snackBarWidget.dart';
 import '../customer/customer_home_screen4.dart';
+import 'package:collection/collection.dart';
 
 class CartScreen extends StatefulWidget {
   final Widget? back;
@@ -28,25 +29,13 @@ class _CartScreenState extends State<CartScreen> {
   final GlobalKey<ScaffoldMessengerState> _scaffoldkey =
       GlobalKey<ScaffoldMessengerState>();
 
-  final Counter _counter = Counter();
-
-  void _increment() {
-    setState(() {
-      _counter.increment();
-    });
-  }
-
-  void _decrement() {
-    setState(() {
-      _counter.decrement();
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     var height = size.height;
     var width = size.width;
+
+    double total = context.watch<Cart>().totalPrice;
 
     return SafeArea(
       child: ScaffoldMessenger(
@@ -64,7 +53,14 @@ class _CartScreenState extends State<CartScreen> {
                     child: SizedBox(
                       height: 50,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: total == 0.0 ? null : () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const PlaceOrderScreen(),
+                            ),
+                          );
+                        },
                         style: ButtonStyle(
                           shape: MaterialStateProperty.all(
                             RoundedRectangleBorder(
@@ -75,17 +71,6 @@ class _CartScreenState extends State<CartScreen> {
                             CbColors.cbPrimaryColor2,
                           ),
                         ),
-
-                        /*ElevatedButton.styleFrom(
-                              primary: CbColors.cbPrimaryColor2,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 30,
-                                vertical: 15,
-                              ),
-                            ),*/
                         child: Text(
                           'passer à la caisse'.toUpperCase(),
                           style: const TextStyle(
@@ -153,7 +138,6 @@ class _CartScreenState extends State<CartScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-
                             //cart items
                             Column(
                               children: [
@@ -165,7 +149,8 @@ class _CartScreenState extends State<CartScreen> {
                                     final product = cart.getitems[index];
 
                                     return Padding(
-                                      padding: const EdgeInsets.only(bottom: 10),
+                                      padding:
+                                          const EdgeInsets.only(bottom: 10),
                                       child: Row(
                                         children: [
                                           SizedBox(
@@ -182,8 +167,10 @@ class _CartScreenState extends State<CartScreen> {
                                                       Container(
                                                         width: 60,
                                                         height: 60,
-                                                        decoration: BoxDecoration(
-                                                          image: DecorationImage(
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          image:
+                                                              DecorationImage(
                                                             image: NetworkImage(
                                                               product.imagesUrl
                                                                   .first,
@@ -200,7 +187,8 @@ class _CartScreenState extends State<CartScreen> {
                                                               BoxDecoration(
                                                             borderRadius:
                                                                 BorderRadius
-                                                                    .circular(5),
+                                                                    .circular(
+                                                                        5),
                                                             border: Border.all(
                                                               color: CbColors
                                                                   .cbPrimaryColor2
@@ -209,7 +197,8 @@ class _CartScreenState extends State<CartScreen> {
                                                             ),
                                                             color: CbColors
                                                                 .cbPrimaryColor2
-                                                                .withOpacity(0.1),
+                                                                .withOpacity(
+                                                                    0.1),
                                                           ),
                                                         ),
                                                       ),
@@ -222,55 +211,64 @@ class _CartScreenState extends State<CartScreen> {
                                                 Flexible(
                                                   child: Column(
                                                     crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
+                                                        CrossAxisAlignment
+                                                            .start,
                                                     mainAxisAlignment:
-                                                    MainAxisAlignment.center,
+                                                        MainAxisAlignment
+                                                            .center,
                                                     children: [
                                                       //product name
                                                       Text(
                                                         product.name,
                                                         maxLines: 2,
-                                                        overflow:
-                                                        TextOverflow.ellipsis,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
                                                         style: Theme.of(context)
                                                             .textTheme
                                                             .displayLarge!
                                                             .copyWith(
-                                                            fontSize:
-                                                            height * 0.017),
+                                                                fontSize:
+                                                                    height *
+                                                                        0.017),
                                                       ),
 
                                                       //Price
                                                       RichText(
                                                         text: TextSpan(
                                                           text: product.price
-                                                              .toStringAsFixed(0),
-                                                          style: Theme.of(context)
-                                                              .textTheme
-                                                              .displayLarge!
-                                                              .copyWith(
-                                                            fontSize:
-                                                            height * 0.02,
-                                                            color: CbColors
-                                                                .cbPrimaryColor2,
-                                                            fontWeight:
-                                                            FontWeight.bold,
-                                                          ),
-                                                          children: <TextSpan>[
-                                                            TextSpan(
-                                                              text: ' FCFA',
-                                                              style: Theme.of(context)
+                                                              .toStringAsFixed(
+                                                                  0),
+                                                          style:
+                                                              Theme.of(context)
                                                                   .textTheme
                                                                   .displayLarge!
                                                                   .copyWith(
-                                                                fontSize:
-                                                                height * 0.02,
-                                                                color: CbColors
-                                                                    .cbPrimaryColor2,
-                                                                fontWeight:
-                                                                FontWeight
-                                                                    .bold,
-                                                              ),
+                                                                    fontSize:
+                                                                        height *
+                                                                            0.02,
+                                                                    color: CbColors
+                                                                        .cbPrimaryColor2,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                  ),
+                                                          children: <TextSpan>[
+                                                            TextSpan(
+                                                              text: ' FCFA',
+                                                              style: Theme.of(
+                                                                      context)
+                                                                  .textTheme
+                                                                  .displayLarge!
+                                                                  .copyWith(
+                                                                    fontSize:
+                                                                        height *
+                                                                            0.02,
+                                                                    color: CbColors
+                                                                        .cbPrimaryColor2,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                  ),
                                                             ),
                                                           ],
                                                         ),
@@ -289,13 +287,16 @@ class _CartScreenState extends State<CartScreen> {
                                               height: 80,
                                               child: Column(
                                                 mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
                                                 children: [
                                                   const Align(
-                                                    alignment: Alignment.topRight,
+                                                    alignment:
+                                                        Alignment.topRight,
                                                     child: Icon(
                                                       Icons.close,
-                                                      color: CbColors.cbPrimaryColor2,
+                                                      color: CbColors
+                                                          .cbPrimaryColor2,
                                                       size: 15,
                                                     ),
                                                   ),
@@ -303,119 +304,233 @@ class _CartScreenState extends State<CartScreen> {
                                                   //quantity
                                                   Row(
                                                     mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
                                                     children: [
                                                       //decrement button
                                                       product.quantity == 1
                                                           ? GestureDetector(
-                                                        onTap: () {
-                                                          cart.removeItem(
-                                                              product);
-                                                        },
-                                                        child: Container(
-                                                          height: 25,
-                                                          width: 25,
-                                                          decoration:
-                                                          BoxDecoration(
-                                                            border: Border.all(
-                                                              color: CbColors
-                                                                  .cbPrimaryColor2,
-                                                              width: 1,
-                                                            ),
-                                                            shape:
-                                                            BoxShape.circle,
-                                                            color: Colors.white,
-                                                          ),
-                                                          child: const Icon(
-                                                            Icons
-                                                                .delete_forever,
-                                                            color: CbColors
-                                                                .cbPrimaryColor2,
-                                                            size: 14,
-                                                          ),
-                                                        ),
-                                                      )
+                                                              onTap: () {
+                                                                showCupertinoModalPopup<
+                                                                    void>(
+                                                                  context:
+                                                                      context,
+                                                                  builder: (BuildContext
+                                                                          context) =>
+                                                                      CupertinoActionSheet(
+                                                                    title: Text(
+                                                                      'Retirer l\'article',
+                                                                      style: Theme.of(
+                                                                              context)
+                                                                          .textTheme
+                                                                          .labelLarge!
+                                                                          .copyWith(),
+                                                                    ),
+                                                                    message:
+                                                                        Text(
+                                                                      'êtes-vous sûr de vouloir supprimer cet article?',
+                                                                      style: Theme.of(
+                                                                              context)
+                                                                          .textTheme
+                                                                          .titleLarge!
+                                                                          .copyWith(),
+                                                                    ),
+                                                                    actions: <
+                                                                        CupertinoActionSheetAction>[
+                                                                      CupertinoActionSheetAction(
+                                                                        child:
+                                                                            Text(
+                                                                          'Placer dans la Wishlist',
+                                                                          style: Theme.of(context)
+                                                                              .textTheme
+                                                                              .titleLarge!
+                                                                              .copyWith(),
+                                                                        ),
+                                                                        onPressed:
+                                                                            () async {
+                                                                          context.read<Wish>().getWishItems.firstWhereOrNull((element) => element.documentId == product.documentId) != null
+                                                                              ? context.read<Cart>().removeItem(product)
+                                                                              : await context.read<Wish>().addWishItem(
+                                                                                    product.brand,
+                                                                                    product.model,
+                                                                                    product.name,
+                                                                                    product.price,
+                                                                                    1,
+                                                                                    product.qntty,
+                                                                                    product.imagesUrl,
+                                                                                    product.documentId,
+                                                                                    product.suppId,
+                                                                                    product.isFavorite,
+                                                                                  );
+                                                                          context
+                                                                              .read<Cart>()
+                                                                              .removeItem(product);
+                                                                          Navigator.pop(
+                                                                              context);
+                                                                        },
+                                                                      ),
+                                                                      CupertinoActionSheetAction(
+                                                                        child:
+                                                                            Text(
+                                                                          'Effacer l\'article',
+                                                                          style: Theme.of(context)
+                                                                              .textTheme
+                                                                              .titleLarge!
+                                                                              .copyWith(color: Colors.red),
+                                                                        ),
+                                                                        onPressed:
+                                                                            () {
+                                                                          context
+                                                                              .read<Cart>()
+                                                                              .removeItem(product);
+                                                                          Navigator.pop(
+                                                                              context);
+                                                                        },
+                                                                      )
+                                                                    ],
+                                                                    cancelButton:
+                                                                        TextButton(
+                                                                      child:
+                                                                          Text(
+                                                                        'Annuler',
+                                                                        style: Theme.of(context)
+                                                                            .textTheme
+                                                                            .titleLarge!
+                                                                            .copyWith(),
+                                                                      ),
+                                                                      onPressed:
+                                                                          () {
+                                                                        Navigator.pop(
+                                                                            context);
+                                                                      },
+                                                                    ),
+                                                                  ),
+                                                                );
+
+
+                                                              },
+                                                              child: Container(
+                                                                height: 25,
+                                                                width: 25,
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  border: Border
+                                                                      .all(
+                                                                    color: CbColors
+                                                                        .cbPrimaryColor2,
+                                                                    width: 1,
+                                                                  ),
+                                                                  shape: BoxShape
+                                                                      .circle,
+                                                                  color: Colors
+                                                                      .white,
+                                                                ),
+                                                                child:
+                                                                    const Icon(
+                                                                  Icons
+                                                                      .delete_forever,
+                                                                  color: CbColors
+                                                                      .cbPrimaryColor2,
+                                                                  size: 14,
+                                                                ),
+                                                              ),
+                                                            )
                                                           : GestureDetector(
-                                                        onTap: () {
-                                                          cart.decrement(
-                                                              product);
-                                                        },
-                                                        child: Container(
-                                                          height: 25,
-                                                          width: 25,
-                                                          decoration:
-                                                          BoxDecoration(
-                                                            border: Border.all(
-                                                              color:
-                                                              Colors.grey,
-                                                              width: 1,
+                                                              onTap: () {
+                                                                cart.decrement(
+                                                                    product);
+                                                              },
+                                                              child: Container(
+                                                                height: 25,
+                                                                width: 25,
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  border: Border
+                                                                      .all(
+                                                                    color: Colors
+                                                                        .grey,
+                                                                    width: 1,
+                                                                  ),
+                                                                  shape: BoxShape
+                                                                      .circle,
+                                                                  color: Colors
+                                                                      .white,
+                                                                ),
+                                                                child:
+                                                                    const Icon(
+                                                                  Icons.remove,
+                                                                  color: Colors
+                                                                      .grey,
+                                                                  size: 18,
+                                                                ),
+                                                              ),
                                                             ),
-                                                            shape:
-                                                            BoxShape.circle,
-                                                            color: Colors.white,
-                                                          ),
-                                                          child: const Icon(
-                                                            Icons.remove,
-                                                            color: Colors.grey,
-                                                            size: 18,
-                                                          ),
-                                                        ),
-                                                      ),
                                                       Padding(
-                                                        padding: const EdgeInsets
-                                                            .symmetric(
-                                                            horizontal: 8.0),
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .symmetric(
+                                                                horizontal:
+                                                                    8.0),
                                                         child: Text(
-                                                          product.quantity.toString(),
-                                                          style: product.quantity ==
-                                                              product.qntty
-                                                              ? Theme.of(context)
-                                                              .textTheme
-                                                              .displayLarge!
-                                                              .copyWith(
-                                                            fontSize:
-                                                            height * 0.02,
-                                                            color: Colors.red,
-                                                            fontWeight:
-                                                            FontWeight
-                                                                .bold,
-                                                          )
-                                                              : Theme.of(context)
-                                                              .textTheme
-                                                              .displayLarge!
-                                                              .copyWith(
-                                                            fontSize:
-                                                            height * 0.02,
-                                                            color: CbColors
-                                                                .cbPrimaryColor2,
-                                                            fontWeight:
-                                                            FontWeight
-                                                                .bold,
-                                                          ),
+                                                          product.quantity
+                                                              .toString(),
+                                                          style: product
+                                                                      .quantity ==
+                                                                  product.qntty
+                                                              ? Theme.of(
+                                                                      context)
+                                                                  .textTheme
+                                                                  .displayLarge!
+                                                                  .copyWith(
+                                                                    fontSize:
+                                                                        height *
+                                                                            0.02,
+                                                                    color: Colors
+                                                                        .red,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                  )
+                                                              : Theme.of(
+                                                                      context)
+                                                                  .textTheme
+                                                                  .displayLarge!
+                                                                  .copyWith(
+                                                                    fontSize:
+                                                                        height *
+                                                                            0.02,
+                                                                    color: CbColors
+                                                                        .cbPrimaryColor2,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                  ),
                                                         ),
                                                       ),
 
                                                       //increment button
                                                       GestureDetector(
-                                                        onTap: product.quantity ==
-                                                            product.qntty
+                                                        onTap: product
+                                                                    .quantity ==
+                                                                product.qntty
                                                             ? null
                                                             : () {
-                                                          cart.increment(
-                                                              product);
-                                                          //cart.add(cart.getitems[index]);
-                                                        },
+                                                                cart.increment(
+                                                                    product);
+                                                                //cart.add(cart.getitems[index]);
+                                                              },
                                                         child: Container(
                                                           height: 25,
                                                           width: 25,
-                                                          decoration: BoxDecoration(
+                                                          decoration:
+                                                              BoxDecoration(
                                                             border: Border.all(
                                                               color: CbColors
                                                                   .cbPrimaryColor2,
                                                               width: 1,
                                                             ),
-                                                            shape: BoxShape.circle,
+                                                            shape:
+                                                                BoxShape.circle,
                                                             color: Colors.white,
                                                           ),
                                                           child: const Icon(
@@ -557,7 +672,7 @@ class _CartScreenState extends State<CartScreen> {
                                     //total price
                                     RichText(
                                       text: TextSpan(
-                                        text: context.watch<Cart>().totalPrice.toStringAsFixed(2),
+                                        text: total.toStringAsFixed(0),
                                         style: Theme.of(context)
                                             .textTheme
                                             .displayLarge!

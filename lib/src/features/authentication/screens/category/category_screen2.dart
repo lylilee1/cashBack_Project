@@ -50,7 +50,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
         backgroundColor: Colors.transparent,
         leading:
         AppBarButton(prefixIcon: Icons.notifications, onTap: () {},),
-        title: AppBarTitle(title: CbTextStrings.cbAppName,),
+        title: const AppBarTitle(title: CbTextStrings.cbAppName,),
         centerTitle: true,
         actions: [
           AppBarButton(prefixIcon: Icons.search, onTap: () {

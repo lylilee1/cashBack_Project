@@ -17,7 +17,9 @@ import '../customer/customer_home_screen4.dart';
 import 'package:collection/collection.dart';
 
 class WishlistScreen extends StatefulWidget {
-  const WishlistScreen({Key? key}) : super(key: key);
+  final Widget? back;
+
+  const WishlistScreen({Key? key, this.back}) : super(key: key);
   static String routeName = '/cart';
 
   @override
@@ -80,8 +82,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
           appBar: AppBar(
             elevation: 0,
             backgroundColor: Colors.transparent,
-            leading: const AppBarBackButton(),
-            //AppBarButton(prefixIcon: Icons.notifications, onTap: () {},),
+            leading: widget.back,
             title: const AppBarTitle(
               title: CbTextStrings.cbAppName,
             ),
@@ -103,8 +104,9 @@ class _WishlistScreenState extends State<WishlistScreen> {
                       onPressed: () {
                         MyAlertDialog.showMyDialog(
                             context: context,
-                            title: 'Vider le panier',
-                            content: 'êtes vous sur de vider le panier?',
+                            title: 'Vider la Wishlist',
+                            content:
+                                'êtes vous sur de vouloir vider la Wishlist?',
                             onPressedNo: () {
                               Navigator.pop(context);
                             },
@@ -285,7 +287,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
                                                       context
                                                           .read<Wish>()
                                                           .removeWishItem(
-                                                          product);
+                                                              product);
                                                     },
                                                     child: const Align(
                                                       alignment:
@@ -299,7 +301,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
                                                     ),
                                                   ),
                                                   context
-                                                              .read<Cart>()
+                                                              .watch<Cart>()
                                                               .getitems
                                                               .firstWhereOrNull(
                                                                   (element) =>
@@ -311,25 +313,24 @@ class _WishlistScreenState extends State<WishlistScreen> {
                                                       ? const SizedBox()
                                                       : InkWell(
                                                           onTap: () {
-                                                            context
-                                                                .read<Cart>()
-                                                                .addItem(
-                                                                  product.brand,
-                                                                  product.model,
-                                                                  product.name,
-                                                                  product.price,
-                                                                  1,
-                                                                  product
-                                                                      .quantity,
-                                                                  product
-                                                                      .imagesUrl,
-                                                                  product
-                                                                      .documentId,
-                                                                  product
-                                                                      .suppId,
-                                                                  product
-                                                                      .isFavorite,
-                                                                );
+                                                           /* context.read<Cart>().getitems.firstWhereOrNull(
+                                                                    (product) =>
+                                                                product.documentId ==
+                                                                    product.documentId) !=
+                                                                null
+                                                                ? print('already in cart')
+                                                                : */context.read<Cart>().addItem(
+                                                              product.brand,
+                                                              product.model,
+                                                              product.name,
+                                                              product.price,
+                                                              1,
+                                                              product.qntty,
+                                                              product.imagesUrl,
+                                                              product.documentId,
+                                                              product.suppId,
+                                                              product.isFavorite,
+                                                            );
                                                           },
                                                           child: const Align(
                                                             alignment: Alignment
@@ -354,276 +355,6 @@ class _WishlistScreenState extends State<WishlistScreen> {
                                 ),
                               ],
                             ),
-
-                            const SizedBox(
-                              height: 20,
-                            ),
-
-                            //Code Promo
-                            Container(
-                              height: 55,
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                color:
-                                    CbColors.cbPrimaryColor2.withOpacity(0.05),
-                                borderRadius: BorderRadius.circular(12),
-                                border: Border.all(
-                                  color:
-                                      CbColors.cbPrimaryColor2.withOpacity(0.3),
-                                ),
-                              ),
-                              child: Row(
-                                children: [
-                                  SizedBox(
-                                    width: (size.width - 30) * 0.7,
-                                    height: 55,
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 20, right: 20),
-                                      child: TextField(
-                                        cursorColor: CbColors.cbPrimaryColor2,
-                                        decoration: InputDecoration(
-                                          border: InputBorder.none,
-                                          hintText: 'Code Promo',
-                                          hintStyle: TextStyle(
-                                            color: CbColors.cbPrimaryColor2
-                                                .withOpacity(0.5),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  Flexible(
-                                    child: Padding(
-                                      padding: EdgeInsets.all(3.0),
-                                      child: Container(
-                                        height: 55,
-                                        decoration: BoxDecoration(
-                                          color: CbColors.cbPrimaryColor2,
-                                          borderRadius:
-                                              BorderRadius.circular(12),
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            'Appliquer',
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 30,
-                            ),
-
-                            //Cart Items Price Summary
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  children: [
-                                    RichText(
-                                      text: TextSpan(
-                                        text: "Subtotal ",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .displaySmall!
-                                            .copyWith(
-                                              color: Colors.black,
-                                            ),
-                                        children: [
-                                          TextSpan(
-                                            text:
-                                                " (${wish.getWishItems.length} produits)",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .labelSmall!
-                                                .copyWith(fontSize: 15),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
-                                    const SizedBox(
-                                      width: 5,
-                                    ),
-                                    Dash(
-                                      direction: Axis.horizontal,
-                                      length: 50,
-                                      dashLength: 10,
-                                      dashColor: CbColors.cbPrimaryColor2
-                                          .withOpacity(0.5),
-                                    ),
-                                    const SizedBox(
-                                      width: 5,
-                                    ),
-                                    //total price
-                                    RichText(
-                                      text: TextSpan(
-                                        text: "test",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .displayLarge!
-                                            .copyWith(
-                                              fontSize: height * 0.02,
-                                              color: CbColors.cbPrimaryColor2,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                        children: <TextSpan>[
-                                          TextSpan(
-                                            text: ' XAF',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .displaySmall!
-                                                .copyWith(
-                                                  fontSize: height * 0.02,
-                                                  color:
-                                                      CbColors.cbPrimaryColor2,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 30,
-                                ),
-
-                                //Delivery fee
-                                Row(
-                                  children: [
-                                    RichText(
-                                      text: TextSpan(
-                                        text: "Frais de livraison ",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .displaySmall!
-                                            .copyWith(
-                                              color: Colors.black,
-                                            ),
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      width: 5,
-                                    ),
-                                    Dash(
-                                      direction: Axis.horizontal,
-                                      length: 80,
-                                      dashLength: 10,
-                                      dashColor: CbColors.cbPrimaryColor2
-                                          .withOpacity(0.5),
-                                    ),
-                                    const SizedBox(
-                                      width: 5,
-                                    ),
-
-                                    //total price delivery fee
-                                    RichText(
-                                      text: TextSpan(
-                                        text: '500',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .displayLarge!
-                                            .copyWith(
-                                              fontSize: height * 0.02,
-                                              color: CbColors.cbPrimaryColor2,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                        children: <TextSpan>[
-                                          TextSpan(
-                                            text: ' XAF',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .displaySmall!
-                                                .copyWith(
-                                                  fontSize: height * 0.02,
-                                                  color:
-                                                      CbColors.cbPrimaryColor2,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 30,
-                                ),
-
-                                //Total price
-                                Row(
-                                  children: [
-                                    RichText(
-                                      text: TextSpan(
-                                        text: "Total",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .displaySmall!
-                                            .copyWith(
-                                              color: Colors.black,
-                                            ),
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      width: 5,
-                                    ),
-                                    Dash(
-                                      direction: Axis.horizontal,
-                                      length: 180,
-                                      dashLength: 10,
-                                      dashColor: CbColors.cbPrimaryColor2
-                                          .withOpacity(0.5),
-                                    ),
-                                    const SizedBox(
-                                      width: 5,
-                                    ),
-                                    //total price
-                                    RichText(
-                                      text: TextSpan(
-                                        text: '500',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .displayLarge!
-                                            .copyWith(
-                                              fontSize: height * 0.02,
-                                              color: CbColors.cbPrimaryColor2,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                        children: <TextSpan>[
-                                          TextSpan(
-                                            text: ' XAF',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .displaySmall!
-                                                .copyWith(
-                                                  fontSize: height * 0.02,
-                                                  color:
-                                                      CbColors.cbPrimaryColor2,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
                           ],
                         ),
                       ),
@@ -639,7 +370,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'Panier vide',
+                            'Wishlist vide',
                             style: Theme.of(context).textTheme.displayLarge,
                           ),
                           Padding(
@@ -677,17 +408,6 @@ class _WishlistScreenState extends State<WishlistScreen> {
                                   CbColors.cbPrimaryColor2,
                                 ),
                               ),
-
-                              /*ElevatedButton.styleFrom(
-                            primary: CbColors.cbPrimaryColor2,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 30,
-                              vertical: 15,
-                            ),
-                          ),*/
                               child: Text(
                                 'Continuer vos achats'.toUpperCase(),
                                 style: const TextStyle(

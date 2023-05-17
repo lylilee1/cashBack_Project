@@ -3,6 +3,7 @@ import 'package:cashback/src/common_widgets/app_bar/appBarWidget.dart';
 import 'package:cashback/src/constants/colors.dart';
 import 'package:cashback/src/constants/image_strings.dart';
 import 'package:cashback/src/constants/text_strings.dart';
+import 'package:cashback/src/features/authentication/controllers/cart/cart_controller.dart';
 import 'package:cashback/src/features/authentication/screens/customer/minor_screen/accessories_gallery_screen.dart';
 import 'package:cashback/src/features/authentication/screens/customer/minor_screen/electronics_gallery_screen.dart';
 import 'package:cashback/src/features/authentication/screens/customer/minor_screen/home&garden_gallery_screen.dart';
@@ -16,6 +17,8 @@ import 'package:cashback/src/features/authentication/screens/supplier/supplier_s
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:badges/badges.dart' as badges;
+import 'package:provider/provider.dart';
 
 import '../cart/cart_screen3.dart';
 import '../main/main_screen2.dart';
@@ -82,18 +85,35 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen>
           ),
 
           //cart icon
-          AppBarButton(
-            prefixIcon: Icons.shopping_bag_outlined,
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const CartScreen(
-                    back: AppBarBackButton(),
-                  ),
-                ),
-              );
-            },
+          badges.Badge(
+            showBadge: context.watch<Cart>().getitems.isEmpty ? false : true,
+            position: badges.BadgePosition.topEnd(top: 0, end: 3),
+            badgeContent: Text(
+              context.watch<Cart>().getitems.length.toString(),
+              style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                fontSize: 10,
+                color: Colors.white,
+              ),
+            ),
+            badgeAnimation: const badges.BadgeAnimation.rotation(
+              animationDuration: Duration(seconds: 1),
+              colorChangeAnimationDuration: Duration(seconds: 1),
+              loopAnimation: false,
+              curve: Curves.fastOutSlowIn,
+              colorChangeAnimationCurve: Curves.easeInCubic,
+            ),
+            child: IconButton(
+              icon: const Icon(
+                Icons.shopping_bag_outlined,
+                color: Colors.black,
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const CartScreen()),
+                );
+              },
+            ),
           ),
         ],
       ),
@@ -111,6 +131,7 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen>
                   top: true,
                   child: Column(
                     children: [
+                      //Slider Images
                       CarouselSlider(
                         items: _carouselImages
                             .map((image) =>
@@ -128,6 +149,8 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen>
                           viewportFraction: 0.8,
                         ),
                       ),
+
+                      //Categories
                       Container(
                         child: TabBar(
                           isScrollable: true,
@@ -168,11 +191,13 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen>
                           ],
                         ),
                       ),
+
+                      //Categories Products
                       Container(
-                        decoration: BoxDecoration(
+                        /*decoration: BoxDecoration(
                           color: CbColors.cbPrimaryColor2.withOpacity(0.05),  //CbColors.cbPrimaryColor2,Colors.grey.withOpacity(0.2),
                           borderRadius: BorderRadius.circular(15),
-                        ),
+                        ),*/
                         height: size.width + 40.0,
                         child: TabBarView(
                           controller: tabController,

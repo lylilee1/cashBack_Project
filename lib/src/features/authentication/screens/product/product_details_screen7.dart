@@ -21,6 +21,7 @@ import 'package:readmore/readmore.dart';
 import 'package:staggered_grid_view_flutter/widgets/staggered_grid_view.dart';
 import 'package:staggered_grid_view_flutter/widgets/staggered_tile.dart';
 import 'package:collection/collection.dart';
+import 'package:badges/badges.dart' as badges;
 
 import '../cart/cart_screen3.dart';
 
@@ -67,6 +68,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         .where('subcateg', isEqualTo: widget.prodList['subcateg'])
         .snapshots();
 
+    var existingItemCart = context.watch<Cart>().getitems.firstWhereOrNull(
+        (element) => element.documentId == widget.prodList['proid']);
     return SafeArea(
       child: ScaffoldMessenger(
         key: _scaffoldkey,
@@ -90,35 +93,54 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         ),
                       );
                     },
-                    child: Container(
-                      margin: const EdgeInsets.only(
-                        right: 10,
+                    child: badges.Badge(
+                      showBadge:
+                          context.watch<Cart>().getitems.isEmpty ? false : true,
+                      position: badges.BadgePosition.topEnd(top: 0, end: 3),
+                      badgeContent: Text(
+                        context.watch<Cart>().getitems.length.toString(),
+                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                              fontSize: 10,
+                              color: Colors.white,
+                            ),
                       ),
-                      width: 50,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(20),
-                        border: Border.all(
-                          color: CbColors.cbPrimaryColor2,
+                      badgeAnimation: const badges.BadgeAnimation.rotation(
+                        animationDuration: Duration(seconds: 1),
+                        colorChangeAnimationDuration: Duration(seconds: 1),
+                        loopAnimation: false,
+                        curve: Curves.fastOutSlowIn,
+                        colorChangeAnimationCurve: Curves.easeInCubic,
+                      ),
+                      child: Container(
+                        margin: const EdgeInsets.only(
+                          right: 10,
                         ),
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: context
-                            .watch<Cart>()
-                            .getitems
-                            .firstWhereOrNull((product) =>
-                        product.documentId ==
-                            widget.prodList['proid']) !=
-                            null
-                            ? const Icon(
-                          Icons.shopping_bag,
-                          color: CbColors.cbPrimaryColor2,
-                        )
-                        : const Icon(
-                          Icons.shopping_bag_outlined,
-                          color: CbColors.cbPrimaryColor2,
+                        width: 50,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(
+                            color: CbColors.cbPrimaryColor2,
+                          ),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: context
+                                      .watch<Cart>()
+                                      .getitems
+                                      .firstWhereOrNull((product) =>
+                                          product.documentId ==
+                                          widget.prodList['proid']) !=
+                                  null
+                              ? const Icon(
+                                  Icons.shopping_bag,
+                                  color: CbColors.cbPrimaryColor2,
+                                )
+                              : const Icon(
+                                  Icons.shopping_bag_outlined,
+                                  color: CbColors.cbPrimaryColor2,
+                                ),
                         ),
                       ),
                     ),
@@ -130,25 +152,32 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       height: 50,
                       child: ElevatedButton(
                         onPressed: () {
-                          context.read<Cart>().getitems.firstWhereOrNull(
-                                      (product) =>
-                                          product.documentId ==
-                                          widget.prodList['proid']) !=
-                                  null
-                              ? MyMessageHandler.showSnackBar(
-                                  _scaffoldkey, 'produit déja ajouté au panier')
-                              : context.read<Cart>().addItem(
-                                    widget.prodList['brand'],
-                                    widget.prodList['model'],
-                                    widget.prodList['proname'],
-                                    widget.prodList['price'],
-                                    1,
-                                    widget.prodList['instock'],
-                                    widget.prodList['proimages'],
-                                    widget.prodList['proid'],
-                                    widget.prodList['sid'],
-                                    isFavorite,
-                                  );
+                          if (widget.prodList['instock'] == 0){
+                            MyMessageHandler.showSnackBar(
+                                _scaffoldkey, 'L\'article n\'est plus disponible en stock');
+                          }
+                          else if (context.read<Cart>().getitems.firstWhereOrNull(
+                                  (product) =>
+                              product.documentId ==
+                                  widget.prodList['proid']) !=
+                              null) {
+                            MyMessageHandler.showSnackBar(
+                                _scaffoldkey, 'produit déja ajouté au panier');
+                          }
+                          else{
+                            context.read<Cart>().addItem(
+                              widget.prodList['brand'],
+                              widget.prodList['model'],
+                              widget.prodList['proname'],
+                              widget.prodList['price'],
+                              1,
+                              widget.prodList['instock'],
+                              widget.prodList['proimages'],
+                              widget.prodList['proid'],
+                              widget.prodList['sid'],
+                              isFavorite,
+                            );
+                          }
                         },
                         style: ButtonStyle(
                           shape: MaterialStateProperty.all(
@@ -160,25 +189,23 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             CbColors.cbPrimaryColor2,
                           ),
                         ),
-
-                        /*ElevatedButton.styleFrom(
-                          primary: CbColors.cbPrimaryColor2,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 30,
-                            vertical: 15,
-                          ),
-                        ),*/
-                        child: Text(
-                          'ajouter au panier'.toUpperCase(),
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                        child: existingItemCart != null
+                            ? Text(
+                                'article ajouté au panier'.toUpperCase(),
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              )
+                            : Text(
+                                'ajouter au panier'.toUpperCase(),
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                       ),
                     ),
                   )
@@ -186,6 +213,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               ),
             ),
           ),
+
           body: SingleChildScrollView(
             padding: const EdgeInsets.only(
               left: 15,
@@ -293,20 +321,20 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                 ),
                                 child: IconButton(
                                   icon: context
-                                      .watch<Wish>()
-                                      .getWishItems
-                                      .firstWhereOrNull((product) =>
-                                  product.documentId ==
-                                      widget.prodList['proid']) !=
-                                      null
+                                              .watch<Wish>()
+                                              .getWishItems
+                                              .firstWhereOrNull((product) =>
+                                                  product.documentId ==
+                                                  widget.prodList['proid']) !=
+                                          null
                                       ? const Icon(
-                                    Icons.favorite,
-                                    color: CbColors.cbPrimaryColor2,
-                                  )
-                                  : const Icon(
-                                    Icons.favorite_border_outlined,
-                                    color: CbColors.cbPrimaryColor2,
-                                  ),
+                                          Icons.favorite,
+                                          color: CbColors.cbPrimaryColor2,
+                                        )
+                                      : const Icon(
+                                          Icons.favorite_border_outlined,
+                                          color: CbColors.cbPrimaryColor2,
+                                        ),
                                   onPressed: () {
                                     context
                                                 .read<Wish>()
@@ -315,7 +343,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                                     product.documentId ==
                                                     widget.prodList['proid']) !=
                                             null
-                                        ? context.read<Wish>().removeThis(widget.prodList['proid'])
+                                        ? context.read<Wish>().removeThis(
+                                            widget.prodList['proid'])
                                         : context.read<Wish>().addWishItem(
                                               widget.prodList['brand'],
                                               widget.prodList['model'],
@@ -544,10 +573,21 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                   fontSize: height * 0.012, color: Colors.grey),
                         ),
 
+                        widget.prodList['instock'] == 0
+                            ? Text(
+                                'Rupture de stock',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displayLarge!
+                                    .copyWith(
+                                        fontSize: height * 0.012,
+                                        color: Colors.red),
+                              )
+                            :
                         //in stock
                         Text(
                           (widget.prodList['instock'].toString()) +
-                              ('14 unités restantes'),
+                              (' unités restantes'),
                           style: Theme.of(context)
                               .textTheme
                               .displayLarge!

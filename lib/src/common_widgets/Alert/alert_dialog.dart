@@ -17,11 +17,11 @@ class MyAlertDialog {
         content: Text(content),
         actions: <CupertinoDialogAction>[
           CupertinoDialogAction(
-            child: const Text('No'),
+            child: const Text('Non'),
             onPressed: onPressedNo,
           ),
           CupertinoDialogAction(
-            child: const Text('Yes'),
+            child: const Text('Oui'),
             isDestructiveAction: true,
             onPressed: onPressedYes,
           ),

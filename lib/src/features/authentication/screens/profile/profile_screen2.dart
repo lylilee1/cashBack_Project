@@ -39,11 +39,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
       builder:
           (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
         if (snapshot.hasError) {
-          return Text("Something went wrong");
+          return const Text("Something went wrong");
         }
 
         if (snapshot.hasData && !snapshot.data!.exists) {
-          return Text("Document does not exist");
+          return const Text("Document does not exist");
         }
 
         if (snapshot.connectionState == ConnectionState.done) {
@@ -58,7 +58,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 prefixIcon: Icons.notifications,
                 onTap: () {},
               ),
-              title: AppBarTitle(
+              title: const AppBarTitle(
                 title: CbTextStrings.cbAppName,
               ),
               centerTitle: true,
@@ -91,7 +91,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   children: [
                     Center(
                       child: data['profileImage'] == ''
-                          ? CircleAvatar(
+                          ? const CircleAvatar(
                               radius: 70,
                               backgroundImage: AssetImage(
                                 'assets/images/user_images/user.gif',

@@ -10,7 +10,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../customer/customer_home_screen4.dart';
-import '../profile/profile_screen2.dart';
+import '../profile/profile_screen6.dart';
+//import '../profile/profile_screen2.dart';
 
 
 class MainScreen extends StatefulWidget {
