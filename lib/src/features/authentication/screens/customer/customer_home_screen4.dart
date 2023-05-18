@@ -5,12 +5,14 @@ import 'package:cashback/src/constants/image_strings.dart';
 import 'package:cashback/src/constants/text_strings.dart';
 import 'package:cashback/src/features/authentication/controllers/cart/cart_controller.dart';
 import 'package:cashback/src/features/authentication/screens/customer/minor_screen/accessories_gallery_screen.dart';
+import 'package:cashback/src/features/authentication/screens/customer/minor_screen/automoto_gallery_screen.dart';
 import 'package:cashback/src/features/authentication/screens/customer/minor_screen/electronics_gallery_screen.dart';
 import 'package:cashback/src/features/authentication/screens/customer/minor_screen/home&garden_gallery_screen.dart';
 import 'package:cashback/src/features/authentication/screens/customer/minor_screen/kids_gallery_screen.dart';
+import 'package:cashback/src/features/authentication/screens/customer/minor_screen/other_gallery_screen.dart';
+import 'package:cashback/src/features/authentication/screens/customer/minor_screen/sport_gallery_screen.dart';
 import 'package:cashback/src/features/authentication/screens/customer/minor_screen/women_gallery_screen.dart';
 import 'package:cashback/src/features/authentication/screens/customer/minor_screen/men_gallery_screen.dart';
-//import 'package:cashback/src/features/authentication/screens/galleries/men_gallery_screen.dart';
 import 'package:cashback/src/features/authentication/screens/login/customer_signin_screen.dart';
 import 'package:cashback/src/features/authentication/screens/search/search_screen.dart';
 import 'package:cashback/src/features/authentication/screens/supplier/supplier_signin_screen2.dart';
@@ -45,7 +47,7 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen>
   @override
   void initState() {
     super.initState();
-    tabController = TabController(length: 6, vsync: this, initialIndex: 0);
+    tabController = TabController(length: 9, vsync: this, initialIndex: 0);
   }
 
   @override
@@ -177,6 +179,15 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen>
                             RepeatedTab(
                               label: 'Maison & Jardin',
                             ),
+                            RepeatedTab(
+                              label: 'Automobiles',
+                            ),
+                            RepeatedTab(
+                              label: 'Sport & Loisirs',
+                            ),
+                            RepeatedTab(
+                              label: 'Autres',
+                            ),
                             /*Tab(
                 child: Container(
                   width: double.infinity,
@@ -208,6 +219,9 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen>
                             ElectronicsGalleryScreen(),
                             AccessoriesGalleryScreen(),
                             HomeGardenGalleryScreen(),
+                            AutomotoGalleryScreen(),
+                            SportGalleryScreen(),
+                            OtherGalleryScreen(),
                           ],
                         ),
                       ),

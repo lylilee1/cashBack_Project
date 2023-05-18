@@ -1,3 +1,4 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:staggered_grid_view_flutter/widgets/staggered_grid_view.dart';
@@ -5,16 +6,16 @@ import 'package:staggered_grid_view_flutter/widgets/staggered_tile.dart';
 
 import '../../../models/product/product_model4.dart';
 
-class AccessoriesGalleryScreen extends StatefulWidget {
-  const AccessoriesGalleryScreen({Key? key}) : super(key: key);
+class AutomotoGalleryScreen extends StatefulWidget {
+  const AutomotoGalleryScreen({Key? key}) : super(key: key);
 
   @override
-  State<AccessoriesGalleryScreen> createState() => _AccessoriesGalleryScreenState();
+  State<AutomotoGalleryScreen> createState() => _AutomotoGalleryScreenState();
 }
 
-class _AccessoriesGalleryScreenState extends State<AccessoriesGalleryScreen> {
+class _AutomotoGalleryScreenState extends State<AutomotoGalleryScreen> {
   final Stream<QuerySnapshot> _productsStream =
-  FirebaseFirestore.instance.collection('products').where('maincateg',isEqualTo: 'accessoires').snapshots();
+  FirebaseFirestore.instance.collection('products').where('maincateg',isEqualTo: 'automobiles').snapshots();
   bool isFavorite = false;
 
   @override

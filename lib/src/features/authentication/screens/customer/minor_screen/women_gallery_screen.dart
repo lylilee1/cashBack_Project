@@ -1,9 +1,10 @@
 
-import 'package:cashback/src/features/authentication/models/product/product_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:staggered_grid_view_flutter/widgets/staggered_grid_view.dart';
 import 'package:staggered_grid_view_flutter/widgets/staggered_tile.dart';
+
+import '../../../models/product/product_model4.dart';
 
 class WomenGalleryScreen extends StatefulWidget {
   const WomenGalleryScreen({Key? key}) : super(key: key);

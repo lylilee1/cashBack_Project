@@ -112,6 +112,7 @@ class _ProductModelState extends State<ProductModel> {
                   ],
                 ),
               ),
+
               //Image
               Image(
                 image: NetworkImage(widget.products['proimages'][0]),
