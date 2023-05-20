@@ -2,16 +2,12 @@ import 'package:cashback/src/constants/colors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:timeago/timeago.dart' as timeago;
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:intl/intl.dart';
 
-class PastOrdersScreenWidget extends StatefulWidget {
-  const PastOrdersScreenWidget({Key? key}) : super(key: key);
+class DeliveredOrdersScreen extends StatelessWidget {
+  const DeliveredOrdersScreen({Key? key}) : super(key: key);
 
-  @override
-  State<PastOrdersScreenWidget> createState() => _PastOrdersScreenWidgetState();
-}
-
-class _PastOrdersScreenWidgetState extends State<PastOrdersScreenWidget> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -31,8 +27,8 @@ class _PastOrdersScreenWidgetState extends State<PastOrdersScreenWidget> {
     return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance
           .collection('orders')
-          .where('cid', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
-          //.where('deliverystatus', isEqualTo: 'delivered')
+          .where('sid', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+          .where('deliverystatus', isEqualTo: 'délivré')
           .snapshots(),
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasError) {
@@ -118,11 +114,11 @@ class _PastOrdersScreenWidgetState extends State<PastOrdersScreenWidget> {
                                           TextSpan(
                                             text: order['orderprice']
                                                 .toStringAsFixed(0),
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                               color: Colors.black,
                                             ),
                                           ),
-                                          TextSpan(
+                                          const TextSpan(
                                             text: ' FCFA',
                                             style: TextStyle(
                                               color: Colors.black,
@@ -134,7 +130,7 @@ class _PastOrdersScreenWidgetState extends State<PastOrdersScreenWidget> {
                                     RichText(
                                       text: TextSpan(
                                         children: [
-                                          TextSpan(
+                                          const TextSpan(
                                             text: 'x',
                                             style: TextStyle(
                                               color: Colors.black,
@@ -142,7 +138,7 @@ class _PastOrdersScreenWidgetState extends State<PastOrdersScreenWidget> {
                                           ),
                                           TextSpan(
                                             text: order['orderqty'].toString(),
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                               color: Colors.black,
                                             ),
                                           ),
@@ -161,7 +157,7 @@ class _PastOrdersScreenWidgetState extends State<PastOrdersScreenWidget> {
                   subtitle: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
+                      const Text(
                         'Voir plus ..',
                       ),
                       Text(
@@ -187,6 +183,73 @@ class _PastOrdersScreenWidgetState extends State<PastOrdersScreenWidget> {
                             Text(
                               ('Nom: ' + order['ordername']),
                             ),
+
+                            //Order Status
+                            Row(
+                              children: [
+                                const Text(
+                                  'statut de livraison: ',
+                                ),
+                                Text(
+                                  order['deliverystatus'],
+                                ),
+                              ],
+                            ),
+
+                            //Order Date
+                            Row(
+                              children: [
+                                const Text(
+                                  'date de commande: ',
+                                ),
+                                Text(
+                                  (DateFormat('dd/MM/yyyy').format(
+                                    order['orderdate'].toDate(),
+                                  )).toString(),
+                                ),
+                              ],
+                            ),
+
+                            order['deliverystatus'] == 'délivré'
+                                ? const Text('Cette commande a déjà été livrée')
+                                :
+                                //Delivery Status Change
+                                Row(
+                                    children: [
+                                      const Text(
+                                        'modifier le statut de la livraison: ',
+                                      ),
+                                      order['deliverystatus'] ==
+                                              'en preparation'
+                                          ? TextButton(
+                                              onPressed: () {
+                                                DatePicker.showDatePicker(
+                                                  context,
+                                                  maxTime: DateTime.now(),
+                                                  minTime: DateTime.now().add(
+                                                    const Duration(days: 365),
+                                                  ),
+                                                  onConfirm: (date) async {
+                                                    await FirebaseFirestore
+                                                        .instance
+                                                        .collection('orders')
+                                                        .doc(order['orderid'])
+                                                        .update({
+                                                      'deliverystatus':
+                                                          'expédié',
+                                                      'deliverydate': date,
+                                                    });
+                                                  },
+                                                );
+                                              },
+                                              child: const Text('expédié ?'),
+                                            )
+                                          : TextButton(
+                                              onPressed: () {},
+                                              child: const Text('délivré ?'),
+                                            ),
+                                    ],
+                                  ),
                           ],
                         ),
                       ),

@@ -108,7 +108,7 @@ class _CustomerOrdersState extends State<CustomerOrders>
                                     : null,
                               ),
                               child: const Text(
-                                'Current Orders',
+                                'En cours',
                               ),
                             ),
 
@@ -134,7 +134,7 @@ class _CustomerOrdersState extends State<CustomerOrders>
                                     : null,
                               ),
                               child: const Text(
-                                'Past Orders',
+                                'Passées',
                               ),
                             ),
                           ],

@@ -2,16 +2,11 @@ import 'package:cashback/src/constants/colors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:timeago/timeago.dart' as timeago;
+import 'package:intl/intl.dart';
 
-class PastOrdersScreenWidget extends StatefulWidget {
-  const PastOrdersScreenWidget({Key? key}) : super(key: key);
+class ShippingOrdersScreen extends StatelessWidget {
+  const ShippingOrdersScreen({Key? key}) : super(key: key);
 
-  @override
-  State<PastOrdersScreenWidget> createState() => _PastOrdersScreenWidgetState();
-}
-
-class _PastOrdersScreenWidgetState extends State<PastOrdersScreenWidget> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -31,8 +26,8 @@ class _PastOrdersScreenWidgetState extends State<PastOrdersScreenWidget> {
     return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance
           .collection('orders')
-          .where('cid', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
-          //.where('deliverystatus', isEqualTo: 'delivered')
+          .where('sid', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+          .where('deliverystatus', isEqualTo: 'expédié')
           .snapshots(),
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasError) {
@@ -110,7 +105,7 @@ class _PastOrdersScreenWidgetState extends State<PastOrdersScreenWidget> {
                                 padding: const EdgeInsets.all(8.0),
                                 child: Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  MainAxisAlignment.spaceBetween,
                                   children: [
                                     RichText(
                                       text: TextSpan(
@@ -118,11 +113,11 @@ class _PastOrdersScreenWidgetState extends State<PastOrdersScreenWidget> {
                                           TextSpan(
                                             text: order['orderprice']
                                                 .toStringAsFixed(0),
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                               color: Colors.black,
                                             ),
                                           ),
-                                          TextSpan(
+                                          const TextSpan(
                                             text: ' FCFA',
                                             style: TextStyle(
                                               color: Colors.black,
@@ -134,7 +129,7 @@ class _PastOrdersScreenWidgetState extends State<PastOrdersScreenWidget> {
                                     RichText(
                                       text: TextSpan(
                                         children: [
-                                          TextSpan(
+                                          const TextSpan(
                                             text: 'x',
                                             style: TextStyle(
                                               color: Colors.black,
@@ -142,7 +137,7 @@ class _PastOrdersScreenWidgetState extends State<PastOrdersScreenWidget> {
                                           ),
                                           TextSpan(
                                             text: order['orderqty'].toString(),
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                               color: Colors.black,
                                             ),
                                           ),
@@ -161,7 +156,7 @@ class _PastOrdersScreenWidgetState extends State<PastOrdersScreenWidget> {
                   subtitle: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
+                      const Text(
                         'Voir plus ..',
                       ),
                       Text(
@@ -186,6 +181,50 @@ class _PastOrdersScreenWidgetState extends State<PastOrdersScreenWidget> {
                           children: [
                             Text(
                               ('Nom: ' + order['ordername']),
+                            ),
+
+                            //Order Status
+                            Row(
+                              children: [
+                                const Text(
+                                  'statut de livraison: ',
+                                ),
+                                Text(
+                                  order['deliverystatus'],
+                                ),
+                              ],
+                            ),
+
+                            //Order Date
+                            Row(
+                              children: [
+                                const Text(
+                                  'date de commande: ',
+                                ),
+                                Text(
+                                  (DateFormat('dd/MM/yyyy').format(
+                                    order['orderdate'].toDate(),
+                                  )).toString(),
+                                ),
+                              ],
+                            ),
+
+                            //Delivery Status Change
+                            Row(
+                              children: [
+                                const Text(
+                                  'modifier le statut de la livraison: ',
+                                ),
+                                order['deliverystatus'] == 'en preparation'
+                                    ? TextButton(
+                                  onPressed: () {},
+                                  child: const Text('expédié ?'),
+                                )
+                                    : TextButton(
+                                  onPressed: () {},
+                                  child: const Text('délivré ?'),
+                                ),
+                              ],
                             ),
                           ],
                         ),

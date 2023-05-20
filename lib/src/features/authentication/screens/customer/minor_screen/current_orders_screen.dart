@@ -33,6 +33,8 @@ class _CurrentOrdersScreenWidgetState extends State<CurrentOrdersScreenWidget> {
       stream: FirebaseFirestore.instance
           .collection('orders')
           .where('cid', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+          .where('deliverystatus', isEqualTo: 'en préparation')
+          //.where('deliverystatus', isEqualTo: 'expédié')
           .snapshots(),
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasError) {
@@ -143,13 +145,7 @@ class _CurrentOrdersScreenWidgetState extends State<CurrentOrdersScreenWidget> {
                                           ),
                                         ],
                                       ),
-                                      /*ClipRRect(
-                                    borderRadius: BorderRadius.circular(20),
-                                    child: Image.network(
-                                      order['orderimage'],
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),*/
+
                                     ),
                                     const SizedBox(
                                       width: 5,

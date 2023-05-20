@@ -2,14 +2,15 @@ import 'package:cashback/src/constants/colors.dart';
 import 'package:cashback/src/features/authentication/screens/category/category_screen2.dart';
 import 'package:cashback/src/features/authentication/screens/dashboard/screens/my_store_screen.dart';
 import 'package:cashback/src/features/authentication/screens/supplier/upload_product_screen_walty.dart';
-//import 'package:cashback/src/features/authentication/screens/supplier/upload_product_screen2.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../customer/customer_home_screen4.dart';
 import '../dashboard/dashboard_screen2.dart';
-
+import 'package:badges/badges.dart' as badges;
 
 class SupplierHomeScreen extends StatefulWidget {
   const SupplierHomeScreen({Key? key}) : super(key: key);
@@ -63,23 +64,39 @@ class _SupplierHomeScreenState extends State<SupplierHomeScreen> {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
 
-    return Scaffold(
+    return StreamBuilder<QuerySnapshot>(
+      stream: FirebaseFirestore.instance
+          .collection('orders')
+          .where('sid', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+          .where('deliverystatus', isEqualTo: 'en préparation')
+          .snapshots(),
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Material(
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        }
 
-      body: _pages[_selectedIndex]['page'],
-
-      bottomNavigationBar: BottomNavigationBar(
-          currentIndex: _selectedIndex,
-          selectedItemColor: CbColors.cbPrimaryColor2,
-          unselectedItemColor: const Color(0xff757575),
-          type: BottomNavigationBarType.fixed,
-          showSelectedLabels: false,
-          showUnselectedLabels: false,
-          onTap: _selectedPage,
-          items: _navBarItems),
+        return Scaffold(
+          body: _pages[_selectedIndex]['page'],
+          bottomNavigationBar: BottomNavigationBar(
+              currentIndex: _selectedIndex,
+              selectedItemColor: CbColors.cbPrimaryColor2,
+              unselectedItemColor: const Color(0xff757575),
+              type: BottomNavigationBarType.fixed,
+              showSelectedLabels: false,
+              showUnselectedLabels: false,
+              onTap: _selectedPage,
+              items: _navBarItems),
+        );
+      },
     );
   }
 }
 
+// List<BottomNavigationBarItem> _navBarItems
 const _navBarItems = [
   BottomNavigationBarItem(
     icon: Icon(Icons.home_outlined),
@@ -97,7 +114,9 @@ const _navBarItems = [
     label: 'Magasin',
   ),
   BottomNavigationBarItem(
-    icon: Icon(Icons.dashboard_customize_outlined),
+    icon: Icon(
+      Icons.dashboard_customize_outlined,
+    ),
     activeIcon: Icon(Icons.dashboard_customize_rounded),
     label: 'Dashboard',
   ),
