@@ -32,7 +32,8 @@ class _ProductModelState extends State<ProductModel> {
 
     return Padding(
       padding: const EdgeInsets.only(
-        top: 15.0,),
+        top: 15.0,
+      ),
       child: GestureDetector(
         onTap: () {
           Navigator.push(
@@ -91,13 +92,13 @@ class _ProductModelState extends State<ProductModel> {
                                   padding: EdgeInsets.only(top: 3.0),
                                   child: Text(
                                     '5.1',
-                                    style: TextStyle(fontWeight: FontWeight.w500),
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w500),
                                   ),
                                 ),
                               ],
                             ),
                             //Cart Icon Button
-
                           ],
                         ),
                       ),
@@ -166,8 +167,10 @@ class _ProductModelState extends State<ProductModel> {
                                       widget.isFavorite,
                                     );
                           },
-                          icon: context.watch<Wish>().getWishItems.firstWhereOrNull(
-                                      (product) =>
+                          icon: context
+                                      .watch<Wish>()
+                                      .getWishItems
+                                      .firstWhereOrNull((product) =>
                                           product.documentId ==
                                           widget.products['proid']) !=
                                   null
@@ -191,8 +194,8 @@ class _ProductModelState extends State<ProductModel> {
                     top: 175,
                     right: 15,
                     child:
-                    //Add to Cart Button
-                    Container(
+                        //Add to Cart Button
+                        Container(
                       width: 35,
                       height: 35,
                       decoration: BoxDecoration(
@@ -211,47 +214,74 @@ class _ProductModelState extends State<ProductModel> {
                         child: IconButton(
                           onPressed: () {
                             context.read<Cart>().getitems.firstWhereOrNull(
-                                    (product) =>
-                                product.documentId ==
-                                    widget.products['proid']) !=
-                                null
+                                        (product) =>
+                                            product.documentId ==
+                                            widget.products['proid']) !=
+                                    null
                                 ? context
-                                .read<Cart>()
-                                .removeThis(widget.products['proid'])
+                                    .read<Cart>()
+                                    .removeThis(widget.products['proid'])
                                 : context.read<Cart>().addItem(
-                              widget.products['brand'],
-                              widget.products['model'],
-                              widget.products['proname'],
-                              widget.products['price'],
-                              1,
-                              widget.products['instock'],
-                              widget.products['proimages'],
-                              widget.products['proid'],
-                              widget.products['sid'],
-                              widget.isFavorite,
-                            );
+                                      widget.products['brand'],
+                                      widget.products['model'],
+                                      widget.products['proname'],
+                                      widget.products['price'],
+                                      1,
+                                      widget.products['instock'],
+                                      widget.products['proimages'],
+                                      widget.products['proid'],
+                                      widget.products['sid'],
+                                      widget.isFavorite,
+                                    );
                           },
-                          icon: context
-                              .watch<Cart>()
-                              .getitems
-                              .firstWhereOrNull((product) =>
-                          product.documentId ==
-                              widget.products['proid']) !=
-                              null
+                          icon: context.watch<Cart>().getitems.firstWhereOrNull(
+                                      (product) =>
+                                          product.documentId ==
+                                          widget.products['proid']) !=
+                                  null
                               ? const Icon(
-                            Icons.shopping_bag,
-                            color: CbColors.cbPrimaryColor2,
-                            size: 18,
-                          )
+                                  Icons.shopping_bag,
+                                  color: CbColors.cbPrimaryColor2,
+                                  size: 18,
+                                )
                               : const Icon(
-                            LineIcons.shoppingBag,
-                            color: CbColors.cbPrimaryColor2,
-                            size: 18,
-                          ),
+                                  LineIcons.shoppingBag,
+                                  color: CbColors.cbPrimaryColor2,
+                                  size: 18,
+                                ),
                         ),
                       ),
                     ),
                   ),
+
+                  //Discount Button
+                  widget.products['discount'] != 0
+                      ? Positioned(
+                          top: 25,
+                          left: 15,
+                          child: Container(
+                            decoration: const BoxDecoration(
+                              color: CbColors.cbPrimaryColor2,
+                              borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(15),
+                                bottomRight: Radius.circular(15),
+                              ),
+                            ),
+                            child: Center(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  'Moins ${widget.products['discount'].toStringAsFixed(0)} %',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .labelMedium!
+                                      .copyWith(color: Colors.white),
+                                ),
+                              ),
+                            ),
+                          ),
+                        )
+                      : Container(color: Colors.transparent)
                 ],
               ),
             ),
@@ -259,7 +289,7 @@ class _ProductModelState extends State<ProductModel> {
               height: 5,
             ),
 
-            //
+            //Product Model and Product Price
             Column(
               children: [
                 SizedBox(
@@ -274,41 +304,76 @@ class _ProductModelState extends State<ProductModel> {
                             widget.products['model'],
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelSmall!
+                                .copyWith(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w500,
                                 ),
                           ),
 
-                          //Product Price
-                          RichText(
-                            text: TextSpan(
-                              children: [
-                                TextSpan(
-                                  text: widget.products['price'].toStringAsFixed(0),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .labelSmall!
-                                      .copyWith(
-                                        color: CbColors.cbPrimaryColor2,
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.w500,
-                                      ),
+                          Row(
+                            children: [
+                              RichText(
+                                text: TextSpan(
+                                  children: [
+                                    TextSpan(
+                                        text: widget.products['price']
+                                            .toStringAsFixed(0),
+                                        style: widget.products['discount'] != 0
+                                            ? Theme.of(context)
+                                                .textTheme
+                                                .labelSmall!
+                                                .copyWith(
+                                                  color: Colors.grey,
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w500,
+                                                  decoration: TextDecoration
+                                                      .lineThrough,
+                                                )
+                                            : Theme.of(context)
+                                                .textTheme
+                                                .labelSmall!
+                                                .copyWith(
+                                                  color: Colors.red,
+                                                  fontSize: 17,
+                                                  fontWeight: FontWeight.w500,
+                                                )),
+                                    widget.products['discount'] != 0
+                                        ? TextSpan(
+                                            text: ((1 -
+                                                        (widget.products[
+                                                                'discount'] /
+                                                            100)) *
+                                                    widget.products['price'])
+                                                .toStringAsFixed(0),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .labelSmall!
+                                                .copyWith(
+                                                  color: Colors.red,
+                                                  fontSize: 17,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                          )
+                                        : const TextSpan(),
+                                    TextSpan(
+                                      text: ' \XAF',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelSmall!
+                                          .copyWith(
+                                            color: Colors.red,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                    ),
+                                  ],
                                 ),
-                                TextSpan(
-                                  text: ' \XAF',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .labelSmall!
-                                      .copyWith(
-                                        color: CbColors.cbPrimaryColor2,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                ),
-                              ],
-                            ),
-                          ),
+                              ),
+                            ],
+                          )
                         ],
                       ),
                     ],

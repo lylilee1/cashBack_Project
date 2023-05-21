@@ -5,6 +5,7 @@ import 'package:cashback/src/features/authentication/screens/dashboard/screens/m
 import 'package:cashback/src/features/authentication/screens/dashboard/screens/my_store_screen.dart';
 import 'package:cashback/src/features/authentication/screens/dashboard/screens/suppl_orders_screen.dart';
 import 'package:cashback/src/features/authentication/screens/dashboard/screens/supplier_statics_screen.dart';
+import 'package:cashback/src/features/authentication/screens/supplier/supplier_balance_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -28,10 +29,11 @@ List<IconData> icons = [
 ];
 
 List<Widget> pages = [
-  MyStoreScreen(),
+  //MyStoreScreen(),
   SupplierOrdersScreen(),
   EditBusinessScreen(),
   ManageProductsScreen(),
+  SupplierBalanceScreen(),
   SupplierStaticsScreen(),
 ];
 

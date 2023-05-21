@@ -1,29 +1,25 @@
 import 'package:cashback/src/common_widgets/app_bar/appBarWidget.dart';
+import 'package:cashback/src/common_widgets/buttons/yellow_button.dart';
+import 'package:cashback/src/constants/colors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class BalanceScreen extends StatefulWidget {
-  const BalanceScreen({Key? key}) : super(key: key);
+class SupplierBalanceScreen extends StatelessWidget {
+  SupplierBalanceScreen({Key? key}) : super(key: key);
 
-  @override
-  State<BalanceScreen> createState() => _BalanceScreenState();
-}
-
-class _BalanceScreenState extends State<BalanceScreen> {
   final GlobalKey<ScaffoldMessengerState> _scaffoldskey =
       GlobalKey<ScaffoldMessengerState>();
 
   @override
   Widget build(BuildContext context) {
-
     bool isFavorite = false;
 
     var size = MediaQuery.of(context).size;
     var height = size.height;
     var width = size.width;
 
-    StreamBuilder<QuerySnapshot>(
+    return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance
           .collection('orders')
           .where('sid', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
@@ -37,11 +33,6 @@ class _BalanceScreenState extends State<BalanceScreen> {
           );
         }
 
-        num itemCount = 0;
-        for (var item in snapshot.data!.docs) {
-          itemCount += item['orderqty'].length;
-        }
-
         double totalPrice = 0.0;
         for (var item in snapshot.data!.docs) {
           totalPrice += item['orderqty'] * item['orderprice'];
@@ -52,7 +43,7 @@ class _BalanceScreenState extends State<BalanceScreen> {
             elevation: 0,
             backgroundColor: Colors.transparent,
             leading: const AppBarBackButton(),
-            title: const AppBarTitle(title: 'Statistiques'),
+            title: const AppBarTitle(title: 'Statistiques Fournisseur'),
           ),
           body: SafeArea(
             child: ScaffoldMessenger(
@@ -67,23 +58,34 @@ class _BalanceScreenState extends State<BalanceScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        BalanceModelWidget(
-                          width: width,
-                          label: 'sold out',
-                          value: snapshot.data!.docs.length, decimal: 0,
-                        ),
-                        BalanceModelWidget(
-                          width: width,
-                          label: 'item count',
-                          value: itemCount, decimal: 0,
-                        ),
-                        BalanceModelWidget(
+                        SupplierBalanceModelWidget(
                           width: width,
                           label: 'total balance',
-                          value: totalPrice, decimal: 2,
+                          value: totalPrice,
+                          decimal: 2,
                         ),
                         const SizedBox(
                           height: 24,
+                        ),
+                        Container(
+                          height: 50,
+                          width: MediaQuery.of(context).size.width * 0.9,
+                          decoration: BoxDecoration(
+                              color: CbColors.cbPrimaryColor2,
+                              /*gradient: const LinearGradient(
+          colors: [Colors.green, Colors.blue]),*/
+                              borderRadius: BorderRadius.circular(20)),
+                          child: MaterialButton(
+                            onPressed: () {},
+                            child: Text(
+                              'obtenir mon argent',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
                         ),
                       ],
                     ),
@@ -98,16 +100,17 @@ class _BalanceScreenState extends State<BalanceScreen> {
   }
 }
 
-class BalanceModelWidget extends StatelessWidget {
+class SupplierBalanceModelWidget extends StatelessWidget {
   final dynamic value;
   final String label;
   final int decimal;
 
-  const BalanceModelWidget({
+  const SupplierBalanceModelWidget({
     super.key,
     required this.width,
     required this.label,
-    required this.value, required this.decimal,
+    required this.value,
+    required this.decimal,
   });
 
   final double width;
@@ -150,7 +153,10 @@ class BalanceModelWidget extends StatelessWidget {
               bottomRight: Radius.circular(20),
             ),
           ),
-          child: AnimatedCounter(count: value, decimal: decimal,),
+          child: AnimatedCounter(
+            count: value,
+            decimal: decimal,
+          ),
         ),
       ],
     );
@@ -160,13 +166,16 @@ class BalanceModelWidget extends StatelessWidget {
 class AnimatedCounter extends StatefulWidget {
   final int decimal;
   final dynamic count;
-  const AnimatedCounter({Key? key, this.count, required this.decimal}) : super(key: key);
+
+  const AnimatedCounter({Key? key, this.count, required this.decimal})
+      : super(key: key);
 
   @override
   State<AnimatedCounter> createState() => _AnimatedCounterState();
 }
 
-class _AnimatedCounterState extends State<AnimatedCounter> with TickerProviderStateMixin{
+class _AnimatedCounterState extends State<AnimatedCounter>
+    with TickerProviderStateMixin {
   late AnimationController _controller;
   late Animation _animation;
 
@@ -179,7 +188,8 @@ class _AnimatedCounterState extends State<AnimatedCounter> with TickerProviderSt
     //_animation = IntTween(begin: 0, end: 100).animate(_controller);
     _animation = _controller;
     setState(() {
-      _animation = Tween(begin: _animation.value, end: widget.count).animate(_controller);
+      _animation = Tween(begin: _animation.value, end: widget.count)
+          .animate(_controller);
     });
     _controller.forward();
     super.initState();
@@ -189,7 +199,7 @@ class _AnimatedCounterState extends State<AnimatedCounter> with TickerProviderSt
   Widget build(BuildContext context) {
     return AnimatedBuilder(
       animation: _animation,
-      builder: (context, child){
+      builder: (context, child) {
         return Center(
           child: Text(
             _animation.value.toStringAsFixed(widget.decimal),
