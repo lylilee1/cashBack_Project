@@ -30,6 +30,8 @@ class _ProductModelState extends State<ProductModel> {
     var height = size.height;
     var width = size.width;
 
+    var onSale = widget.products['discount'];
+
     return Padding(
       padding: const EdgeInsets.only(
         top: 15.0,
@@ -255,7 +257,7 @@ class _ProductModelState extends State<ProductModel> {
                   ),
 
                   //Discount Button
-                  widget.products['discount'] != 0
+                  onSale != 0
                       ? Positioned(
                           top: 25,
                           left: 15,
@@ -271,7 +273,7 @@ class _ProductModelState extends State<ProductModel> {
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
-                                  'Moins ${widget.products['discount'].toStringAsFixed(0)} %',
+                                  'Moins ${onSale.toStringAsFixed(0)} %',
                                   style: Theme.of(context)
                                       .textTheme
                                       .labelMedium!
@@ -319,28 +321,27 @@ class _ProductModelState extends State<ProductModel> {
                                 text: TextSpan(
                                   children: [
                                     TextSpan(
-                                        text: widget.products['price']
-                                            .toStringAsFixed(0),
-                                        style: widget.products['discount'] != 0
-                                            ? Theme.of(context)
-                                                .textTheme
-                                                .labelSmall!
-                                                .copyWith(
-                                                  color: Colors.grey,
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w500,
-                                                  decoration: TextDecoration
-                                                      .lineThrough,
-                                                )
-                                            : Theme.of(context)
-                                                .textTheme
-                                                .labelSmall!
-                                                .copyWith(
-                                                  color: Colors.red,
-                                                  fontSize: 17,
-                                                  fontWeight: FontWeight.w500,
-                                                )),
-                                    widget.products['discount'] != 0
+                                      text: widget.products['price']
+                                          .toStringAsFixed(0),
+                                      style: onSale != 0
+                                          ? Theme.of(context)
+                                              .textTheme
+                                              .displayLarge!
+                                              .copyWith(
+                                                color: Colors.grey,
+                                        fontSize: height * 0.016,
+                                                decoration:
+                                                    TextDecoration.lineThrough,
+                                              )
+                                          : Theme.of(context)
+                                              .textTheme
+                                              .displayLarge!
+                                              .copyWith(
+                                        color: Colors.red,
+                                        fontSize: height * 0.025,
+                                              ),
+                                    ),
+                                    onSale != 0
                                         ? TextSpan(
                                             text: ((1 -
                                                         (widget.products[
@@ -350,11 +351,10 @@ class _ProductModelState extends State<ProductModel> {
                                                 .toStringAsFixed(0),
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .labelSmall!
+                                                .displayLarge!
                                                 .copyWith(
                                                   color: Colors.red,
-                                                  fontSize: 17,
-                                                  fontWeight: FontWeight.w500,
+                                              fontSize: height * 0.025,
                                                 ),
                                           )
                                         : const TextSpan(),
@@ -362,11 +362,10 @@ class _ProductModelState extends State<ProductModel> {
                                       text: ' \XAF',
                                       style: Theme.of(context)
                                           .textTheme
-                                          .labelSmall!
+                                          .displayLarge!
                                           .copyWith(
-                                            color: Colors.red,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w500,
+                                        fontSize: height * 0.020,
+                                        color: Colors.red,
                                           ),
                                     ),
                                   ],

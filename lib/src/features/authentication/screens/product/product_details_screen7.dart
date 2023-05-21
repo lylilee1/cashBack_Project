@@ -62,6 +62,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     var height = size.height;
     var width = size.width;
 
+    var onSale = widget.prodList['discount'];
+
     final Stream<QuerySnapshot> _productsStream = FirebaseFirestore.instance
         .collection('products')
         .where('maincateg', isEqualTo: widget.prodList['maincateg'])
@@ -414,35 +416,68 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           //price
-                          RichText(
-                            text: TextSpan(
-                              text: widget.prodList['price'].toStringAsFixed(0),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .displayLarge!
-                                  .copyWith(
-                                    fontSize: height * 0.025,
-                                    color: Colors.redAccent,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                              children: <TextSpan>[
-                                TextSpan(
-                                  text: ' XAF',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .displayLarge!
-                                      .copyWith(
-                                        fontSize: height * 0.018,
+
+                          Row(
+                            children: [
+                              RichText(
+                                text: TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text: widget.prodList['price']
+                                          .toStringAsFixed(0),
+                                      style: onSale != 0
+                                          ? Theme.of(context)
+                                          .textTheme
+                                          .displayLarge!
+                                          .copyWith(
+                                        color: Colors.grey,
+                                        fontSize: height * 0.016,
+                                        decoration:
+                                        TextDecoration.lineThrough,
+                                      )
+                                          : Theme.of(context)
+                                          .textTheme
+                                          .displayLarge!
+                                          .copyWith(
                                         color: Colors.red,
-                                        fontWeight: FontWeight.bold,
+                                        fontSize: height * 0.025,
                                       ),
+                                    ),
+                                    onSale != 0
+                                        ? TextSpan(
+                                      text: ((1 -
+                                          (widget.prodList[
+                                          'discount'] /
+                                              100)) *
+                                          widget.prodList['price'])
+                                          .toStringAsFixed(0),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .displayLarge!
+                                          .copyWith(
+                                        color: Colors.red,
+                                        fontSize: height * 0.025,
+                                      ),
+                                    )
+                                        : const TextSpan(),
+                                    TextSpan(
+                                      text: ' \XAF',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .displayLarge!
+                                          .copyWith(
+                                        fontSize: height * 0.020,
+                                        color: Colors.red,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                           const SizedBox(height: 2),
 
-                          //rating
+                          //Rating
                           Row(
                             children: [
                               RatingBar.builder(
