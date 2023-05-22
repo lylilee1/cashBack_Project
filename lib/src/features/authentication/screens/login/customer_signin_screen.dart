@@ -55,8 +55,10 @@ class _CustomerSignInScreenState extends State<CustomerSignInScreen> {
           processing = false;
         });
 
-        Navigator.pushReplacementNamed(context, MainScreen.routeName);
-        //Navigator.pushReplacementNamed(context, ProfileScreen.routeName);
+        await Future.delayed(const Duration(microseconds: 100),).whenComplete(() => Navigator.pushReplacementNamed(context, MainScreen.routeName)
+            //Navigator.pushReplacementNamed(context, ProfileScreen.routeName)
+            );
+
       } on FirebaseAuthException catch (e) {
         if (e.code == 'user-not-found') {
           setState(() {

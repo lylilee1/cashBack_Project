@@ -100,8 +100,8 @@ final ImagePicker _picker = ImagePicker();
           //code to stop the progress indicator
           processing = false;
         });
-        //if the user is successfully registered, then navigate to the home screen
-        Navigator.pushReplacementNamed(context, CustomerSignInScreen.routeName);
+        await Future.delayed(const Duration(microseconds: 100),).whenComplete(() => //if the user is successfully registered, then navigate to the home screen
+        Navigator.pushReplacementNamed(context, CustomerSignInScreen.routeName));
 
       }
       on FirebaseAuthException catch (e) {

@@ -236,8 +236,13 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                                           });
                                                         });
                                                       }
-                                                      context.read<Cart>().clearCart();
-                                                      Navigator.popUntil(context, ModalRoute.withName(MainScreen.routeName));
+
+                                                      await Future.delayed(const Duration(microseconds: 100),).whenComplete((){
+                                                        context.read<Cart>().clearCart();
+                                                        Navigator.popUntil(context, ModalRoute.withName(MainScreen.routeName));
+                                                      });
+
+
                                                     },
                                                     style: ButtonStyle(
                                                       shape: MaterialStateProperty.all(

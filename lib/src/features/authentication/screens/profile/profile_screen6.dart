@@ -453,9 +453,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 },
                                 onPressedYes: () async {
                                   await FirebaseAuth.instance.signOut();
-                                  Navigator.pop(context);
-                                  Navigator.pushReplacementNamed(
-                                      context, MainScreen.routeName);
+
+                                  await Future.delayed(const Duration(microseconds: 100),).whenComplete(() =>
+                                      Navigator.pop(context);
+                                      Navigator.pushReplacementNamed(
+                                      context, MainScreen.routeName));
+
                                 },
                               );
                             },

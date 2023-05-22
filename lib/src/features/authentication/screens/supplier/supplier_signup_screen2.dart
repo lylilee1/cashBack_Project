@@ -100,8 +100,8 @@ class _SupplierSignUpScreenState extends State<SupplierSignUpScreen> {
           //code to stop the progress indicator
           processing = false;
         });
-        //if the user is successfully registered, then navigate to the home screen
-        Navigator.pushReplacementNamed(context, SupplierSignInScreen.routeName);
+        await Future.delayed(const Duration(microseconds: 100),).whenComplete(() => //if the user is successfully registered, then navigate to the home screen
+        Navigator.pushReplacementNamed(context, SupplierSignInScreen.routeName));
 
       }
       on FirebaseAuthException catch (e) {
@@ -193,7 +193,7 @@ class _SupplierSignUpScreenState extends State<SupplierSignUpScreen> {
                       height: 20,
                     ),
                     //logo
-                    Icon(
+                    const Icon(
                       Icons.app_registration_outlined,
                       size: 100,
                       color: CbColors.cbPrimaryColor2,
@@ -228,7 +228,7 @@ class _SupplierSignUpScreenState extends State<SupplierSignUpScreen> {
                           children: [
                             //pick from camera
                             Container(
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 borderRadius: BorderRadius.only(
                                   topLeft: Radius.circular(15),
                                   topRight: Radius.circular(15),
@@ -239,14 +239,14 @@ class _SupplierSignUpScreenState extends State<SupplierSignUpScreen> {
                                 onPressed: () {
                                   _pickImageFromCamera();
                                 },
-                                icon: Icon(Icons.camera_alt_outlined,
+                                icon: const Icon(Icons.camera_alt_outlined,
                                     color: Colors.white, size: 30),
                               ),
                             ),
-                            SizedBox(height: 5),
+                            const SizedBox(height: 5),
                             //pick from gallery
                             Container(
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 borderRadius: BorderRadius.only(
                                   bottomLeft: Radius.circular(15),
                                   bottomRight: Radius.circular(15),
@@ -257,7 +257,7 @@ class _SupplierSignUpScreenState extends State<SupplierSignUpScreen> {
                                 onPressed: () {
                                   _pickImageFromGallery();
                                 },
-                                icon: Icon(Icons.image_outlined,
+                                icon: const Icon(Icons.image_outlined,
                                     color: Colors.white, size: 30),
                               ),
                             ),
