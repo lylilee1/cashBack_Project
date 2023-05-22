@@ -160,7 +160,12 @@ class _ProductModelState extends State<ProductModel> {
                                       widget.products['brand'],
                                       widget.products['model'],
                                       widget.products['proname'],
-                                      widget.products['price'],
+                              onSale != 0 ? ((1 -
+                                  (widget.products[
+                                  'discount'] /
+                                      100)) *
+                                  widget.products['price'])
+                                  : widget.products['price'],
                                       1,
                                       widget.products['instock'],
                                       widget.products['proimages'],
@@ -227,7 +232,12 @@ class _ProductModelState extends State<ProductModel> {
                                       widget.products['brand'],
                                       widget.products['model'],
                                       widget.products['proname'],
-                                      widget.products['price'],
+                              onSale != 0 ? ((1 -
+                                  (widget.products[
+                                  'discount'] /
+                                      100)) *
+                                  widget.products['price'])
+                                  : widget.products['price'],
                                       1,
                                       widget.products['instock'],
                                       widget.products['proimages'],
@@ -283,7 +293,19 @@ class _ProductModelState extends State<ProductModel> {
                             ),
                           ),
                         )
-                      : Container(color: Colors.transparent)
+                      : Positioned(
+                          top: 25,
+                          left: 15,
+                          child: Container(
+                            decoration: const BoxDecoration(
+                              color: Colors.transparent,
+                              borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(15),
+                                bottomRight: Radius.circular(15),
+                              ),
+                            ),
+                          ),
+                        ),
                 ],
               ),
             ),
@@ -329,7 +351,7 @@ class _ProductModelState extends State<ProductModel> {
                                               .displayLarge!
                                               .copyWith(
                                                 color: Colors.grey,
-                                        fontSize: height * 0.016,
+                                                fontSize: height * 0.016,
                                                 decoration:
                                                     TextDecoration.lineThrough,
                                               )
@@ -337,8 +359,8 @@ class _ProductModelState extends State<ProductModel> {
                                               .textTheme
                                               .displayLarge!
                                               .copyWith(
-                                        color: Colors.red,
-                                        fontSize: height * 0.025,
+                                                color: Colors.red,
+                                                fontSize: height * 0.025,
                                               ),
                                     ),
                                     onSale != 0
@@ -354,7 +376,7 @@ class _ProductModelState extends State<ProductModel> {
                                                 .displayLarge!
                                                 .copyWith(
                                                   color: Colors.red,
-                                              fontSize: height * 0.025,
+                                                  fontSize: height * 0.025,
                                                 ),
                                           )
                                         : const TextSpan(),
@@ -364,8 +386,8 @@ class _ProductModelState extends State<ProductModel> {
                                           .textTheme
                                           .displayLarge!
                                           .copyWith(
-                                        fontSize: height * 0.020,
-                                        color: Colors.red,
+                                            fontSize: height * 0.020,
+                                            color: Colors.red,
                                           ),
                                     ),
                                   ],

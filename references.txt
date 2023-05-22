@@ -1,0 +1,18 @@
+project references
+
+
+Fullstack School - Flutter UI E Commerce Clothes App Tutorial | App from Scratch
+ - Video Part 1 https://www.youtube.com/watch?v=YtiftyEohes&t=128s
+ - Video Part 2 https://www.youtube.com/watch?v=4C8-6NmOBQk&t=1291s
+
+
+Sopheamen Van - Flutter UI - E-Commerce UI App - Home - Side Menu - Product Detail - Cart Page - Speed Code
+ - Video Part https://www.youtube.com/watch?v=-KvD42LLfBU
+
+
+The Flutter Way - Flutter Shop App UI - Speed Code
+ - Video Part https://www.youtube.com/watch?v=Q67qNgSVVpA&t=32s
+
+
+Tech Savvy - Flutter eCommerce app | Stripe | Firebase | Firestore
+ - Video Part https://www.youtube.com/watch?v=AygtpBDOwOI&t=11s (model pour Kouakourou Electronic)

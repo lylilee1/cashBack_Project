@@ -171,7 +171,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                   widget.prodList['brand'],
                                   widget.prodList['model'],
                                   widget.prodList['proname'],
-                                  widget.prodList['price'],
+                                  onSale != 0 ? ((1 -
+                                      (widget.prodList[
+                                      'discount'] /
+                                          100)) *
+                                      widget.prodList['price'])
+                                  : widget.prodList['price'],
                                   1,
                                   widget.prodList['instock'],
                                   widget.prodList['proimages'],
@@ -370,7 +375,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                                 widget.prodList['brand'],
                                                 widget.prodList['model'],
                                                 widget.prodList['proname'],
-                                                widget.prodList['price'],
+                                          onSale != 0 ? ((1 -
+                                              (widget.prodList[
+                                              'discount'] /
+                                                  100)) *
+                                              widget.prodList['price'])
+                                              : widget.prodList['price'],
                                                 1,
                                                 widget.prodList['instock'],
                                                 widget.prodList['proimages'],
