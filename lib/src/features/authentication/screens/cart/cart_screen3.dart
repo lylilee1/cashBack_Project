@@ -1,11 +1,9 @@
 import 'package:cashback/src/common_widgets/Alert/alert_dialog.dart';
 import 'package:cashback/src/common_widgets/app_bar/appBarWidget.dart';
-import 'package:cashback/src/common_widgets/form/auth_widget.dart';
 import 'package:cashback/src/constants/colors.dart';
 import 'package:cashback/src/constants/text_strings.dart';
 import 'package:cashback/src/features/authentication/controllers/cart/cart_controller.dart';
 import 'package:cashback/src/features/authentication/controllers/wishlist/wishlist_controller.dart';
-import 'package:cashback/src/features/authentication/screens/orders/orders_screen.dart';
 import 'package:cashback/src/features/authentication/screens/search/search_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +12,8 @@ import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import '../customer/customer_home_screen4.dart';
 import 'package:collection/collection.dart';
+
+import '../orders/orders_screen2.dart';
 
 class CartScreen extends StatefulWidget {
   final Widget? back;
@@ -153,7 +153,7 @@ class _CartScreenState extends State<CartScreen> {
                                           const EdgeInsets.only(bottom: 10),
                                       child: Row(
                                         children: [
-                                          SizedBox(
+                                          Container(
                                             width: (size.width - 30) * 0.7,
                                             height: 80,
                                             child: Row(

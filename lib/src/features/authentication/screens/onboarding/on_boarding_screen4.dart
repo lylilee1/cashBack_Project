@@ -178,10 +178,7 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
                         },
                         child: const Text("Skip")),
 
-                    // Check if the bool is true to display the progress indicator
-                    processing == true
-                        ? const CircularProgressIndicator()
-                        : TextButton(
+                    TextButton(
                             style: TextButton.styleFrom(
                                 visualDensity: VisualDensity.comfortable,
                                 foregroundColor: Colors.white,
@@ -189,9 +186,6 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
                                     fontSize: 16, fontWeight: FontWeight.bold)),
                             onPressed: () async {
                               if (_currentPage == widget.pages.length - 1) {
-                                setState(() {
-                                  bool processing = true;
-                                });
 
                                 // Sign in anonymously with Firebase
                                 try {
@@ -228,7 +222,8 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
                                   );
                                 }
                                 //widget.onFinish?.call();
-                              } else {
+                              }
+                              else {
                                 _pageController.animateToPage(_currentPage + 1,
                                     curve: Curves.easeInOutCubic,
                                     duration:
