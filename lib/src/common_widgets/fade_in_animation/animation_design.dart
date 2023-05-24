@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:splash_screen_with_animation/src/features/authentication/models/fade_in_animation_model.dart';
+import '../../features/authentication/models/fade_in_animation_model.dart';
 
 import '../../constants/image_strings.dart';
 import '../../features/authentication/controllers/fade_in_animation_controller.dart';
