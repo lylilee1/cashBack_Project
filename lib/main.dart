@@ -1,5 +1,6 @@
 import 'package:cashback/firebase_options.dart';
 import 'package:cashback/src/features/authentication/controllers/cart/cart_controller.dart';
+import 'package:cashback/src/features/authentication/controllers/stripe/stripe_id.dart';
 import 'package:cashback/src/features/authentication/controllers/wishlist/wishlist_controller.dart';
 import 'package:cashback/src/features/authentication/screens/customer/customer_home_screen4.dart';
 import 'package:cashback/src/features/authentication/screens/dashboard/dashboard_screen2.dart';
@@ -14,6 +15,8 @@ import 'package:cashback/src/utils/theme/theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:stripe_platform_interface/stripe_platform_interface.dart';
 import 'package:provider/provider.dart';
 
 import 'src/features/authentication/screens/cart/cart_screen.dart';
@@ -23,6 +26,13 @@ import 'src/features/authentication/screens/wishlist/wishlist_screen.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  Stripe.publishableKey = stripePublishableKey;
+  Stripe.merchantIdentifier = 'merchant.flutter.stripe.test';
+  Stripe.urlScheme = 'flutterstripe';
+  await Stripe.instance.applySettings();
+
+
   WidgetsFlutterBinding.ensureInitialized();
   //French language
   timeago.setLocaleMessages('fr', timeago.FrMessages());

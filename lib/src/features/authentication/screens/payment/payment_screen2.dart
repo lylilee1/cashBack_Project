@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:cashback/src/common_widgets/app_bar/appBarWidget.dart';
 import 'package:cashback/src/features/authentication/controllers/cart/cart_controller.dart';
+import 'package:cashback/src/features/authentication/controllers/stripe/stripe_id.dart';
 import 'package:cashback/src/features/authentication/screens/main/main_screen2.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -8,6 +11,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:sn_progress_dialog/progress_dialog.dart';
 import 'package:uuid/uuid.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:http/http.dart' as http;
 
 import '../../../../constants/colors.dart';
 
@@ -85,7 +90,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       child: SizedBox(
                         height: 50,
                         child: ElevatedButton(
-                          onPressed: () {
+                          onPressed: () async {
                             if (_selectedValue == 1) {
                               showModalBottomSheet(
                                 context: context,
@@ -247,6 +252,18 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                   ),
                                 ),
                               );
+                            } else if (_selectedValue == 2) {
+                              int payment = totalPaid.round();
+                              int pay = payment * 1;
+                              await makeVisaMasterCardPayment(data, pay.toString());
+                            } else if (_selectedValue == 3) {
+                              makePayPalPayment();
+                            } else if (_selectedValue == 4) {
+                              int payment = totalPaid.round();
+                              int pay = payment * 1;
+                              await makeGPayPayment(data, pay.toString());
+                            } else if (_selectedValue == 5) {
+                              makeApplePayPayment();
                             } else {}
                           },
                           style: ButtonStyle(
@@ -445,7 +462,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                         _selectedValue = value!;
                                       });
                                     },
-                                    title:Row(
+                                    title: Row(
                                       children: const [
                                         Icon(
                                           FontAwesomeIcons.cashRegister,
@@ -462,7 +479,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                 ),
                               ),
 
-                              //Cash payment
+                              //Visa Master Card payment
                               Padding(
                                 padding: const EdgeInsets.symmetric(
                                   horizontal: 10,
@@ -482,8 +499,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                       ),
                                     ],
                                   ),
-                                  child:
-                                  RadioListTile(
+                                  child: RadioListTile(
                                     value: 2,
                                     groupValue: _selectedValue,
                                     onChanged: (int? value) {
@@ -527,7 +543,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                       ),
                                     ],
                                   ),
-                                  child:RadioListTile(
+                                  child: RadioListTile(
                                     value: 3,
                                     groupValue: _selectedValue,
                                     onChanged: (int? value) {
@@ -568,7 +584,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                       ),
                                     ],
                                   ),
-                                  child:RadioListTile(
+                                  child: RadioListTile(
                                     value: 4,
                                     groupValue: _selectedValue,
                                     onChanged: (int? value) {
@@ -610,7 +626,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                       ),
                                     ],
                                   ),
-                                  child:RadioListTile(
+                                  child: RadioListTile(
                                     value: 5,
                                     groupValue: _selectedValue,
                                     onChanged: (int? value) {
@@ -648,4 +664,195 @@ class _PaymentScreenState extends State<PaymentScreen> {
       },
     );
   }
+
+  Map<String, dynamic>? paymentIntent;
+
+  /* GPAY PAYMENT START*/
+  Future<void> makeGPayPayment(dynamic data, String total) async {
+    try {
+      //create payment intent
+      paymentIntent = await createPaymentIntent(total, 'XAF');
+
+      var gpay = const PaymentSheetGooglePay(
+          merchantCountryCode: "ga", currencyCode: "XAF", testEnv: true);
+
+      //STEP 2: Initialize payment Sheet
+      await Stripe.instance
+          .initPaymentSheet(
+              paymentSheetParameters: SetupPaymentSheetParameters(
+            paymentIntentClientSecret: paymentIntent!['client_secret'],
+            style: ThemeMode.light,
+            merchantDisplayName: "CashBack",
+            googlePay: gpay,
+          ))
+          .then((value) {});
+
+      displayPaymentSheet(data);
+    } catch (e) {
+      throw Exception(e.toString());
+      //print(e.toString());
+    }
+  }
+  /* GPAY PAYMENT END*/
+
+  Future<void> makePayPalPayment() async {}
+
+  /* APPLE PAY PAYMENT START*/
+  Future<void> makeApplePayPayment() async {}
+
+  /* VISA MASTERCARD PAYMENT START*/
+  Future<void> makeVisaMasterCardPayment(dynamic data, String total) async {
+    try {
+      //create payment intent
+      paymentIntent = await createPaymentIntent(total, 'XAF');
+
+      await Stripe.instance
+          .initPaymentSheet(
+              paymentSheetParameters: SetupPaymentSheetParameters(
+            paymentIntentClientSecret: paymentIntent!['client_secret'],
+            merchantDisplayName: "CashBack",
+            style: ThemeMode.light,
+          ))
+          .then((value) {});
+
+      displayPaymentSheet(data);
+    } catch (e) {
+      throw Exception(e.toString());
+      //print(e.toString());
+    }
+  }
+
+  void displayPaymentSheet(var data) async {
+    try {
+      await Stripe.instance.presentPaymentSheet().then((value) async {
+        print("Payment successful!");
+
+        showProgress();
+        for (var item in context
+            .read<Cart>()
+            .getitems) {
+          CollectionReference
+          orderRef =
+          FirebaseFirestore
+              .instance
+              .collection(
+              'orders');
+          //give a value to the order id
+          _orderId = const Uuid()
+              .v4(); //generate
+
+          await orderRef
+              .doc(_orderId)
+              .set({
+            //Order information
+            'orderid': _orderId,
+            'ordername': item.name,
+            'orderimage':
+            item.imagesUrl.first,
+            'orderqty': item.quantity,
+            'orderprice':
+            item.quantity *
+                item.price,
+            'orderdate':
+            DateTime.now(),
+
+            //customer information
+            'cid': data['cid'],
+            'custname': data['name'],
+            'email': data['email'],
+            'phone': data['phone'],
+            'address':
+            data['address'],
+            'profileimage':
+            data['profileImage'],
+
+            //supplier information
+            'sid': item.suppId,
+
+            //product information
+            'proid': item.documentId,
+
+            //Quantity customer willing to buy
+            //Delivery status
+            'deliverystatus':
+            'préparer la livraison',
+            'deliverydate': '',
+
+            //Payment status
+            'paymentstatus':
+            'payé en ligne',
+            'paymentdate': '',
+            'paymentmethod': '',
+            'orderreview': false,
+            'orderreviewdate': '',
+          }).whenComplete(() async {
+            await FirebaseFirestore
+                .instance
+                .runTransaction(
+                    (transaction) async {
+                  DocumentReference
+                  documentReference =
+                  FirebaseFirestore
+                      .instance
+                      .collection(
+                      'products')
+                      .doc(item
+                      .documentId);
+                  DocumentSnapshot
+                  snapshot2 =
+                  await transaction.get(
+                      documentReference);
+                  transaction.update(
+                      documentReference, {
+                    'instock': snapshot2[
+                    'instock'] -
+                        item.quantity,
+                  });
+                });
+          });
+        }
+
+        await Future.delayed(
+          const Duration(
+              microseconds: 100),
+        ).whenComplete(() {
+          context
+              .read<Cart>()
+              .clearCart();
+          Navigator.popUntil(
+              context,
+              ModalRoute.withName(
+                  MainScreen
+                      .routeName));
+        });
+
+      });
+    } catch (e) {
+      //throw Exception(e.toString());
+      print("$e!");
+    }
+  }
+
+  createPaymentIntent(String total, String currency) async {
+    try {
+      //body
+      Map<String, dynamic> body = {
+        'amount': total,
+        'currency': currency,
+      };
+
+      //call api
+      var response = await http.post(
+          Uri.parse("https://api.stripe.com/v1/payment_intents"),
+          body: body,
+          headers: {
+            "Authorization": "Bearer $stripeSecretKey",
+            "Content-Type": "application/x-www-form-urlencoded"
+          });
+      return json.decode(response.body);
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+/* VISA MASTERCARD PAYMENT END*/
 }
