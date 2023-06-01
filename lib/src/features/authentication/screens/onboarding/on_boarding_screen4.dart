@@ -178,7 +178,9 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
                         },
                         child: const Text("Skip")),
 
-                    TextButton(
+                    processing == true
+                        ? const CircularProgressIndicator()
+                        : TextButton(
                             style: TextButton.styleFrom(
                                 visualDensity: VisualDensity.comfortable,
                                 foregroundColor: Colors.white,
@@ -186,6 +188,9 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
                                     fontSize: 16, fontWeight: FontWeight.bold)),
                             onPressed: () async {
                               if (_currentPage == widget.pages.length - 1) {
+                                setState(() {
+                                  processing = true;
+                                });
 
                                 // Sign in anonymously with Firebase
                                 try {
@@ -208,8 +213,8 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
                                   User? user = userCredential.user;
                                   if (user != null) {
                                     // Navigate to the home screen after successful sign-in
-                                    Navigator.pushReplacementNamed(
-                                        context, MainScreen.routeName);
+                                    await Future.delayed(const Duration(microseconds: 100)).whenComplete(() => Navigator.pushReplacementNamed(
+                                        context, MainScreen.routeName));
                                   }
                                 } catch (e) {
                                   print('Error signing in anonymously: $e');

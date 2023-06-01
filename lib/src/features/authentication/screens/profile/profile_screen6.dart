@@ -6,7 +6,6 @@ import 'package:cashback/src/features/authentication/screens/profile/update_prof
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import '../customer/minor_screen/customer_order1.dart';
 
@@ -23,11 +22,15 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   CollectionReference customers =
       FirebaseFirestore.instance.collection('customers');
+  CollectionReference anonymous =
+      FirebaseFirestore.instance.collection('anonymous');
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<DocumentSnapshot>(
-      future: customers.doc(widget.documentId).get(),
+      future: FirebaseAuth.instance.currentUser!.isAnonymous
+          ? anonymous.doc(widget.documentId).get()
+          : customers.doc(widget.documentId).get(),
       builder:
           (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
         if (snapshot.hasError) {
@@ -112,27 +115,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     backgroundColor: Theme.of(context)
                                         .scaffoldBackgroundColor,
                                     child: Container(
-                                      margin: const EdgeInsets.all(4.0),
-                                      decoration: const BoxDecoration(
-                                        color: Colors.green,
-                                        shape: BoxShape.circle,
-                                      ),
-                                      child: IconButton(
-                                        onPressed: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const UpdateProfileScreen(),
-                                            ),
-                                          );
-                                        },
-                                        icon: const Icon(
-                                          Icons.edit,
-                                          color: Colors.white,
+                                        margin: const EdgeInsets.all(4.0),
+                                        decoration: const BoxDecoration(
+                                          color: Colors.green,
+                                          shape: BoxShape.circle,
                                         ),
-                                      )
-                                    ),
+                                        child: IconButton(
+                                          onPressed: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const UpdateProfileScreen(),
+                                              ),
+                                            );
+                                          },
+                                          icon: const Icon(
+                                            Icons.edit,
+                                            color: Colors.white,
+                                          ),
+                                        )),
                                   ),
                                 ),
                               ],
@@ -454,12 +456,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 onPressedYes: () async {
                                   await FirebaseAuth.instance.signOut();
 
-                                  await Future.delayed(const Duration(microseconds: 100),).whenComplete((){
+                                  await Future.delayed(
+                                    const Duration(microseconds: 100),
+                                  ).whenComplete(() {
                                     Navigator.pop(context);
                                     Navigator.pushReplacementNamed(
                                         context, MainScreen.routeName);
                                   });
-
                                 },
                               );
                             },
