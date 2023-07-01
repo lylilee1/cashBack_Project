@@ -1,5 +1,6 @@
 import 'package:cashback/src/common_widgets/Alert/alert_dialog.dart';
 import 'package:cashback/src/constants/colors.dart';
+import 'package:cashback/src/constants/size_config.dart';
 import 'package:cashback/src/features/authentication/screens/main/main_screen2.dart';
 import 'package:cashback/src/features/authentication/screens/profile/update_profile_screen.dart';
 
@@ -7,6 +8,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../constants/app_styles.dart';
 import '../customer/minor_screen/customer_order1.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -27,6 +29,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
+
     return FutureBuilder<DocumentSnapshot>(
       future: FirebaseAuth.instance.currentUser!.isAnonymous
           ? anonymous.doc(widget.documentId).get()
@@ -49,8 +53,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
               backgroundColor: CbColors.cbPrimaryColor2,
               elevation: 0,
               centerTitle: true,
-              title: const Text(
-                'Profile',
+              title: Text(
+                'Profil',
+                style: cbMontserratBold.copyWith(
+                  fontSize: SizeConfig.blockSizeHorizontal! * 3.5,
+                  color: CbColors.cbWhiteColor,
+                ),
               ),
             ),
             body: Padding(
@@ -152,42 +160,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           //Name
                           Text(
                             data['name'] == '' ? 'Invité(e)' : data['name'],
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline6
-                                ?.copyWith(fontWeight: FontWeight.bold),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: cbBebasNeueBold.copyWith(
+                              fontSize: SizeConfig.blockSizeHorizontal! * 5,
+                              color: kBlack,
+                              letterSpacing: 1.5,
+                            ),
                           ),
-                          const SizedBox(height: 16),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              FloatingActionButton.extended(
-                                onPressed: () {},
-                                heroTag: 'follow',
-                                elevation: 0,
-                                label: const Text("Follow"),
-                                icon: const Icon(Icons.person_add_alt_1),
-                              ),
-                              const SizedBox(width: 16.0),
-                              FloatingActionButton.extended(
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          const CustomerOrders(),
-                                    ),
-                                  );
-                                },
-                                heroTag: 'Orders',
-                                elevation: 0,
-                                backgroundColor: Colors.red,
-                                label: const Text("Orders"),
-                                icon: const Icon(Icons.message_rounded),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 16),
+                          const SizedBox(height: 24),
                           //const _ProfileInfoRow()
 
                           //Account Info Title
@@ -205,11 +186,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   ),
                                 ),
                                 Text(
-                                  'Info du compte',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .displayMedium!
-                                      .copyWith(),
+                                  'Mon compte',
+                                  style: cbMontserratBold.copyWith(
+                                    fontSize:
+                                        SizeConfig.blockSizeHorizontal! * 5,
+                                    color: CbColors.cbPrimaryColor2,
+                                  ),
                                 ),
                                 const SizedBox(
                                   height: 40,
@@ -249,7 +231,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   color: CbColors.cbPrimaryColor2,
                                 ),
                                 title: Text(
-                                  'Mes infos perso',
+                                  'Mes informations perso',
                                   style: Theme.of(context)
                                       .textTheme
                                       .headline6!
@@ -442,6 +424,211 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ),
                             ),
                           ),
+                          const SizedBox(height: 24),
+                          //const _ProfileInfoRow()
+
+                          //Help Title
+                          SizedBox(
+                            height: 40,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const SizedBox(
+                                  height: 40,
+                                  width: 50,
+                                  child: Divider(
+                                    color: CbColors.cbPrimaryColor2,
+                                    thickness: 1,
+                                  ),
+                                ),
+                                Text(
+                                  'Aide',
+                                  style: cbMontserratBold.copyWith(
+                                    fontSize:
+                                    SizeConfig.blockSizeHorizontal! * 5,
+                                    color: CbColors.cbPrimaryColor2,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 40,
+                                  width: 50,
+                                  child: Divider(
+                                    color: CbColors.cbPrimaryColor2,
+                                    thickness: 1,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+
+                          //Call us
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 5,
+                              vertical: 15,
+                            ),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(20.0),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.2),
+                                    spreadRadius: 2.5,
+                                    blurRadius: 5,
+                                    offset: const Offset(
+                                        0, 5), // changes position of shadow
+                                  ),
+                                ],
+                              ),
+                              child: ListTile(
+                                leading: const Icon(
+                                  Icons.replay_circle_filled,
+                                  color: CbColors.cbPrimaryColor2,
+                                ),
+                                title: Text(
+                                  'Nous contacter',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline6!
+                                      .copyWith(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                trailing: const Icon(
+                                  Icons.arrow_forward_ios,
+                                  color: CbColors.cbPrimaryColor2,
+                                ),
+                              ),
+                            ),
+                          ),
+
+                          //FAQ
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 5,
+                              vertical: 15,
+                            ),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(20.0),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.2),
+                                    spreadRadius: 2.5,
+                                    blurRadius: 5,
+                                    offset: const Offset(
+                                        0, 5), // changes position of shadow
+                                  ),
+                                ],
+                              ),
+                              child: ListTile(
+                                leading: const Icon(
+                                  Icons.replay_circle_filled,
+                                  color: CbColors.cbPrimaryColor2,
+                                ),
+                                title: Text(
+                                  'Questions fréquentes',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline6!
+                                      .copyWith(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                trailing: const Icon(
+                                  Icons.arrow_forward_ios,
+                                  color: CbColors.cbPrimaryColor2,
+                                ),
+                              ),
+                            ),
+                          ),
+
+                          //Terms and policy
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 5,
+                              vertical: 15,
+                            ),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(20.0),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.2),
+                                    spreadRadius: 2.5,
+                                    blurRadius: 5,
+                                    offset: const Offset(
+                                        0, 5), // changes position of shadow
+                                  ),
+                                ],
+                              ),
+                              child: ListTile(
+                                leading: const Icon(
+                                  Icons.replay_circle_filled,
+                                  color: CbColors.cbPrimaryColor2,
+                                ),
+                                title: Text(
+                                  'Termes et politiques',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline6!
+                                      .copyWith(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                trailing: const Icon(
+                                  Icons.arrow_forward_ios,
+                                  color: CbColors.cbPrimaryColor2,
+                                ),
+                              ),
+                            ),
+                          ),
+
+                          //Privacy policy
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 5,
+                              vertical: 15,
+                            ),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(20.0),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.2),
+                                    spreadRadius: 2.5,
+                                    blurRadius: 5,
+                                    offset: const Offset(
+                                        0, 5), // changes position of shadow
+                                  ),
+                                ],
+                              ),
+                              child: ListTile(
+                                leading: const Icon(
+                                  Icons.replay_circle_filled,
+                                  color: CbColors.cbPrimaryColor2,
+                                ),
+                                title: Text(
+                                  'Politique de confidentialité',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline6!
+                                      .copyWith(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                trailing: const Icon(
+                                  Icons.arrow_forward_ios,
+                                  color: CbColors.cbPrimaryColor2,
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 24),
 
                           //Sign Out
                           InkWell(
@@ -491,7 +678,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     color: CbColors.cbPrimaryColor2,
                                   ),
                                   title: Text(
-                                    'Sign Out',
+                                    'Se déconnecter',
                                     style: Theme.of(context)
                                         .textTheme
                                         .headline6!

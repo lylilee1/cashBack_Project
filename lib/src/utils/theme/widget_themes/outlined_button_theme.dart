@@ -11,20 +11,20 @@ class CbOutlinedButtonTheme {
 // -- Light Theme
   static final lightOutlinedButtonTheme = OutlinedButtonThemeData(
     style: OutlinedButton.styleFrom(
-      shape: RoundedRectangleBorder(),
+      shape: const RoundedRectangleBorder(),
       foregroundColor: cbSecondaryColor,
-      side: BorderSide(color: cbSecondaryColor),
-      padding: EdgeInsets.symmetric(vertical: CbSizings.cbButtonHeight),
+      side: const BorderSide(color: cbSecondaryColor),
+      padding: const EdgeInsets.symmetric(vertical: CbSizings.cbButtonHeight),
     ),
   );
 
 // -- Dark Theme
   static final darkOutlinedButtonTheme = OutlinedButtonThemeData(
     style: OutlinedButton.styleFrom(
-      shape: RoundedRectangleBorder(),
-      foregroundColor: cbWhiteColor,
-      side: BorderSide(color: cbWhiteColor),
-      padding: EdgeInsets.symmetric(vertical: CbSizings.cbButtonHeight),
+      shape: const RoundedRectangleBorder(),
+      foregroundColor: CbColors.cbWhiteColor,
+      side: const BorderSide(color: CbColors.cbWhiteColor),
+      padding: const EdgeInsets.symmetric(vertical: CbSizings.cbButtonHeight),
     ),
   );
 }

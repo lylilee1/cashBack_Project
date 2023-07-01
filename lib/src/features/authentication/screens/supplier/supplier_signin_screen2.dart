@@ -25,66 +25,81 @@ class SupplierSignInScreen extends StatefulWidget {
 class _SupplierSignInScreenState extends State<SupplierSignInScreen> {
   final _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldMessengerState> _scaffoldkey =
-  GlobalKey<ScaffoldMessengerState>();
+      GlobalKey<ScaffoldMessengerState>();
 
   late String _email;
   late String _password;
 
   bool processing = false;
+  bool sendEmailVerification = false;
 
   bool passwordNotVisible = true;
 
   void signIn() async {
-    setState(() {
-      processing = true;
-    });
+      setState(() {
+        processing = true;
+      });
 
-    if (_formKey.currentState!.validate()) {
-      try {
-        _formKey.currentState!.save();
+      if (_formKey.currentState!.validate()) {
+        try {
+          _formKey.currentState!.save();
 
-        await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: _email,
-          password: _password,
-        );
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
+            email: _email,
+            password: _password,
+          );
+          await FirebaseAuth.instance.currentUser!.reload();
+          if (FirebaseAuth.instance.currentUser!.emailVerified) {
 
-        //code to clear the form after submitting
-        _formKey.currentState!.reset();
-        setState(() {
-          //code to stop the progress indicator
-          processing = false;
-        });
-
-        await Future.delayed(const Duration(microseconds: 100),).whenComplete(() => Navigator.pushReplacementNamed(context, SupplierHomeScreen.routeName)
-          //Navigator.pushReplacementNamed(context, ProfileScreen.routeName)
-        );
-
-      } on FirebaseAuthException catch (e) {
-        if (e.code == 'user-not-found') {
+          //code to clear the form after submitting
+          _formKey.currentState!.reset();
           setState(() {
+            //code to stop the progress indicator
             processing = false;
           });
-          MyMessageHandler.showSnackBar(
-              _scaffoldkey, 'No user found for that email.');
-        } else if (e.code == 'wrong-password') {
-          setState(() {
-            processing = false;
-          });
-          MyMessageHandler.showSnackBar(
-              _scaffoldkey, 'Wrong password provided for that user.');
+
+          await Future.delayed(
+            const Duration(microseconds: 100),
+          ).whenComplete(() => Navigator.pushReplacementNamed(
+                  context, SupplierHomeScreen.routeName)
+              //Navigator.pushReplacementNamed(context, ProfileScreen.routeName)
+              );
+          }
+          else {
+            MyMessageHandler.showSnackBar(
+                _scaffoldkey, 'please verify your email address');
+            setState(() {
+              processing = false;
+              sendEmailVerification = true;
+            });
+          }
+        } on FirebaseAuthException catch (e) {
+          if (e.code == 'user-not-found') {
+            setState(() {
+              processing = false;
+            });
+            MyMessageHandler.showSnackBar(
+                _scaffoldkey, 'No user found for that email.');
+          } else if (e.code == 'wrong-password') {
+            setState(() {
+              processing = false;
+            });
+            MyMessageHandler.showSnackBar(
+                _scaffoldkey, 'Wrong password provided for that user.');
+          }
         }
       }
-    } else {
-      setState(() {
-        processing = false;
-      });
-      MyMessageHandler.showSnackBar(_scaffoldkey, 'please fill all the fields');
-    }
+      else {
+        setState(() {
+          processing = false;
+        });
+        MyMessageHandler.showSnackBar(
+            _scaffoldkey, 'please fill all the fields');
+      }
   }
 
   @override
   Widget build(BuildContext context) {
-
     var size = MediaQuery.of(context).size;
     var height = size.height;
     var width = size.width;
@@ -166,16 +181,16 @@ class _SupplierSignInScreenState extends State<SupplierSignInScreen> {
                           //Sign In button
                           processing == true
                               ? const Center(
-                            child: CircularProgressIndicator(
-                              color: CbColors.cbPrimaryColor2,
-                            ),
-                          )
+                                  child: CircularProgressIndicator(
+                                    color: CbColors.cbPrimaryColor2,
+                                  ),
+                                )
                               : AuthMainButton(
-                            label: CbTextStrings.cbLogin,
-                            onPressed: () {
-                              signIn();
-                            },
-                          ),
+                                  label: CbTextStrings.cbLogin,
+                                  onPressed: () {
+                                    signIn();
+                                  },
+                                ),
                         ],
                       ),
                     ),

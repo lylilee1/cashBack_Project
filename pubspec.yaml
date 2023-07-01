@@ -37,7 +37,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   flutter_native_splash: ^2.2.14
-  google_fonts: ^3.0.1
+  google_fonts: ^4.0.4
   flutter_svg: ^2.0.2
   lottie: ^1.4.3
   lint: ^1.10.0
@@ -128,6 +128,11 @@ flutter:
     - assets/images/articles/homegarden/
     - assets/images/articles/shoes/
     - assets/images/add-video-2969396.png
+
+  fonts:
+    - family: Intro Inline
+      fonts:
+        - asset: assets/fonts/Intro_Inline.otf
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

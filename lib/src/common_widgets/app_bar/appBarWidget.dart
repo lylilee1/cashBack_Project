@@ -1,14 +1,18 @@
-
-
 import 'package:flutter/material.dart';
 
-class AppBarButton extends StatelessWidget {
+import '../../constants/app_styles.dart';
+import '../../constants/colors.dart';
+import '../../constants/size_config.dart';
 
+class AppBarButton extends StatelessWidget {
+  final Color? iconColor;
   final IconData prefixIcon;
   final VoidCallback onTap;
 
   const AppBarButton({
-    super.key, required this.prefixIcon, required this.onTap,
+    super.key,
+    required this.prefixIcon,
+    required this.onTap, this.iconColor,
   });
 
   @override
@@ -17,22 +21,32 @@ class AppBarButton extends StatelessWidget {
       onPressed: onTap,
       icon: Icon(
         prefixIcon,
-        color: Colors.black,
+        //if iconColor is null then use default color else use iconColor
+        color: iconColor ?? CbColors.cbBlack,
       ),
     );
   }
 }
 
 class AppBarTitle extends StatelessWidget {
-  final String title ;
+  final String title;
+  final Color? iconColor;
+
   const AppBarTitle({
-    super.key, required this.title,
+    super.key,
+    required this.title, this.iconColor,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Text(title,
-        style: Theme.of(context).textTheme.headlineMedium);
+    SizeConfig().init(context);
+    return Text(
+      title,
+      style: cbMontserratBold.copyWith(
+        fontSize: SizeConfig.blockSizeHorizontal! * 3.5,
+        color: iconColor ?? CbColors.cbBlack,
+      ),
+    );
   }
 }
 

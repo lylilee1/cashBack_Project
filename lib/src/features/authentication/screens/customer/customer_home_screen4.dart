@@ -22,6 +22,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:provider/provider.dart';
 
+import '../../../../constants/size_config.dart';
 import '../cart/cart_screen3.dart';
 import '../main/main_screen2.dart';
 
@@ -58,14 +59,17 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen>
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     var size = MediaQuery.of(context).size;
     return Scaffold(
       //app bar
       appBar: AppBar(
-        elevation: 0,
+        //backgroundColor: CbColors.cbPrimaryColor2!.withOpacity(0.8),
         backgroundColor: Colors.transparent,
+        elevation: 0,
         leading: AppBarButton(
           prefixIcon: Icons.search,
+          //iconColor: CbColors.cbWhiteColor,
           onTap: () {
             Navigator.push(
               context,
@@ -75,6 +79,7 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen>
         ),
         title: const AppBarTitle(
           title: CbTextStrings.cbAppName,
+          //iconColor: CbColors.cbWhiteColor,
         ),
         centerTitle: true,
         actions: [
@@ -94,7 +99,8 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen>
               context.watch<Cart>().getitems.length.toString(),
               style: Theme.of(context).textTheme.titleSmall!.copyWith(
                 fontSize: 10,
-                color: Colors.white,
+                //color: CbColors.cbWhiteColor,
+                color: CbColors.cbBlack,
               ),
             ),
             badgeAnimation: const badges.BadgeAnimation.rotation(
@@ -107,7 +113,8 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen>
             child: IconButton(
               icon: const Icon(
                 Icons.shopping_bag_outlined,
-                color: Colors.black,
+                //color: CbColors.cbWhiteColor,
+                color: CbColors.cbBlack,
               ),
               onPressed: () {
                 Navigator.push(

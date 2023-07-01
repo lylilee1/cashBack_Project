@@ -6,6 +6,11 @@ import 'package:cashback/src/features/authentication/screens/category/widgets/me
 import 'package:cashback/src/features/authentication/screens/category/widgets/women_categ.dart';
 import 'package:cashback/src/features/authentication/screens/search/search_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:badges/badges.dart' as badges;
+
+import '../../controllers/cart/cart_controller.dart';
+import '../cart/cart_screen3.dart';
 
 List<ItemsData> items = [
   ItemsData(label: 'men'),
@@ -47,19 +52,56 @@ class _CategoryScreenState extends State<CategoryScreen> {
       //app bar
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.transparent,
-        leading:
-        AppBarButton(prefixIcon: Icons.notifications, onTap: () {},),
-        title: const AppBarTitle(title: CbTextStrings.cbAppName,),
-        centerTitle: true,
-        actions: [
-          AppBarButton(prefixIcon: Icons.search, onTap: () {
+        backgroundColor: CbColors.cbPrimaryColor2,
+        leading: AppBarButton(
+          prefixIcon: Icons.search,
+          iconColor: CbColors.cbWhiteColor,
+          onTap: () {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const SearchScreen()),
             );
-          },),
-          AppBarButton(prefixIcon: Icons.shopping_cart, onTap: () {},),
+          },
+        ),
+        title: const AppBarTitle(
+          title: 'Catégories',
+          iconColor: CbColors.cbWhiteColor,
+        ),
+        centerTitle: true,
+        actions: [
+
+          //cart icon
+          badges.Badge(
+            showBadge: context.watch<Cart>().getitems.isEmpty ? false : true,
+            position: badges.BadgePosition.topEnd(top: 0, end: 3),
+            badgeContent: Text(
+              context.watch<Cart>().getitems.length.toString(),
+              style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                fontSize: 10,
+                color: CbColors.cbWhiteColor,
+              ),
+            ),
+            badgeAnimation: const badges.BadgeAnimation.rotation(
+              animationDuration: Duration(seconds: 1),
+              colorChangeAnimationDuration: Duration(seconds: 1),
+              loopAnimation: false,
+              curve: Curves.fastOutSlowIn,
+              colorChangeAnimationCurve: Curves.easeInCubic,
+            ),
+            child: IconButton(
+              icon: const Icon(
+                Icons.shopping_bag_outlined,
+                //color: CbColors.cbWhiteColor,
+                color: CbColors.cbWhiteColor,
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const CartScreen()),
+                );
+              },
+            ),
+          ),
         ],
       ),
       body: Stack(
@@ -102,7 +144,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
             },
             child: Container(
               color: items[index].isSelected == true
-                  ? Colors.white//Colors.green.shade300
+                  ? Colors.white //Colors.green.shade300
                   : Colors.green.shade100, //lightBlueAccent.shade100
               height: 100,
               child: Center(
@@ -131,7 +173,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
     return Container(
       height: size.height * 0.85,
       width: size.width * 0.8,
-      color: Colors.white,//CbColors.cbPrimaryColor3,
+      color: Colors.white, //CbColors.cbPrimaryColor3,
       child: PageView(
         controller: _pageController,
         onPageChanged: (value) {

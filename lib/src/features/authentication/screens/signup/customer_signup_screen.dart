@@ -54,11 +54,12 @@ class _CustomerSignUpScreenState extends State<CustomerSignUpScreen> {
 
   bool passwordNotVisible = true;
 
-final ImagePicker _picker = ImagePicker();
+  final ImagePicker _picker = ImagePicker();
   XFile? _imageFile;
   dynamic _pickedImageError;
 
-  CollectionReference customers = FirebaseFirestore.instance.collection('customers');
+  CollectionReference customers =
+      FirebaseFirestore.instance.collection('customers');
 
   //function to validate the form
   void signUp() async {
@@ -76,13 +77,26 @@ final ImagePicker _picker = ImagePicker();
           password: _password,
         );
 
-        firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
+        try {
+          await FirebaseAuth.instance.currentUser!.sendEmailVerification();
+        } catch (e){
+          print("An error occurred while trying to send email verification");
+          print(e);
+        }
+
+        firebase_storage.Reference ref = firebase_storage
+            .FirebaseStorage.instance
             .ref('cust-images/$_email.jpg');
-        await ref.putFile(File(_imageFile!.path),);
+        await ref.putFile(
+          File(_imageFile!.path),
+        );
         _uid = FirebaseAuth.instance.currentUser!.uid;
 
-
         profileImage = await ref.getDownloadURL();
+
+        await FirebaseAuth.instance.currentUser!.updateDisplayName(_name);
+        await FirebaseAuth.instance.currentUser!.updatePhotoURL(profileImage);
+
         customers.doc(_uid).set({
           'name': _name,
           'email': _email,
@@ -100,11 +114,13 @@ final ImagePicker _picker = ImagePicker();
           //code to stop the progress indicator
           processing = false;
         });
-        await Future.delayed(const Duration(microseconds: 100),).whenComplete(() => //if the user is successfully registered, then navigate to the home screen
-        Navigator.pushReplacementNamed(context, CustomerSignInScreen.routeName));
-
-      }
-      on FirebaseAuthException catch (e) {
+        await Future.delayed(
+          const Duration(microseconds: 100),
+        ).whenComplete(
+            () => //if the user is successfully registered, then navigate to the home screen
+                Navigator.pushReplacementNamed(
+                    context, CustomerSignInScreen.routeName));
+      } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
           //code to stop the progress indicator
           setState(() {
@@ -112,8 +128,7 @@ final ImagePicker _picker = ImagePicker();
           });
           MyMessageHandler.showSnackBar(
               _scaffoldkey, 'The password provided is too weak.');
-        }
-        else if (e.code == 'email-already-in-use') {
+        } else if (e.code == 'email-already-in-use') {
           //code to stop the progress indicator
           setState(() {
             processing = false;
@@ -122,8 +137,7 @@ final ImagePicker _picker = ImagePicker();
               _scaffoldkey, 'The account already exists for that email.');
         }
       }
-    }
-    else {
+    } else {
       //code to stop the progress indicator
       setState(() {
         processing = false;
@@ -134,7 +148,7 @@ final ImagePicker _picker = ImagePicker();
 
   //function to pick image from camera
   void _pickImageFromCamera() async {
-    try{
+    try {
       final pickedImage = await _picker.pickImage(
           source: ImageSource.camera,
           maxWidth: 300,
@@ -144,7 +158,7 @@ final ImagePicker _picker = ImagePicker();
       setState(() {
         _imageFile = pickedImage;
       });
-    } catch(e){
+    } catch (e) {
       setState(() {
         _pickedImageError = e;
       });
@@ -154,7 +168,7 @@ final ImagePicker _picker = ImagePicker();
 
   //function to pick image from gallery
   void _pickImageFromGallery() async {
-    try{
+    try {
       final pickedImage = await _picker.pickImage(
           source: ImageSource.gallery,
           maxWidth: 300,
@@ -164,7 +178,7 @@ final ImagePicker _picker = ImagePicker();
       setState(() {
         _imageFile = pickedImage;
       });
-    } catch(e){
+    } catch (e) {
       setState(() {
         _pickedImageError = e;
       });
@@ -193,7 +207,7 @@ final ImagePicker _picker = ImagePicker();
                       height: 20,
                     ),
                     //logo
-                    Icon(
+                    const Icon(
                       Icons.app_registration_outlined,
                       size: 100,
                       color: CbColors.cbPrimaryColor2,
@@ -218,9 +232,9 @@ final ImagePicker _picker = ImagePicker();
                             backgroundColor: Colors.grey[300],
                             //if image is not picked or equal to null
                             backgroundImage: _imageFile == null
-                            //show default image
+                                //show default image
                                 ? null
-                            //else show the image picked
+                                //else show the image picked
                                 : FileImage(File(_imageFile!.path)),
                           ),
                         ),
@@ -228,7 +242,7 @@ final ImagePicker _picker = ImagePicker();
                           children: [
                             //pick from camera
                             Container(
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 borderRadius: BorderRadius.only(
                                   topLeft: Radius.circular(15),
                                   topRight: Radius.circular(15),
@@ -239,14 +253,14 @@ final ImagePicker _picker = ImagePicker();
                                 onPressed: () {
                                   _pickImageFromCamera();
                                 },
-                                icon: Icon(Icons.camera_alt_outlined,
+                                icon: const Icon(Icons.camera_alt_outlined,
                                     color: Colors.white, size: 30),
                               ),
                             ),
-                            SizedBox(height: 5),
+                            const SizedBox(height: 5),
                             //pick from gallery
                             Container(
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 borderRadius: BorderRadius.only(
                                   bottomLeft: Radius.circular(15),
                                   bottomRight: Radius.circular(15),
@@ -257,7 +271,7 @@ final ImagePicker _picker = ImagePicker();
                                 onPressed: () {
                                   _pickImageFromGallery();
                                 },
-                                icon: Icon(Icons.image_outlined,
+                                icon: const Icon(Icons.image_outlined,
                                     color: Colors.white, size: 30),
                               ),
                             ),
@@ -341,9 +355,10 @@ final ImagePicker _picker = ImagePicker();
                     HaveAccount(
                       haveAccount: 'Already have an account?',
                       actionLabel: 'Sign In',
-                      onPressed: () {
-                        Navigator.pushReplacementNamed(
-                            context, CustomerSignInScreen.routeName);
+                      onPressed: () async {
+                        await Future.delayed(const Duration(milliseconds: 500))
+                            .whenComplete(() => Navigator.pushReplacementNamed(
+                                context, CustomerSignInScreen.routeName));
                       },
                     ),
                   ],

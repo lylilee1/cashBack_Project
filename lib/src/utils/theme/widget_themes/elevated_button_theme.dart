@@ -11,22 +11,22 @@ class CbElevatedButtonTheme {
 // -- Light Theme
   static final lightElevatedButtonTheme = ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
-      shape: RoundedRectangleBorder(),
-      foregroundColor: cbWhiteColor,
+      shape: const RoundedRectangleBorder(),
+      foregroundColor: CbColors.cbWhiteColor,
       backgroundColor: cbSecondaryColor,
-      side: BorderSide(color: cbSecondaryColor),
-      padding: EdgeInsets.symmetric(vertical: CbSizings.cbButtonHeight),
+      side: const BorderSide(color: cbSecondaryColor),
+      padding: const EdgeInsets.symmetric(vertical: CbSizings.cbButtonHeight),
     ),
   );
 
 // -- Dark Theme
   static final darkElevatedButtonTheme = ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
-      shape: RoundedRectangleBorder(),
+      shape: const RoundedRectangleBorder(),
       foregroundColor: cbSecondaryColor,
-      backgroundColor: cbWhiteColor,
-      side: BorderSide(color: cbWhiteColor),
-      padding: EdgeInsets.symmetric(vertical: CbSizings.cbButtonHeight),
+      backgroundColor: CbColors.cbWhiteColor,
+      side: const BorderSide(color: CbColors.cbWhiteColor),
+      padding: const EdgeInsets.symmetric(vertical: CbSizings.cbButtonHeight),
     ),
   );
 }

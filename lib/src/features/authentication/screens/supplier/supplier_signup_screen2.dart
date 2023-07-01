@@ -75,6 +75,13 @@ class _SupplierSignUpScreenState extends State<SupplierSignUpScreen> {
           password: _password,
         );
 
+        try {
+          await FirebaseAuth.instance.currentUser!.sendEmailVerification();
+        } catch (e){
+          print("An error occurred while trying to send email verification");
+          print(e);
+        }
+
         firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
             .ref('supp-images/$_email.jpg');
         await ref.putFile(File(_imageFile!.path),);
@@ -82,6 +89,10 @@ class _SupplierSignUpScreenState extends State<SupplierSignUpScreen> {
 
 
         storeLogo = await ref.getDownloadURL();
+
+        await FirebaseAuth.instance.currentUser!.updateDisplayName(_storeName);
+        await FirebaseAuth.instance.currentUser!.updatePhotoURL(storeLogo);
+
         suppliers.doc(_uid).set({
           'storeName': _storeName,
           'email': _email,

@@ -23,6 +23,8 @@ import 'package:staggered_grid_view_flutter/widgets/staggered_tile.dart';
 import 'package:collection/collection.dart';
 import 'package:badges/badges.dart' as badges;
 
+import '../../../../constants/app_styles.dart';
+import '../../../../constants/size_config.dart';
 import '../cart/cart_screen3.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
@@ -56,6 +58,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     bool isFavorite = false;
 
     var size = MediaQuery.of(context).size;
@@ -164,19 +167,19 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                       product.documentId ==
                                       widget.prodList['proid']) !=
                               null) {
-                            MyMessageHandler.showSnackBar(
-                                _scaffoldkey, 'produit déja ajouté au panier');
+                            MyMessageHandler.showSnackBar(_scaffoldkey,
+                                'article déjà présent dans mon panier');
                           } else {
                             context.read<Cart>().addItem(
                                   widget.prodList['brand'],
                                   widget.prodList['model'],
                                   widget.prodList['proname'],
-                                  onSale != 0 ? ((1 -
-                                      (widget.prodList[
-                                      'discount'] /
-                                          100)) *
-                                      widget.prodList['price'])
-                                  : widget.prodList['price'],
+                                  onSale != 0
+                                      ? ((1 -
+                                              (widget.prodList['discount'] /
+                                                  100)) *
+                                          widget.prodList['price'])
+                                      : widget.prodList['price'],
                                   1,
                                   widget.prodList['instock'],
                                   widget.prodList['proimages'],
@@ -198,19 +201,17 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         ),
                         child: existingItemCart != null
                             ? Text(
-                                'article ajouté au panier'.toUpperCase(),
-                                style: const TextStyle(
+                                'article dans mon panier'.toUpperCase(),
+                                style: cbMontserratBold.copyWith(
+                                  fontSize: SizeConfig.blockSizeHorizontal! * 3,
                                   color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
                                 ),
                               )
                             : Text(
-                                'ajouter au panier'.toUpperCase(),
-                                style: const TextStyle(
+                                'Ajouter dans mon panier'.toUpperCase(),
+                                style: cbMontserratBold.copyWith(
+                                  fontSize: SizeConfig.blockSizeHorizontal! * 3,
                                   color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
                       ),
@@ -375,12 +376,14 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                                 widget.prodList['brand'],
                                                 widget.prodList['model'],
                                                 widget.prodList['proname'],
-                                          onSale != 0 ? ((1 -
-                                              (widget.prodList[
-                                              'discount'] /
-                                                  100)) *
-                                              widget.prodList['price'])
-                                              : widget.prodList['price'],
+                                                onSale != 0
+                                                    ? ((1 -
+                                                            (widget.prodList[
+                                                                    'discount'] /
+                                                                100)) *
+                                                        widget
+                                                            .prodList['price'])
+                                                    : widget.prodList['price'],
                                                 1,
                                                 widget.prodList['instock'],
                                                 widget.prodList['proimages'],
@@ -395,129 +398,76 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             ),
                           ),
                         ),
-                      ],
-                    ),
-                  ),
-                  //space
-                  const SizedBox(height: 24.0),
 
-                  //product name and quantity
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      //product name
-                      Expanded(
-                        child: Text(
-                          widget.prodList['proname'],
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context)
-                              .textTheme
-                              .labelMedium!
-                              .copyWith(
-                                fontSize: height * 0.025,
+                        //Overlay
+                        Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Container(
+                            height: 136,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              gradient: LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: [
+                                  Colors.transparent,
+                                  Colors.black.withOpacity(0.7),
+                                ],
                               ),
-                        ),
-                      ),
-
-                      //price and rating bar
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          //price
-
-                          Row(
-                            children: [
-                              RichText(
-                                text: TextSpan(
-                                  children: [
-                                    TextSpan(
-                                      text: widget.prodList['price']
-                                          .toStringAsFixed(0),
-                                      style: onSale != 0
-                                          ? Theme.of(context)
-                                          .textTheme
-                                          .displayLarge!
-                                          .copyWith(
-                                        color: Colors.grey,
-                                        fontSize: height * 0.016,
-                                        decoration:
-                                        TextDecoration.lineThrough,
-                                      )
-                                          : Theme.of(context)
-                                          .textTheme
-                                          .displayLarge!
-                                          .copyWith(
-                                        color: Colors.red,
-                                        fontSize: height * 0.025,
-                                      ),
-                                    ),
-                                    onSale != 0
-                                        ? TextSpan(
-                                      text: ((1 -
-                                          (widget.prodList[
-                                          'discount'] /
-                                              100)) *
-                                          widget.prodList['price'])
-                                          .toStringAsFixed(0),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .displayLarge!
-                                          .copyWith(
-                                        color: Colors.red,
-                                        fontSize: height * 0.025,
-                                      ),
-                                    )
-                                        : const TextSpan(),
-                                    TextSpan(
-                                      text: ' \XAF',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .displayLarge!
-                                          .copyWith(
-                                        fontSize: height * 0.020,
-                                        color: Colors.red,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
+                            ),
                           ),
-                          const SizedBox(height: 2),
-
-                          //Rating
-                          Row(
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(SizeConfig.kPadding20),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              RatingBar.builder(
-                                initialRating: 3.5,
-                                minRating: 1,
-                                direction: Axis.horizontal,
-                                allowHalfRating: true,
-                                itemCount: 5,
-                                itemSize: 14,
-                                itemPadding:
-                                    const EdgeInsets.symmetric(horizontal: 0.2),
-                                itemBuilder: (context, _) => const Icon(
-                                  Icons.star,
-                                  color: Colors.amber,
-                                ),
-                                onRatingUpdate: (rating) {
-                                  debugPrint(rating.toString());
-                                },
-                              ),
-                              const SizedBox(width: 3),
-                              RichText(
-                                text: TextSpan(
-                                  text: ' 5 avis',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleLarge!
-                                      .copyWith(
-                                          fontSize: height * 0.018,
-                                          color: Colors.grey),
-                                  /* children: <TextSpan>[
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  //brand
+                                  Text(
+                                    widget.prodList['proname'],
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: cbMontserratBold.copyWith(
+                                      fontSize:
+                                          SizeConfig.blockSizeHorizontal! * 4.5,
+                                      color: CbColors.cbWhiteColor,
+                                    ),
+                                  ),
+
+                                  //Rating
+                                  Row(
+                                    children: [
+                                      RatingBar.builder(
+                                        unratedColor: CbColors.cbWhiteColor,
+                                        initialRating: 3.5,
+                                        minRating: 1,
+                                        direction: Axis.horizontal,
+                                        allowHalfRating: true,
+                                        itemCount: 5,
+                                        itemSize: 14,
+                                        itemPadding: const EdgeInsets.symmetric(
+                                            horizontal: 0.2),
+                                        itemBuilder: (context, _) => const Icon(
+                                          Icons.star,
+                                          color: Colors.amber,
+                                        ),
+                                        onRatingUpdate: (rating) {
+                                          debugPrint(rating.toString());
+                                        },
+                                      ),
+                                      const SizedBox(width: 3),
+                                      RichText(
+                                        text: TextSpan(
+                                          text: ' 5 avis',
+                                          style: cbMontserratRegular.copyWith(
+                                              fontSize: height * 0.018,
+                                              color: CbColors.cbWhiteColor),
+                                          /* children: <TextSpan>[
                                   TextSpan(
                                     text: ' (5 Reviews)',
                                     style: Theme.of(context)
@@ -528,351 +478,246 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                             color: Colors.blue.shade300),
                                   ),
                                 ],*/
-                                ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
                             ],
                           ),
-/* voir tous les avis
-                        Text(
-                          'voir tous les avis',
-                          style: Theme.of(context)
-                              .textTheme
-                              .displayLarge!
-                              .copyWith(
-                                  fontSize: height * 0.012, color: Colors.grey),
-                        ),*/
+                        ),
+                      ],
+                    ),
+                  ),
+                  //space
+                  const SizedBox(
+                    height: SizeConfig.kPadding24,
+                  ),
 
-                          //quantity
-                          /*
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            //decrement button
-                            GestureDetector(
-                              onTap: _decrement,
-                              child: Container(
-                                height: 25,
-                                width: 25,
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: Colors.grey,
-                                    width: 1,
-                                  ),
-                                  shape: BoxShape.circle,
-                                  color: Colors.white,
-                                ),
-                                child: const Icon(Icons.remove, color: Colors.grey),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                              child: Text(
-                                _counter.value.toString(),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .displayLarge!
-                                    .copyWith(fontSize: 20),
-                              ),
-                            ),
+                  //product name and quantity
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      //price and rating bar
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          //price
 
-                            //increment button
-                            GestureDetector(
-                              onTap: _increment,
-                              child: Container(
-                                height: 25,
-                                width: 25,
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: Colors.grey,
-                                    width: 1,
-                                  ),
-                                  shape: BoxShape.circle,
-                                  color: Colors.white,
-                                ),
-                                child: const Icon(Icons.add, color: Colors.grey),
-                              ),
-                            ),
-                          ],
-                        ),*/
+                          Row(
+                            children: [
+                              onSale != 0
+                                  ? Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        RichText(
+                                          text: TextSpan(children: [
+                                            TextSpan(
+                                              text: widget.prodList['price']
+                                                  .toStringAsFixed(0),
+                                              style: cbMontserratBold.copyWith(
+                                                fontSize: SizeConfig
+                                                        .blockSizeHorizontal! *
+                                                    3.5,
+                                                color: Colors.grey,
+                                                decoration:
+                                                    TextDecoration.lineThrough,
+                                              ),
+                                            ),
+                                            TextSpan(
+                                              text: ' \XAF',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .displayLarge!
+                                                  .copyWith(
+                                                    fontSize: SizeConfig
+                                                            .blockSizeHorizontal! *
+                                                        3.5,
+                                                    color: Colors.grey,
+                                                    decoration: TextDecoration
+                                                        .lineThrough,
+                                                  ),
+                                            ),
+                                          ]),
+                                        ),
+                                        RichText(
+                                          text: TextSpan(
+                                            children: [
+                                              TextSpan(
+                                                text: ((1 -
+                                                    (widget.prodList[
+                                                    'discount'] /
+                                                        100)) *
+                                                    widget.prodList['price'])
+                                                    .toStringAsFixed(0),
+                                                style:
+                                                    cbMontserratBold.copyWith(
+                                                  fontSize: SizeConfig
+                                                          .blockSizeHorizontal! *
+                                                      6,
+                                                  color: Colors.red,
+                                                ),
+                                              ),
+                                              TextSpan(
+                                                text: ' \XAF',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .displayLarge!
+                                                    .copyWith(
+                                                      fontSize: SizeConfig
+                                                              .blockSizeHorizontal! *
+                                                          4,
+                                                      color: Colors.red,
+                                                    ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        RichText(
+                                          text: TextSpan(
+                                            children: [
+                                              TextSpan(
+                                                text: 'Solde ',
+                                                style:
+                                                    cbMontserratBold.copyWith(
+                                                  fontSize: SizeConfig
+                                                          .blockSizeHorizontal! *
+                                                      4,
+                                                  color: Colors.red,
+                                                ),
+                                              ),
+                                              TextSpan(
+                                                text: (
+                                                    widget.prodList['price'] * (widget.prodList[
+                                                'discount'] /
+                                                    100))
+                                                    .toStringAsFixed(0),
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .displayLarge!
+                                                    .copyWith(
+                                                      fontSize: SizeConfig
+                                                              .blockSizeHorizontal! *
+                                                          4,
+                                                      color: Colors.red,
+                                                    ),
+                                              ),
+                                              TextSpan(
+                                                text: ' \XAF',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .displayLarge!
+                                                    .copyWith(
+                                                  fontSize: SizeConfig
+                                                      .blockSizeHorizontal! *
+                                                      3,
+                                                  color: Colors.red,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  : RichText(
+                                      text: TextSpan(children: [
+                                        TextSpan(
+                                          text: widget.prodList['price']
+                                              .toStringAsFixed(0),
+                                          style: cbMontserratBold.copyWith(
+                                            fontSize: SizeConfig
+                                                    .blockSizeHorizontal! *
+                                                6,
+                                            color: Colors.red,
+                                          ),
+                                        ),
+                                        TextSpan(
+                                          text: ' \XAF',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .displayLarge!
+                                              .copyWith(
+                                                fontSize: height * 0.020,
+                                                color: Colors.red,
+                                              ),
+                                        ),
+                                      ]),
+                                    ),
+                            ],
+                          ),
+                          const SizedBox(height: 2),
                         ],
                       ),
                     ],
                   ),
 
-                  const SizedBox(height: 24.0),
-
-                  //product description for now (will be changed to product speech of sales)
-                  ReadMoreText(
-                    widget.prodList['prodesc'],
-                    trimLines: 2,
-                    colorClickableText: Colors.blue,
-                    trimMode: TrimMode.Line,
-                    delimiter: '...',
-                    trimCollapsedText: 'Voir plus',
-                    trimExpandedText: 'Voir moins',
-                    style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                          fontSize: height * 0.018,
+                  //Product Description
+                  ExpansionTile(
+                    tilePadding: const EdgeInsets.all(0),
+                    expandedAlignment: Alignment.centerLeft,
+                    title: Text(
+                      'Description',
+                      style: cbMontserratBold.copyWith(
+                        fontSize: SizeConfig.blockSizeHorizontal! * 3,
+                      ),
+                    ),
+                    children: [
+                      //product description for now (will be changed to product speech of sales)
+                      ReadMoreText(
+                        widget.prodList['prodesc'],
+                        trimLines: 2,
+                        colorClickableText: Colors.blue,
+                        trimMode: TrimMode.Line,
+                        delimiter: '...',
+                        trimCollapsedText: 'En savoir plus',
+                        trimExpandedText: 'Lire moins',
+                        style: cbMontserratRegular.copyWith(
+                          fontSize: SizeConfig.blockSizeHorizontal! * 3,
                           color: Colors.grey.shade700,
                         ),
-                    moreStyle: Theme.of(context).textTheme.labelLarge!.copyWith(
-                          fontSize: height * 0.018,
-                          color: CbColors.cbPrimaryColor2,
-                        ),
-                    lessStyle: Theme.of(context).textTheme.labelLarge!.copyWith(
-                          fontSize: height * 0.018,
-                          color: CbColors.cbPrimaryColor2,
-                        ),
-                  ),
-
-                  const SizedBox(height: 16),
-
-                  //visitors and instock
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [],
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          //visitors
-                          Text(
-                            '24 visiteurs regardent ce produit',
-                            style: Theme.of(context)
-                                .textTheme
-                                .displayLarge!
-                                .copyWith(
-                                    fontSize: height * 0.012,
-                                    color: Colors.grey),
-                          ),
-
-                          widget.prodList['instock'] == 0
-                              ? Text(
-                                  'Rupture de stock',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .displayLarge!
-                                      .copyWith(
-                                          fontSize: height * 0.012,
-                                          color: Colors.red),
-                                )
-                              :
-                              //in stock
-                              Text(
-                                  (widget.prodList['instock'].toString()) +
-                                      (' unités restantes'),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .displayLarge!
-                                      .copyWith(
-                                          fontSize: height * 0.012,
-                                          color: Colors.grey),
+                        moreStyle:
+                            Theme.of(context).textTheme.labelLarge!.copyWith(
+                                  fontSize: SizeConfig.blockSizeHorizontal! * 3,
+                                  color: CbColors.cbPrimaryColor2,
                                 ),
-                        ],
+                        lessStyle:
+                            Theme.of(context).textTheme.labelLarge!.copyWith(
+                                  fontSize: SizeConfig.blockSizeHorizontal! * 3,
+                                  color: CbColors.cbPrimaryColor2,
+                                ),
                       ),
+
+                      const SizedBox(height: 16),
                     ],
                   ),
-                  const SizedBox(height: 16),
 
-                  //product's size and color
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      //size
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Taille',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .displayLarge!
-                                  .copyWith(fontSize: height * 0.018)),
-                          const SizedBox(height: 8),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                height: height * 0.030,
-                                width: height * 0.030,
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: Colors.grey,
-                                    width: 1,
-                                  ),
-                                  shape: BoxShape.circle,
-                                  color: Colors.white,
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    'S',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .displayLarge!
-                                        .copyWith(
-                                            fontSize: height * 0.013,
-                                            color: Colors.grey),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                width: height * 0.01,
-                              ),
-                              Container(
-                                height: height * 0.030,
-                                width: height * 0.030,
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: Colors.grey,
-                                    width: 1,
-                                  ),
-                                  shape: BoxShape.circle,
-                                  color: Colors.white,
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    'M',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .displayLarge!
-                                        .copyWith(
-                                            fontSize: height * 0.013,
-                                            color: Colors.grey),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                width: height * 0.01,
-                              ),
-                              Container(
-                                height: height * 0.030,
-                                width: height * 0.030,
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: Colors.grey,
-                                    width: 1,
-                                  ),
-                                  shape: BoxShape.circle,
-                                  color: Colors.white,
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    'L',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .displayLarge!
-                                        .copyWith(
-                                            fontSize: height * 0.013,
-                                            color: Colors.grey),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                width: height * 0.01,
-                              ),
-                              Container(
-                                height: height * 0.030,
-                                width: height * 0.030,
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: Colors.grey,
-                                    width: 1,
-                                  ),
-                                  shape: BoxShape.circle,
-                                  color: Colors.white,
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    'XL',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .displayLarge!
-                                        .copyWith(
-                                            fontSize: height * 0.013,
-                                            color: Colors.grey),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
+                  //Product Size
+                  ExpansionTile(
+                    tilePadding: const EdgeInsets.all(0),
+                    expandedAlignment: Alignment.centerLeft,
+                    title: Text(
+                      'Taille',
+                      style: cbMontserratBold.copyWith(
+                        fontSize: SizeConfig.blockSizeHorizontal! * 3,
                       ),
+                    ),
+                    children: [],
+                  ),
 
-                      //color
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Couleur',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .displayLarge!
-                                  .copyWith(fontSize: height * 0.018)),
-                          const SizedBox(height: 8),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                height: height * 0.030,
-                                width: height * 0.030,
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: Colors.grey,
-                                    width: 1,
-                                  ),
-                                  shape: BoxShape.circle,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              SizedBox(
-                                width: height * 0.01,
-                              ),
-                              Container(
-                                height: height * 0.030,
-                                width: height * 0.030,
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: Colors.grey,
-                                    width: 1,
-                                  ),
-                                  shape: BoxShape.circle,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              SizedBox(
-                                width: height * 0.01,
-                              ),
-                              Container(
-                                height: height * 0.030,
-                                width: height * 0.030,
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: Colors.grey,
-                                    width: 1,
-                                  ),
-                                  shape: BoxShape.circle,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              SizedBox(
-                                width: height * 0.01,
-                              ),
-                              Container(
-                                height: height * 0.030,
-                                width: height * 0.030,
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: Colors.grey,
-                                    width: 1,
-                                  ),
-                                  shape: BoxShape.circle,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
+                  //Product Color
+                  ExpansionTile(
+                    tilePadding: const EdgeInsets.all(0),
+                    expandedAlignment: Alignment.centerLeft,
+                    title: Text(
+                      'Couleur',
+                      style: cbMontserratBold.copyWith(
+                        fontSize: SizeConfig.blockSizeHorizontal! * 3,
                       ),
-                    ],
+                    ),
+                    children: [],
                   ),
 
                   const SizedBox(height: 16),

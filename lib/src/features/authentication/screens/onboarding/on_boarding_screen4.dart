@@ -1,8 +1,11 @@
+import 'package:cashback/src/constants/colors.dart';
 import 'package:cashback/src/constants/image_strings.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../constants/app_styles.dart';
+import '../../../../constants/size_config.dart';
 import '../main/main_screen.dart';
 
 class OnBoardingScreen extends StatelessWidget {
@@ -20,20 +23,20 @@ class OnBoardingScreen extends StatelessWidget {
               'Achetez et vendez vos articles remis à neuf et d\'occasion abordables',
           //description: 'Profitez du meilleur du pays dans la paume de vos mains.',
           imageUrl: CbImageStrings.cbOnBoardingImage1,
-          bgColor: Colors.indigo,
+          bgColor: CbColors.cbOnBoardingPage2Color,
         ),
         OnboardingPageModel(
           title: 'Connect with your friends.',
           description: 'Connect with your friends anytime anywhere.',
           imageUrl: CbImageStrings.cbOnBoardingImage2,
-          bgColor: const Color(0xff1eb090),
+          bgColor: CbColors.cbOnBoardingPage3Color,
         ),
         OnboardingPageModel(
           title: 'Bookmark your favourites',
           description:
               'Bookmark your favourite quotes to read at a leisure time.',
           imageUrl: CbImageStrings.cbOnBoardingImage3,
-          bgColor: const Color(0xfffeae4f),
+          bgColor: CbColors.cbBlueLight,
         ),
         /*
         OnboardingPageModel(
@@ -66,6 +69,8 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
   bool processing = false;
   CollectionReference customers =
       FirebaseFirestore.instance.collection('customers');
+  CollectionReference anonymous =
+      FirebaseFirestore.instance.collection('anonymous');
 
   late String _uid;
 
@@ -74,6 +79,8 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
+
     return Scaffold(
       body: AnimatedContainer(
         duration: const Duration(milliseconds: 250),
@@ -109,34 +116,38 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
                               ),
                         ),
                         Expanded(
-                            flex: 1,
-                            child: Column(children: [
+                          flex: 1,
+                          child: Column(
+                            children: [
                               Padding(
                                 padding: const EdgeInsets.all(16.0),
-                                child: Text(item.title,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headline6
-                                        ?.copyWith(
-                                          fontWeight: FontWeight.bold,
-                                          color: item.textColor,
-                                        )),
+                                child: Text(
+                                  item.title,
+                                  style: cbMontserratBold.copyWith(
+                                    fontSize:
+                                    SizeConfig.blockSizeHorizontal! * 4,
+                                        color: item.textColor,
+                                      ),
+                                ),
                               ),
                               Container(
                                 constraints:
                                     const BoxConstraints(maxWidth: 280),
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 24.0, vertical: 8.0),
-                                child: Text(item.description,
-                                    textAlign: TextAlign.center,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyText2
-                                        ?.copyWith(
-                                          color: item.textColor,
-                                        )),
-                              )
-                            ]))
+                                child: Text(
+                                  item.description,
+                                  textAlign: TextAlign.center,
+                                  style: cbMontserratRegular.copyWith(
+                                    fontSize:
+                                    SizeConfig.blockSizeHorizontal! * 3,
+                                        color: item.textColor,
+                                      ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       ],
                     );
                   },
@@ -168,18 +179,20 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     TextButton(
-                        style: TextButton.styleFrom(
-                            visualDensity: VisualDensity.comfortable,
-                            foregroundColor: Colors.white,
-                            textStyle: const TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.bold)),
-                        onPressed: () {
-                          widget.onSkip?.call();
-                        },
-                        child: const Text("Skip")),
-
+                      style: TextButton.styleFrom(
+                          visualDensity: VisualDensity.comfortable,
+                          foregroundColor: Colors.white,
+                          textStyle: const TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold)),
+                      onPressed: () {
+                        widget.onSkip?.call();
+                      },
+                      child: const Text("Skip"),
+                    ),
                     processing == true
-                        ? const CircularProgressIndicator()
+                        ? const CircularProgressIndicator(
+                            color: CbColors.cbPrimaryColor2,
+                          )
                         : TextButton(
                             style: TextButton.styleFrom(
                                 visualDensity: VisualDensity.comfortable,
@@ -200,12 +213,12 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
                                           .whenComplete(() async {
                                     _uid =
                                         FirebaseAuth.instance.currentUser!.uid;
-                                    await customers.doc(_uid).set({
-                                      'name': 'Anonymous',
-                                      'email': '',
+                                    await anonymous.doc(_uid).set({
+                                      'name': 'Invité',
+                                      'email': 'guest@example.com',
                                       'profileImage': '',
-                                      'phone': '',
-                                      'adress': '',
+                                      'phone': '11111',
+                                      'adress': 'Guest place area',
                                       'cid': _uid,
                                     });
                                   });
@@ -213,8 +226,11 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
                                   User? user = userCredential.user;
                                   if (user != null) {
                                     // Navigate to the home screen after successful sign-in
-                                    await Future.delayed(const Duration(microseconds: 100)).whenComplete(() => Navigator.pushReplacementNamed(
-                                        context, MainScreen.routeName));
+                                    await Future.delayed(
+                                            const Duration(microseconds: 100))
+                                        .whenComplete(() =>
+                                            Navigator.pushReplacementNamed(
+                                                context, MainScreen.routeName));
                                   }
                                 } catch (e) {
                                   print('Error signing in anonymously: $e');
@@ -227,8 +243,7 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
                                   );
                                 }
                                 //widget.onFinish?.call();
-                              }
-                              else {
+                              } else {
                                 _pageController.animateToPage(_currentPage + 1,
                                     curve: Curves.easeInOutCubic,
                                     duration:
