@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cashback/src/constants/colors.dart';
 import 'package:cashback/src/features/authentication/controllers/cart/cart_controller.dart';
 import 'package:cashback/src/features/authentication/controllers/wishlist/wishlist_controller.dart';
@@ -113,13 +114,15 @@ class _ProductModelState extends State<ProductModel> {
                     child: Container(
                       width: (width - 50) / 2,
                       height: 180,
-                      child:
-                          //Image
-                          Image(
-                        image: NetworkImage(widget.products['proimages'][0]),
-                        height: 130,
-                        width: 130,
-                        //fit: BoxFit.cover,
+                      child: CachedNetworkImage(
+                        imageUrl: widget.products['proimages'][0],
+                        placeholder: (context, url) => const CircularProgressIndicator(),
+                        imageBuilder: (context, imageProvider) => Image(
+                          image: imageProvider,
+                          height: 130,
+                          width: 130,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                   ),

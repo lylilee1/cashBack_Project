@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cashback/src/constants/colors.dart';
 import 'package:cashback/src/constants/image_strings.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -106,14 +107,11 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
                         Expanded(
                           flex: 3,
                           child: Padding(
-                              padding: const EdgeInsets.all(32.0),
-                              child: Image.asset(
-                                item.imageUrl,
-                              )
-                              /*child: Image.network(
+                            padding: const EdgeInsets.all(32.0),
+                            child: Image.asset(
                               item.imageUrl,
-                            ),*/
-                              ),
+                            ),
+                          ),
                         ),
                         Expanded(
                           flex: 1,
@@ -125,9 +123,9 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
                                   item.title,
                                   style: cbMontserratBold.copyWith(
                                     fontSize:
-                                    SizeConfig.blockSizeHorizontal! * 4,
-                                        color: item.textColor,
-                                      ),
+                                        SizeConfig.blockSizeHorizontal! * 4,
+                                    color: item.textColor,
+                                  ),
                                 ),
                               ),
                               Container(
@@ -140,9 +138,9 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
                                   textAlign: TextAlign.center,
                                   style: cbMontserratRegular.copyWith(
                                     fontSize:
-                                    SizeConfig.blockSizeHorizontal! * 3,
-                                        color: item.textColor,
-                                      ),
+                                        SizeConfig.blockSizeHorizontal! * 3,
+                                    color: item.textColor,
+                                  ),
                                 ),
                               ),
                             ],

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cashback/src/common_widgets/Alert/alert_dialog.dart';
 import 'package:cashback/src/constants/colors.dart';
 import 'package:cashback/src/constants/size_config.dart';
@@ -99,19 +100,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               fit: StackFit.expand,
                               children: [
                                 //Profile image
-                                Container(
-                                  decoration: BoxDecoration(
-                                    color: Colors.black,
-                                    shape: BoxShape.circle,
-                                    image: DecorationImage(
-                                      fit: BoxFit.cover,
-                                      image: NetworkImage(data[
-                                                  'profileImage'] ==
-                                              ''
-                                          ? 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'
-                                          : data['profileImage']),
-                                    ),
-                                  ),
+                                CachedNetworkImage(
+                                  imageUrl: data['profileImage'] == ''
+                                    ? 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'
+                                    : data['profileImage'],
+                                  placeholder: (context, url) =>
+                                      const CircularProgressIndicator(),
+                                  imageBuilder: (context, imageProvider) =>
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.black,
+                                          shape: BoxShape.circle,
+                                          image: DecorationImage(
+                                            fit: BoxFit.cover,
+                                            image: imageProvider,
+                                          ),
+                                        ),
+                                      ),
                                 ),
 
                                 //Edit profile button

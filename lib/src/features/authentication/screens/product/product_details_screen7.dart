@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cashback/src/common_widgets/app_bar/appBarWidget.dart';
 import 'package:cashback/src/common_widgets/counter/counter.dart';
 import 'package:cashback/src/common_widgets/snackBar/snackBarWidget.dart';
@@ -267,9 +268,13 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                     ),
                                   );
                                 },
-                                child: Image.network(
-                                  imagesList[index],
-                                  fit: BoxFit.cover,
+                                child: CachedNetworkImage(
+                                  imageUrl: imagesList[index],
+                                  placeholder: (context, url) => const CircularProgressIndicator(),
+                                  imageBuilder: (context, imageProvider) => Image(
+                                    image: imageProvider,
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               );
                             },
