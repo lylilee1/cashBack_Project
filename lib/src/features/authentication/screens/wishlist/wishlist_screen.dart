@@ -13,8 +13,12 @@ import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../common_widgets/snackBar/snackBarWidget.dart';
+import '../../../../constants/app_styles.dart';
+import '../../../../constants/size_config.dart';
 import '../customer/customer_home_screen4.dart';
 import 'package:collection/collection.dart';
+
+import '../main/main_screen.dart';
 
 class WishlistScreen extends StatefulWidget {
   final Widget? back;
@@ -35,6 +39,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
     var size = MediaQuery.of(context).size;
     var height = size.height;
     var width = size.width;
+    SizeConfig().init(context);
 
     return SafeArea(
       child: ScaffoldMessenger(
@@ -42,7 +47,8 @@ class _WishlistScreenState extends State<WishlistScreen> {
         child: Scaffold(
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerFloat,
-          floatingActionButton: GestureDetector(
+          floatingActionButton: context.watch<Wish>().getWishItems.isNotEmpty
+              ? GestureDetector(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
@@ -77,19 +83,25 @@ class _WishlistScreenState extends State<WishlistScreen> {
                 ],
               ),
             ),
-          ),
+          )
+              : const SizedBox(),
           //app bar
           appBar: AppBar(
+            backgroundColor: CbColors.cbPrimaryColor2,
             elevation: 0,
-            backgroundColor: Colors.transparent,
             leading: widget.back,
-            title: const AppBarTitle(
-              title: CbTextStrings.cbAppName,
+            title: Text(
+              'Wishlist',
+              style: cbMontserratBold.copyWith(
+                fontSize: SizeConfig.blockSizeHorizontal! * 3.5,
+                color: CbColors.cbWhiteColor,
+              ),
             ),
             centerTitle: true,
             actions: [
               AppBarButton(
                 prefixIcon: Icons.search,
+                iconColor: CbColors.cbWhiteColor,
                 onTap: () {
                   Navigator.push(
                     context,
@@ -313,24 +325,31 @@ class _WishlistScreenState extends State<WishlistScreen> {
                                                       ? const SizedBox()
                                                       : InkWell(
                                                           onTap: () {
-                                                           /* context.read<Cart>().getitems.firstWhereOrNull(
+                                                            /* context.read<Cart>().getitems.firstWhereOrNull(
                                                                     (product) =>
                                                                 product.documentId ==
                                                                     product.documentId) !=
                                                                 null
                                                                 ? print('already in cart')
-                                                                : */context.read<Cart>().addItem(
-                                                              product.brand,
-                                                              product.model,
-                                                              product.name,
-                                                              product.price,
-                                                              1,
-                                                              product.qntty,
-                                                              product.imagesUrl,
-                                                              product.documentId,
-                                                              product.suppId,
-                                                              product.isFavorite,
-                                                            );
+                                                                : */
+                                                            context
+                                                                .read<Cart>()
+                                                                .addItem(
+                                                                  product.brand,
+                                                                  product.model,
+                                                                  product.name,
+                                                                  product.price,
+                                                                  1,
+                                                                  product.qntty,
+                                                                  product
+                                                                      .imagesUrl,
+                                                                  product
+                                                                      .documentId,
+                                                                  product
+                                                                      .suppId,
+                                                                  product
+                                                                      .isFavorite,
+                                                                );
                                                           },
                                                           child: const Align(
                                                             alignment: Alignment
@@ -389,14 +408,16 @@ class _WishlistScreenState extends State<WishlistScreen> {
                             width: width * 0.8,
                             height: 50,
                             child: ElevatedButton(
-                              onPressed: () {
+                              onPressed: () async {
                                 Navigator.canPop(context)
                                     ? Navigator.pop(context)
-                                    : Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const CustomerHomeScreen()));
+                                    :
+                                    // Navigate to the home screen
+                                    await Future.delayed(
+                                            const Duration(microseconds: 100))
+                                        .whenComplete(() =>
+                                            Navigator.pushReplacementNamed(
+                                                context, MainScreen.routeName));
                               },
                               style: ButtonStyle(
                                 shape: MaterialStateProperty.all(

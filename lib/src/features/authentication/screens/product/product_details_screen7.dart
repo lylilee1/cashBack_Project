@@ -505,7 +505,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      //price and rating bar
+                      
+                      //price
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [

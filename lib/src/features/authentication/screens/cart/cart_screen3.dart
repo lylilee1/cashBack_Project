@@ -10,9 +10,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dash/flutter_dash.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+import '../../../../constants/app_styles.dart';
+import '../../../../constants/size_config.dart';
 import '../customer/customer_home_screen4.dart';
 import 'package:collection/collection.dart';
 
+import '../main/main_screen.dart';
 import '../orders/orders_screen2.dart';
 
 class CartScreen extends StatefulWidget {
@@ -34,6 +37,7 @@ class _CartScreenState extends State<CartScreen> {
     var size = MediaQuery.of(context).size;
     var height = size.height;
     var width = size.width;
+    SizeConfig().init(context);
 
     double total = context.watch<Cart>().totalPrice;
 
@@ -43,62 +47,72 @@ class _CartScreenState extends State<CartScreen> {
         child: Scaffold(
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerFloat,
-          floatingActionButton: GestureDetector(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: [
-                  //add to cart button
-                  Expanded(
-                    child: SizedBox(
-                      height: 50,
-                      child: ElevatedButton(
-                        onPressed: total == 0.0 ? null : () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const PlaceOrderScreen(),
+          floatingActionButton: context.watch<Cart>().getitems.isNotEmpty
+              ? GestureDetector(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        //add to cart button
+                        Expanded(
+                          child: SizedBox(
+                            height: 50,
+                            child: ElevatedButton(
+                              onPressed: total == 0.0
+                                  ? null
+                                  : () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const PlaceOrderScreen(),
+                                        ),
+                                      );
+                                    },
+                              style: ButtonStyle(
+                                shape: MaterialStateProperty.all(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                ),
+                                backgroundColor: MaterialStateProperty.all(
+                                  CbColors.cbPrimaryColor2,
+                                ),
+                              ),
+                              child: Text(
+                                'passer à la caisse'.toUpperCase(),
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                             ),
-                          );
-                        },
-                        style: ButtonStyle(
-                          shape: MaterialStateProperty.all(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
                           ),
-                          backgroundColor: MaterialStateProperty.all(
-                            CbColors.cbPrimaryColor2,
-                          ),
-                        ),
-                        child: Text(
-                          'passer à la caisse'.toUpperCase(),
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
+                        )
+                      ],
                     ),
-                  )
-                ],
-              ),
-            ),
-          ),
+                  ),
+                )
+              : const SizedBox(),
           //app bar
           appBar: AppBar(
+            backgroundColor: CbColors.cbPrimaryColor2,
             elevation: 0,
-            backgroundColor: Colors.transparent,
             leading: widget.back,
             //AppBarButton(prefixIcon: Icons.notifications, onTap: () {},),
-            title: const AppBarTitle(
-              title: CbTextStrings.cbAppName,
+            title: Text(
+              'Panier',
+              style: cbMontserratBold.copyWith(
+                fontSize: SizeConfig.blockSizeHorizontal! * 3.5,
+                color: CbColors.cbWhiteColor,
+              ),
             ),
             centerTitle: true,
             actions: [
               AppBarButton(
                 prefixIcon: Icons.search,
+                iconColor: CbColors.cbWhiteColor,
                 onTap: () {
                   Navigator.push(
                     context,
@@ -406,8 +420,6 @@ class _CartScreenState extends State<CartScreen> {
                                                                     ),
                                                                   ),
                                                                 );
-
-
                                                               },
                                                               child: Container(
                                                                 height: 25,
@@ -858,14 +870,15 @@ class _CartScreenState extends State<CartScreen> {
                             width: width * 0.8,
                             height: 50,
                             child: ElevatedButton(
-                              onPressed: () {
+                              onPressed: () async {
                                 Navigator.canPop(context)
                                     ? Navigator.pop(context)
-                                    : Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const CustomerHomeScreen()));
+                                    : // Navigate to the home screen
+                                    await Future.delayed(
+                                            const Duration(microseconds: 100))
+                                        .whenComplete(() =>
+                                            Navigator.pushReplacementNamed(
+                                                context, MainScreen.routeName));
                               },
                               style: ButtonStyle(
                                 shape: MaterialStateProperty.all(

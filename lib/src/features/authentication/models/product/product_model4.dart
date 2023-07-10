@@ -7,6 +7,8 @@ import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:collection/collection.dart';
 
+import '../../../../constants/app_styles.dart';
+import '../../../../constants/size_config.dart';
 import '../../screens/product/product_details_screen7.dart';
 
 class ProductModel extends StatefulWidget {
@@ -27,6 +29,7 @@ class ProductModel extends StatefulWidget {
 class _ProductModelState extends State<ProductModel> {
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     var size = MediaQuery.of(context).size;
     var height = size.height;
     var width = size.width;
@@ -53,7 +56,7 @@ class _ProductModelState extends State<ProductModel> {
           children: [
             Container(
               width: (width - 50) / 2,
-              height: 220,
+              height: 205,
               child: Stack(
                 children: [
                   //Container
@@ -61,7 +64,7 @@ class _ProductModelState extends State<ProductModel> {
                     top: 20,
                     child: Container(
                       width: (width - 50) / 2,
-                      height: 200,
+                      height: 180,
                       decoration: BoxDecoration(
                         color: Colors.grey.withOpacity(0.1),
                         borderRadius: BorderRadius.circular(20.0),
@@ -74,7 +77,7 @@ class _ProductModelState extends State<ProductModel> {
                         padding: const EdgeInsets.only(
                           left: 15,
                           right: 15,
-                          bottom: 10,
+                          bottom: 20,
                         ),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.end,
@@ -82,16 +85,16 @@ class _ProductModelState extends State<ProductModel> {
                           children: [
                             //Star Rating
                             Row(
-                              children: const [
+                              children: [
                                 Icon(
                                   LineIcons.star,
-                                  size: 18,
+                                  size: SizeConfig.blockSizeHorizontal! * 4.5,
                                   color: CbColors.cbPrimaryColor2,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 5,
                                 ),
-                                Padding(
+                                const Padding(
                                   padding: EdgeInsets.only(top: 3.0),
                                   child: Text(
                                     '5.1',
@@ -113,15 +116,17 @@ class _ProductModelState extends State<ProductModel> {
                     top: 5,
                     child: Container(
                       width: (width - 50) / 2,
-                      height: 180,
-                      child: CachedNetworkImage(
+                      height: 150,
+                      child:
+                          //Image
+                          CachedNetworkImage(
                         imageUrl: widget.products['proimages'][0],
-                        placeholder: (context, url) => const CircularProgressIndicator(),
+                        placeholder: (context, url) =>
+                            const CircularProgressIndicator(),
                         imageBuilder: (context, imageProvider) => Image(
                           image: imageProvider,
                           height: 130,
                           width: 130,
-                          fit: BoxFit.cover,
                         ),
                       ),
                     ),
@@ -163,12 +168,12 @@ class _ProductModelState extends State<ProductModel> {
                                       widget.products['brand'],
                                       widget.products['model'],
                                       widget.products['proname'],
-                              onSale != 0 ? ((1 -
-                                  (widget.products[
-                                  'discount'] /
-                                      100)) *
-                                  widget.products['price'])
-                                  : widget.products['price'],
+                                      onSale != 0
+                                          ? ((1 -
+                                                  (widget.products['discount'] /
+                                                      100)) *
+                                              widget.products['price'])
+                                          : widget.products['price'],
                                       1,
                                       widget.products['instock'],
                                       widget.products['proimages'],
@@ -201,7 +206,7 @@ class _ProductModelState extends State<ProductModel> {
 
                   //Cart Icon Button
                   Positioned(
-                    top: 175,
+                    top: 145,
                     right: 15,
                     child:
                         //Add to Cart Button
@@ -235,12 +240,12 @@ class _ProductModelState extends State<ProductModel> {
                                       widget.products['brand'],
                                       widget.products['model'],
                                       widget.products['proname'],
-                              onSale != 0 ? ((1 -
-                                  (widget.products[
-                                  'discount'] /
-                                      100)) *
-                                  widget.products['price'])
-                                  : widget.products['price'],
+                                      onSale != 0
+                                          ? ((1 -
+                                                  (widget.products['discount'] /
+                                                      100)) *
+                                              widget.products['price'])
+                                          : widget.products['price'],
                                       1,
                                       widget.products['instock'],
                                       widget.products['proimages'],
@@ -268,76 +273,33 @@ class _ProductModelState extends State<ProductModel> {
                       ),
                     ),
                   ),
-
-                  //Discount Button
-                  onSale != 0
-                      ? Positioned(
-                          top: 25,
-                          left: 15,
-                          child: Container(
-                            decoration: const BoxDecoration(
-                              color: CbColors.cbPrimaryColor2,
-                              borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(15),
-                                bottomRight: Radius.circular(15),
-                              ),
-                            ),
-                            child: Center(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  'Moins ${onSale.toStringAsFixed(0)} %',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .labelMedium!
-                                      .copyWith(color: Colors.white),
-                                ),
-                              ),
-                            ),
-                          ),
-                        )
-                      : Positioned(
-                          top: 25,
-                          left: 15,
-                          child: Container(
-                            decoration: const BoxDecoration(
-                              color: Colors.transparent,
-                              borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(15),
-                                bottomRight: Radius.circular(15),
-                              ),
-                            ),
-                          ),
-                        ),
                 ],
               ),
-            ),
-            const SizedBox(
-              height: 5,
             ),
 
             //Product Model and Product Price
             Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 SizedBox(
                   width: (width - 60) / 2,
                   child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           //Product Model
                           Text(
                             widget.products['model'],
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: Theme.of(context)
-                                .textTheme
-                                .labelSmall!
-                                .copyWith(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                ),
+                            style: cbMontserratBold.copyWith(
+                              fontSize: SizeConfig.blockSizeHorizontal! * 3.5,
+                            ),
                           ),
 
                           Row(
@@ -349,22 +311,20 @@ class _ProductModelState extends State<ProductModel> {
                                       text: widget.products['price']
                                           .toStringAsFixed(0),
                                       style: onSale != 0
-                                          ? Theme.of(context)
-                                              .textTheme
-                                              .displayLarge!
-                                              .copyWith(
-                                                color: Colors.grey,
-                                                fontSize: height * 0.016,
-                                                decoration:
-                                                    TextDecoration.lineThrough,
-                                              )
-                                          : Theme.of(context)
-                                              .textTheme
-                                              .displayLarge!
-                                              .copyWith(
-                                                color: Colors.red,
-                                                fontSize: height * 0.025,
-                                              ),
+                                          ? cbMontserratBold.copyWith(
+                                              fontSize: SizeConfig
+                                                      .blockSizeHorizontal! *
+                                                  3.5,
+                                              color: Colors.grey,
+                                              decoration:
+                                                  TextDecoration.lineThrough,
+                                            )
+                                          : cbMontserratBold.copyWith(
+                                              fontSize: SizeConfig
+                                                      .blockSizeHorizontal! *
+                                                  5,
+                                              color: Colors.red,
+                                            ),
                                     ),
                                     onSale != 0
                                         ? TextSpan(
@@ -374,24 +334,21 @@ class _ProductModelState extends State<ProductModel> {
                                                             100)) *
                                                     widget.products['price'])
                                                 .toStringAsFixed(0),
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .displayLarge!
-                                                .copyWith(
-                                                  color: Colors.red,
-                                                  fontSize: height * 0.025,
-                                                ),
+                                            style: cbMontserratBold.copyWith(
+                                              fontSize: SizeConfig
+                                                      .blockSizeHorizontal! *
+                                                  5,
+                                              color: Colors.red,
+                                            ),
                                           )
                                         : const TextSpan(),
                                     TextSpan(
                                       text: ' \XAF',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .displayLarge!
-                                          .copyWith(
-                                            fontSize: height * 0.020,
-                                            color: Colors.red,
-                                          ),
+                                      style: cbMontserratBold.copyWith(
+                                        fontSize:
+                                            SizeConfig.blockSizeHorizontal! * 4,
+                                        color: Colors.red,
+                                      ),
                                     ),
                                   ],
                                 ),

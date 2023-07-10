@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:badges/badges.dart' as badges;
 
+import '../../../../constants/size_config.dart';
 import '../../controllers/cart/cart_controller.dart';
 import '../cart/cart_screen3.dart';
 
@@ -48,6 +49,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    SizeConfig().init(context);
+    
     return Scaffold(
       //app bar
       appBar: AppBar(

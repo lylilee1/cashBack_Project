@@ -22,6 +22,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:provider/provider.dart';
 
+import '../../../../constants/app_styles.dart';
 import '../../../../constants/size_config.dart';
 import '../cart/cart_screen3.dart';
 import '../main/main_screen2.dart';
@@ -77,9 +78,12 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen>
             );
           },
         ),
-        title: const AppBarTitle(
-          title: CbTextStrings.cbAppName,
-          //iconColor: CbColors.cbWhiteColor,
+        title: Text(
+          'CashBack',
+          style: cbMontserratBold.copyWith(
+            fontSize: SizeConfig.blockSizeHorizontal! * 3.5,
+            color: CbColors.cbBlack,
+          ),
         ),
         centerTitle: true,
         actions: [
