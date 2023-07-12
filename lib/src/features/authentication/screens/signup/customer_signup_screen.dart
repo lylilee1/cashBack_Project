@@ -84,15 +84,20 @@ class _CustomerSignUpScreenState extends State<CustomerSignUpScreen> {
           print(e);
         }
 
-        firebase_storage.Reference ref = firebase_storage
-            .FirebaseStorage.instance
-            .ref('cust-images/$_email.jpg');
-        await ref.putFile(
-          File(_imageFile!.path),
-        );
-        _uid = FirebaseAuth.instance.currentUser!.uid;
+        //check if image profile is not null
+        if (_imageFile != null) {
+          firebase_storage.Reference ref = firebase_storage
+              .FirebaseStorage.instance
+              .ref('cust-images/$_email.jpg');
+          await ref.putFile(
+            File(_imageFile!.path),
+          );
+          _uid = FirebaseAuth.instance.currentUser!.uid;
 
-        profileImage = await ref.getDownloadURL();
+          profileImage = await ref.getDownloadURL();
+        } else {
+          profileImage = "";
+        }
 
         await FirebaseAuth.instance.currentUser!.updateDisplayName(_name);
         await FirebaseAuth.instance.currentUser!.updatePhotoURL(profileImage);
@@ -230,11 +235,9 @@ class _CustomerSignUpScreenState extends State<CustomerSignUpScreen> {
                           child: CircleAvatar(
                             radius: 55,
                             backgroundColor: Colors.grey[300],
-                            //if image is not picked or equal to null
                             backgroundImage: _imageFile == null
-                                //show default image
                                 ? null
-                                //else show the image picked
+                            //if the image is not picked, show a default image
                                 : FileImage(File(_imageFile!.path)),
                           ),
                         ),

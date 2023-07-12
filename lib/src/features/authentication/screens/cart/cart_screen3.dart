@@ -1,7 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cashback/src/common_widgets/Alert/alert_dialog.dart';
 import 'package:cashback/src/common_widgets/app_bar/appBarWidget.dart';
 import 'package:cashback/src/constants/colors.dart';
-import 'package:cashback/src/constants/text_strings.dart';
 import 'package:cashback/src/features/authentication/controllers/cart/cart_controller.dart';
 import 'package:cashback/src/features/authentication/controllers/wishlist/wishlist_controller.dart';
 import 'package:cashback/src/features/authentication/screens/search/search_screen.dart';
@@ -12,8 +12,6 @@ import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import '../../../../constants/app_styles.dart';
 import '../../../../constants/size_config.dart';
-import '../customer/customer_home_screen4.dart';
-import 'package:collection/collection.dart';
 
 import '../main/main_screen.dart';
 import '../orders/orders_screen2.dart';
@@ -117,7 +115,8 @@ class _CartScreenState extends State<CartScreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const SearchScreen()),
+                      builder: (context) => const SearchScreen(),
+                    ),
                   );
                 },
               ),
@@ -126,21 +125,23 @@ class _CartScreenState extends State<CartScreen> {
                   : IconButton(
                       onPressed: () {
                         MyAlertDialog.showMyDialog(
-                            context: context,
-                            title: 'Vider le panier',
-                            content: 'êtes vous sur de vider le panier?',
-                            onPressedNo: () {
-                              Navigator.pop(context);
-                            },
-                            onPressedYes: () {
-                              context.read<Cart>().clearCart();
-                              Navigator.pop(context);
-                            });
+                          context: context,
+                          title: 'Vider le panier',
+                          content: 'êtes vous sur de vider le panier?',
+                          onPressedNo: () {
+                            Navigator.pop(context);
+                          },
+                          onPressedYes: () {
+                            context.read<Cart>().clearCart();
+                            Navigator.pop(context);
+                          },
+                        );
                       },
                       icon: const Icon(
-                        Icons.delete,
-                        color: Colors.black,
-                      ))
+                        Icons.delete_forever_sharp,
+                        color: CbColors.cbWhiteColor,
+                      ),
+                    ),
             ],
           ),
           body: context.watch<Cart>().getitems.isNotEmpty
@@ -163,112 +164,106 @@ class _CartScreenState extends State<CartScreen> {
                                     final product = cart.getitems[index];
 
                                     return Padding(
-                                      padding:
-                                          const EdgeInsets.only(bottom: 10),
-                                      child: Row(
-                                        children: [
-                                          Container(
-                                            width: (size.width - 30) * 0.7,
-                                            height: 80,
-                                            child: Row(
-                                              children: [
-                                                //product image
-                                                SizedBox(
-                                                  width: 70,
-                                                  height: 70,
-                                                  child: Stack(
-                                                    children: [
-                                                      Container(
-                                                        width: 60,
-                                                        height: 60,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          image:
-                                                              DecorationImage(
-                                                            image: NetworkImage(
-                                                              product.imagesUrl
-                                                                  .first,
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 10),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(20.0),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color:
+                                                  Colors.grey.withOpacity(0.2),
+                                              spreadRadius: 2.5,
+                                              blurRadius: 5,
+                                              offset: const Offset(0,
+                                                  5), // changes position of shadow
+                                            ),
+                                          ],
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(10),
+                                          child: Row(
+                                            children: [
+                                              SizedBox(
+                                                width: (size.width - 30) * 0.7,
+                                                height: 80,
+                                                child: Row(
+                                                  children: [
+                                                    //product image
+                                                    SizedBox(
+                                                      width: 70,
+                                                      height: 70,
+                                                      child: Stack(
+                                                        children: [
+                                                          CachedNetworkImage(
+                                                            imageUrl: product.imagesUrl.first,
+                                                            placeholder: (context, url) => const CircularProgressIndicator(),
+                                                            imageBuilder: (context, imageProvider) => Container(
+                                                              width: 60,
+                                                              height: 60,
+                                                              decoration: BoxDecoration(
+                                                                image: DecorationImage(
+                                                                  //fit: BoxFit.cover,
+                                                                  image: imageProvider,
+                                                                ),
+                                                              ),
                                                             ),
                                                           ),
-                                                        ),
-                                                      ),
-                                                      Positioned(
-                                                        top: 10,
-                                                        child: Container(
-                                                          width: 60,
-                                                          height: 60,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        5),
-                                                            border: Border.all(
-                                                              color: CbColors
-                                                                  .cbPrimaryColor2
-                                                                  .withOpacity(
-                                                                      0.2),
+                                                          Positioned(
+                                                            top: 10,
+                                                            child: Container(
+                                                              width: 60,
+                                                              height: 60,
+                                                              decoration: BoxDecoration(
+                                                                borderRadius: BorderRadius.circular(5),
+                                                                border: Border.all(
+                                                                  color: CbColors.cbPrimaryColor2.withOpacity(0.2),
+                                                                ),
+                                                                color: CbColors.cbPrimaryColor2.withOpacity(0.1),
+                                                              ),
                                                             ),
-                                                            color: CbColors
-                                                                .cbPrimaryColor2
-                                                                .withOpacity(
-                                                                    0.1),
                                                           ),
-                                                        ),
+                                                        ],
                                                       ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                const SizedBox(
-                                                  width: 10,
-                                                ),
-                                                Flexible(
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      //product name
-                                                      Text(
-                                                        product.name,
-                                                        maxLines: 2,
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        style: Theme.of(context)
-                                                            .textTheme
-                                                            .displayLarge!
-                                                            .copyWith(
-                                                                fontSize:
-                                                                    height *
-                                                                        0.017),
-                                                      ),
-
-                                                      //Price
-                                                      RichText(
-                                                        text: TextSpan(
-                                                          text: product.price
-                                                              .toStringAsFixed(
-                                                                  0),
-                                                          style:
-                                                              Theme.of(context)
-                                                                  .textTheme
-                                                                  .displayLarge!
-                                                                  .copyWith(
+                                                    ),
+                                                    const SizedBox(
+                                                      width: 10,
+                                                    ),
+                                                    Flexible(
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          //product name
+                                                          Text(
+                                                            product.name,
+                                                            maxLines: 2,
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                            style: Theme.of(
+                                                                    context)
+                                                                .textTheme
+                                                                .displayLarge!
+                                                                .copyWith(
                                                                     fontSize:
                                                                         height *
-                                                                            0.02,
-                                                                    color: CbColors
-                                                                        .cbPrimaryColor2,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold,
-                                                                  ),
-                                                          children: <TextSpan>[
-                                                            TextSpan(
-                                                              text: ' FCFA',
+                                                                            0.017),
+                                                          ),
+
+                                                          //Price
+                                                          RichText(
+                                                            text: TextSpan(
+                                                              text: product
+                                                                  .price
+                                                                  .toStringAsFixed(
+                                                                      0),
                                                               style: Theme.of(
                                                                       context)
                                                                   .textTheme
@@ -283,283 +278,297 @@ class _CartScreenState extends State<CartScreen> {
                                                                         FontWeight
                                                                             .bold,
                                                                   ),
+                                                              children: <
+                                                                  TextSpan>[
+                                                                TextSpan(
+                                                                  text: ' FCFA',
+                                                                  style: Theme.of(
+                                                                          context)
+                                                                      .textTheme
+                                                                      .displayLarge!
+                                                                      .copyWith(
+                                                                        fontSize:
+                                                                            height *
+                                                                                0.02,
+                                                                        color: CbColors
+                                                                            .cbPrimaryColor2,
+                                                                        fontWeight:
+                                                                            FontWeight.bold,
+                                                                      ),
+                                                                ),
+                                                              ],
                                                             ),
-                                                          ],
-                                                        ),
+                                                          ),
+                                                        ],
                                                       ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            width: 15,
-                                          ),
-                                          Flexible(
-                                            child: SizedBox(
-                                              height: 80,
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  const Align(
-                                                    alignment:
-                                                        Alignment.topRight,
-                                                    child: Icon(
-                                                      Icons.close,
-                                                      color: CbColors
-                                                          .cbPrimaryColor2,
-                                                      size: 15,
                                                     ),
-                                                  ),
-
-                                                  //quantity
-                                                  Row(
+                                                  ],
+                                                ),
+                                              ),
+                                              const SizedBox(
+                                                width: 15,
+                                              ),
+                                              Flexible(
+                                                child: SizedBox(
+                                                  height: 80,
+                                                  child: Column(
                                                     mainAxisAlignment:
                                                         MainAxisAlignment
                                                             .spaceBetween,
                                                     children: [
-                                                      //decrement button
-                                                      product.quantity == 1
-                                                          ? GestureDetector(
-                                                              onTap: () {
-                                                                showCupertinoModalPopup<
-                                                                    void>(
-                                                                  context:
-                                                                      context,
-                                                                  builder: (BuildContext
-                                                                          context) =>
-                                                                      CupertinoActionSheet(
-                                                                    title: Text(
-                                                                      'Retirer l\'article',
-                                                                      style: Theme.of(
-                                                                              context)
-                                                                          .textTheme
-                                                                          .labelLarge!
-                                                                          .copyWith(),
-                                                                    ),
-                                                                    message:
-                                                                        Text(
-                                                                      'êtes-vous sûr de vouloir supprimer cet article?',
-                                                                      style: Theme.of(
-                                                                              context)
-                                                                          .textTheme
-                                                                          .titleLarge!
-                                                                          .copyWith(),
-                                                                    ),
-                                                                    actions: <
-                                                                        CupertinoActionSheetAction>[
-                                                                      CupertinoActionSheetAction(
-                                                                        child:
+                                                      const Align(
+                                                        alignment:
+                                                            Alignment.topRight,
+                                                        child: Icon(
+                                                          Icons.close,
+                                                          color: CbColors
+                                                              .cbPrimaryColor2,
+                                                          size: 15,
+                                                        ),
+                                                      ),
+
+                                                      //Quantity
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          //decrement button
+                                                          product.quantity == 1
+                                                              ? GestureDetector(
+                                                                  onTap: () {
+                                                                    showCupertinoModalPopup<
+                                                                        void>(
+                                                                      context:
+                                                                          context,
+                                                                      builder: (BuildContext
+                                                                              context) =>
+                                                                          CupertinoActionSheet(
+                                                                        title:
                                                                             Text(
-                                                                          'Placer dans la Wishlist',
+                                                                          'Retirer l\'article',
+                                                                          style: Theme.of(context)
+                                                                              .textTheme
+                                                                              .labelLarge!
+                                                                              .copyWith(),
+                                                                        ),
+                                                                        message:
+                                                                            Text(
+                                                                          'êtes-vous sûr de vouloir supprimer cet article?',
                                                                           style: Theme.of(context)
                                                                               .textTheme
                                                                               .titleLarge!
                                                                               .copyWith(),
                                                                         ),
-                                                                        onPressed:
-                                                                            () async {
-                                                                          context.read<Wish>().getWishItems.firstWhereOrNull((element) => element.documentId == product.documentId) != null
-                                                                              ? context.read<Cart>().removeItem(product)
-                                                                              : await context.read<Wish>().addWishItem(
-                                                                                    product.brand,
-                                                                                    product.model,
-                                                                                    product.name,
-                                                                                    product.price,
-                                                                                    1,
-                                                                                    product.qntty,
-                                                                                    product.imagesUrl,
-                                                                                    product.documentId,
-                                                                                    product.suppId,
-                                                                                    product.isFavorite,
-                                                                                  );
-                                                                          context
-                                                                              .read<Cart>()
-                                                                              .removeItem(product);
-                                                                          Navigator.pop(
-                                                                              context);
-                                                                        },
-                                                                      ),
-                                                                      CupertinoActionSheetAction(
-                                                                        child:
-                                                                            Text(
-                                                                          'Effacer l\'article',
-                                                                          style: Theme.of(context)
-                                                                              .textTheme
-                                                                              .titleLarge!
-                                                                              .copyWith(color: Colors.red),
+                                                                        actions: <
+                                                                            CupertinoActionSheetAction>[
+                                                                          CupertinoActionSheetAction(
+                                                                            child:
+                                                                                Text(
+                                                                              'Placer dans la Wishlist',
+                                                                              style: Theme.of(context).textTheme.titleLarge!.copyWith(),
+                                                                            ),
+                                                                            onPressed:
+                                                                                () async {
+                                                                              context.read<Wish>().getWishItems.firstWhereOrNull((element) => element.documentId == product.documentId) != null
+                                                                                  ? context.read<Cart>().removeItem(product)
+                                                                                  : await context.read<Wish>().addWishItem(
+                                                                                        product.brand,
+                                                                                        product.model,
+                                                                                        product.name,
+                                                                                        product.price,
+                                                                                        1,
+                                                                                        product.qntty,
+                                                                                        product.imagesUrl,
+                                                                                        product.documentId,
+                                                                                        product.suppId,
+                                                                                        product.isFavorite,
+                                                                                      );
+                                                                              context.read<Cart>().removeItem(product);
+                                                                              Navigator.pop(context);
+                                                                            },
+                                                                          ),
+                                                                          CupertinoActionSheetAction(
+                                                                            child:
+                                                                                Text(
+                                                                              'Effacer l\'article',
+                                                                              style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Colors.red),
+                                                                            ),
+                                                                            onPressed:
+                                                                                () {
+                                                                              context.read<Cart>().removeItem(product);
+                                                                              Navigator.pop(context);
+                                                                            },
+                                                                          )
+                                                                        ],
+                                                                        cancelButton:
+                                                                            TextButton(
+                                                                          child:
+                                                                              Text(
+                                                                            'Annuler',
+                                                                            style:
+                                                                                Theme.of(context).textTheme.titleLarge!.copyWith(),
+                                                                          ),
+                                                                          onPressed:
+                                                                              () {
+                                                                            Navigator.pop(context);
+                                                                          },
                                                                         ),
-                                                                        onPressed:
-                                                                            () {
-                                                                          context
-                                                                              .read<Cart>()
-                                                                              .removeItem(product);
-                                                                          Navigator.pop(
-                                                                              context);
-                                                                        },
-                                                                      )
-                                                                    ],
-                                                                    cancelButton:
-                                                                        TextButton(
-                                                                      child:
-                                                                          Text(
-                                                                        'Annuler',
-                                                                        style: Theme.of(context)
-                                                                            .textTheme
-                                                                            .titleLarge!
-                                                                            .copyWith(),
                                                                       ),
-                                                                      onPressed:
-                                                                          () {
-                                                                        Navigator.pop(
-                                                                            context);
-                                                                      },
+                                                                    );
+                                                                  },
+                                                                  child:
+                                                                      Container(
+                                                                    height: 20,
+                                                                    width: 20,
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      border:
+                                                                          Border
+                                                                              .all(
+                                                                        color: CbColors
+                                                                            .cbPrimaryColor2,
+                                                                        width:
+                                                                            1,
+                                                                      ),
+                                                                      shape: BoxShape
+                                                                          .circle,
+                                                                      color: Colors
+                                                                          .white,
+                                                                    ),
+                                                                    child:
+                                                                        const Icon(
+                                                                      Icons
+                                                                          .delete_forever,
+                                                                      color: CbColors
+                                                                          .cbPrimaryColor2,
+                                                                      size: 14,
                                                                     ),
                                                                   ),
-                                                                );
-                                                              },
-                                                              child: Container(
-                                                                height: 25,
-                                                                width: 25,
-                                                                decoration:
-                                                                    BoxDecoration(
-                                                                  border: Border
-                                                                      .all(
-                                                                    color: CbColors
-                                                                        .cbPrimaryColor2,
-                                                                    width: 1,
+                                                                )
+                                                              : GestureDetector(
+                                                                  onTap: () {
+                                                                    cart.decrement(
+                                                                        product);
+                                                                  },
+                                                                  child:
+                                                                      Container(
+                                                                    height: 20,
+                                                                    width: 20,
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      border:
+                                                                          Border
+                                                                              .all(
+                                                                        color: Colors
+                                                                            .grey,
+                                                                        width:
+                                                                            1,
+                                                                      ),
+                                                                      shape: BoxShape
+                                                                          .circle,
+                                                                      color: Colors
+                                                                          .white,
+                                                                    ),
+                                                                    child:
+                                                                        const Icon(
+                                                                      Icons
+                                                                          .remove,
+                                                                      color: Colors
+                                                                          .grey,
+                                                                      size: 18,
+                                                                    ),
                                                                   ),
-                                                                  shape: BoxShape
-                                                                      .circle,
-                                                                  color: Colors
-                                                                      .white,
                                                                 ),
-                                                                child:
-                                                                    const Icon(
-                                                                  Icons
-                                                                      .delete_forever,
+
+                                                          //Quantity Text
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .symmetric(
+                                                                    horizontal:
+                                                                        8.0),
+                                                            child: Text(
+                                                              product.quantity
+                                                                  .toString(),
+                                                              style: product
+                                                                          .quantity ==
+                                                                      product
+                                                                          .qntty
+                                                                  ? Theme.of(
+                                                                          context)
+                                                                      .textTheme
+                                                                      .displayLarge!
+                                                                      .copyWith(
+                                                                        fontSize:
+                                                                            height *
+                                                                                0.02,
+                                                                        color: Colors
+                                                                            .red,
+                                                                        fontWeight:
+                                                                            FontWeight.bold,
+                                                                      )
+                                                                  : Theme.of(
+                                                                          context)
+                                                                      .textTheme
+                                                                      .displayLarge!
+                                                                      .copyWith(
+                                                                        fontSize:
+                                                                            height *
+                                                                                0.02,
+                                                                        color: CbColors
+                                                                            .cbPrimaryColor2,
+                                                                        fontWeight:
+                                                                            FontWeight.bold,
+                                                                      ),
+                                                            ),
+                                                          ),
+
+                                                          //increment button
+                                                          GestureDetector(
+                                                            onTap: product
+                                                                        .quantity ==
+                                                                    product
+                                                                        .qntty
+                                                                ? null
+                                                                : () {
+                                                                    cart.increment(
+                                                                        product);
+                                                                    //cart.add(cart.getitems[index]);
+                                                                  },
+                                                            child: Container(
+                                                              height: 20,
+                                                              width: 20,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                border:
+                                                                    Border.all(
                                                                   color: CbColors
                                                                       .cbPrimaryColor2,
-                                                                  size: 14,
+                                                                  width: 1,
                                                                 ),
+                                                                shape: BoxShape
+                                                                    .circle,
+                                                                color: Colors
+                                                                    .white,
                                                               ),
-                                                            )
-                                                          : GestureDetector(
-                                                              onTap: () {
-                                                                cart.decrement(
-                                                                    product);
-                                                              },
-                                                              child: Container(
-                                                                height: 25,
-                                                                width: 25,
-                                                                decoration:
-                                                                    BoxDecoration(
-                                                                  border: Border
-                                                                      .all(
-                                                                    color: Colors
-                                                                        .grey,
-                                                                    width: 1,
-                                                                  ),
-                                                                  shape: BoxShape
-                                                                      .circle,
-                                                                  color: Colors
-                                                                      .white,
-                                                                ),
-                                                                child:
-                                                                    const Icon(
-                                                                  Icons.remove,
-                                                                  color: Colors
-                                                                      .grey,
-                                                                  size: 18,
-                                                                ),
+                                                              child: const Icon(
+                                                                Icons.add,
+                                                                color: CbColors
+                                                                    .cbPrimaryColor2,
+                                                                size: 18,
                                                               ),
                                                             ),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .symmetric(
-                                                                horizontal:
-                                                                    8.0),
-                                                        child: Text(
-                                                          product.quantity
-                                                              .toString(),
-                                                          style: product
-                                                                      .quantity ==
-                                                                  product.qntty
-                                                              ? Theme.of(
-                                                                      context)
-                                                                  .textTheme
-                                                                  .displayLarge!
-                                                                  .copyWith(
-                                                                    fontSize:
-                                                                        height *
-                                                                            0.02,
-                                                                    color: Colors
-                                                                        .red,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold,
-                                                                  )
-                                                              : Theme.of(
-                                                                      context)
-                                                                  .textTheme
-                                                                  .displayLarge!
-                                                                  .copyWith(
-                                                                    fontSize:
-                                                                        height *
-                                                                            0.02,
-                                                                    color: CbColors
-                                                                        .cbPrimaryColor2,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold,
-                                                                  ),
-                                                        ),
-                                                      ),
-
-                                                      //increment button
-                                                      GestureDetector(
-                                                        onTap: product
-                                                                    .quantity ==
-                                                                product.qntty
-                                                            ? null
-                                                            : () {
-                                                                cart.increment(
-                                                                    product);
-                                                                //cart.add(cart.getitems[index]);
-                                                              },
-                                                        child: Container(
-                                                          height: 25,
-                                                          width: 25,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            border: Border.all(
-                                                              color: CbColors
-                                                                  .cbPrimaryColor2,
-                                                              width: 1,
-                                                            ),
-                                                            shape:
-                                                                BoxShape.circle,
-                                                            color: Colors.white,
                                                           ),
-                                                          child: const Icon(
-                                                            Icons.add,
-                                                            color: CbColors
-                                                                .cbPrimaryColor2,
-                                                            size: 18,
-                                                          ),
-                                                        ),
+                                                        ],
                                                       ),
                                                     ],
                                                   ),
-                                                ],
+                                                ),
                                               ),
-                                            ),
+                                            ],
                                           ),
-                                        ],
+                                        ),
                                       ),
                                     );
                                   },
@@ -568,7 +577,7 @@ class _CartScreenState extends State<CartScreen> {
                             ),
 
                             const SizedBox(
-                              height: 20,
+                              height: 24,
                             ),
 
                             //Code Promo
@@ -610,7 +619,7 @@ class _CartScreenState extends State<CartScreen> {
                                   ),
                                   Flexible(
                                     child: Padding(
-                                      padding: EdgeInsets.all(3.0),
+                                      padding: const EdgeInsets.all(3.0),
                                       child: Container(
                                         height: 55,
                                         decoration: BoxDecoration(
@@ -618,7 +627,7 @@ class _CartScreenState extends State<CartScreen> {
                                           borderRadius:
                                               BorderRadius.circular(12),
                                         ),
-                                        child: Center(
+                                        child: const Center(
                                           child: Text(
                                             'Appliquer',
                                             style: TextStyle(
@@ -635,14 +644,14 @@ class _CartScreenState extends State<CartScreen> {
                               ),
                             ),
                             const SizedBox(
-                              height: 30,
+                              height: 24,
                             ),
 
                             //Cart Items Price Summary
                             Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Row(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
                                     RichText(
                                       text: TextSpan(

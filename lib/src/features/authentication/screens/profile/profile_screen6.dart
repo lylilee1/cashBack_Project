@@ -9,6 +9,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../common_widgets/app_bar/appBarWidget.dart';
 import '../../../../constants/app_styles.dart';
 import '../customer/minor_screen/customer_order1.dart';
 
@@ -54,12 +55,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
               backgroundColor: CbColors.cbPrimaryColor2,
               elevation: 0,
               centerTitle: true,
-              title: Text(
-                'Profil',
-                style: cbMontserratBold.copyWith(
-                  fontSize: SizeConfig.blockSizeHorizontal! * 3.5,
-                  color: CbColors.cbWhiteColor,
-                ),
+              title: const AppBarTitle(
+                title: 'Profil',
+                iconColor: CbColors.cbWhiteColor,
               ),
             ),
             body: Padding(
@@ -102,21 +100,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 //Profile image
                                 CachedNetworkImage(
                                   imageUrl: data['profileImage'] == ''
-                                    ? 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'
-                                    : data['profileImage'],
+                                      ? 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'
+                                      : data['profileImage'],
                                   placeholder: (context, url) =>
                                       const CircularProgressIndicator(),
                                   imageBuilder: (context, imageProvider) =>
                                       Container(
-                                        decoration: BoxDecoration(
-                                          color: Colors.black,
-                                          shape: BoxShape.circle,
-                                          image: DecorationImage(
-                                            fit: BoxFit.cover,
-                                            image: imageProvider,
-                                          ),
-                                        ),
+                                    decoration: BoxDecoration(
+                                      color: Colors.black,
+                                      shape: BoxShape.circle,
+                                      image: DecorationImage(
+                                        fit: BoxFit.cover,
+                                        image: imageProvider,
                                       ),
+                                    ),
+                                  ),
                                 ),
 
                                 //Edit profile button
@@ -258,7 +256,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const CustomerOrders(),
+                                  builder: (context) => const CustomerOrders(
+                                    back: AppBarBackButton(iconColor: CbColors.cbWhiteColor,),
+                                  ),
                                 ),
                               );
                             },
@@ -450,7 +450,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   'Aide',
                                   style: cbMontserratBold.copyWith(
                                     fontSize:
-                                    SizeConfig.blockSizeHorizontal! * 5,
+                                        SizeConfig.blockSizeHorizontal! * 5,
                                     color: CbColors.cbPrimaryColor2,
                                   ),
                                 ),
@@ -497,8 +497,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       .textTheme
                                       .headline6!
                                       .copyWith(
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                 ),
                                 trailing: const Icon(
                                   Icons.arrow_forward_ios,
@@ -539,8 +539,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       .textTheme
                                       .headline6!
                                       .copyWith(
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                 ),
                                 trailing: const Icon(
                                   Icons.arrow_forward_ios,
@@ -581,8 +581,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       .textTheme
                                       .headline6!
                                       .copyWith(
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                 ),
                                 trailing: const Icon(
                                   Icons.arrow_forward_ios,
@@ -623,8 +623,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       .textTheme
                                       .headline6!
                                       .copyWith(
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                 ),
                                 trailing: const Icon(
                                   Icons.arrow_forward_ios,

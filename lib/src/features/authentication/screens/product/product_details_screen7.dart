@@ -6,7 +6,6 @@ import 'package:cashback/src/common_widgets/counter/counter.dart';
 import 'package:cashback/src/common_widgets/snackBar/snackBarWidget.dart';
 import 'package:cashback/src/constants/colors.dart';
 import 'package:cashback/src/constants/image_strings.dart';
-import 'package:cashback/src/constants/text_strings.dart';
 import 'package:cashback/src/features/authentication/controllers/cart/cart_controller.dart';
 import 'package:cashback/src/features/authentication/controllers/wishlist/wishlist_controller.dart';
 import 'package:cashback/src/features/authentication/models/product/product_model.dart';
@@ -94,7 +93,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => const CartScreen(
-                            back: AppBarBackButton(),
+                            back: AppBarBackButton(iconColor: CbColors.cbWhiteColor,),
                           ),
                         ),
                       );
@@ -659,77 +658,117 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       ),
                     ],
                   ),
+                  //space
+                  const SizedBox(
+                    height: SizeConfig.kPadding8,
+                  ),
 
                   //Product Description
-                  ExpansionTile(
-                    tilePadding: const EdgeInsets.all(0),
-                    expandedAlignment: Alignment.centerLeft,
-                    title: Text(
-                      'Description',
-                      style: cbMontserratBold.copyWith(
-                        fontSize: SizeConfig.blockSizeHorizontal! * 3,
-                      ),
+                  Card(
+                    elevation: 2,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    children: [
-                      //product description for now (will be changed to product speech of sales)
-                      ReadMoreText(
-                        widget.prodList['prodesc'],
-                        trimLines: 2,
-                        colorClickableText: Colors.blue,
-                        trimMode: TrimMode.Line,
-                        delimiter: '...',
-                        trimCollapsedText: 'En savoir plus',
-                        trimExpandedText: 'Lire moins',
-                        style: cbMontserratRegular.copyWith(
+                    margin: const EdgeInsets.only(
+                      top: 5,
+                      bottom: 5,
+                      left: 0,
+                      right: 0,
+                    ),
+                    child: ExpansionTile(
+                      tilePadding: const EdgeInsets.all(0),
+                      expandedAlignment: Alignment.centerLeft,
+                      title: Text(
+                        'Description',
+                        style: cbMontserratBold.copyWith(
                           fontSize: SizeConfig.blockSizeHorizontal! * 3,
-                          color: Colors.grey.shade700,
                         ),
-                        moreStyle:
-                            Theme.of(context).textTheme.labelLarge!.copyWith(
-                                  fontSize: SizeConfig.blockSizeHorizontal! * 3,
-                                  color: CbColors.cbPrimaryColor2,
-                                ),
-                        lessStyle:
-                            Theme.of(context).textTheme.labelLarge!.copyWith(
-                                  fontSize: SizeConfig.blockSizeHorizontal! * 3,
-                                  color: CbColors.cbPrimaryColor2,
-                                ),
                       ),
+                      children: [
+                        //product description for now (will be changed to product speech of sales)
+                        ReadMoreText(
+                          widget.prodList['prodesc'],
+                          trimLines: 2,
+                          colorClickableText: Colors.blue,
+                          trimMode: TrimMode.Line,
+                          delimiter: '...',
+                          trimCollapsedText: 'En savoir plus',
+                          trimExpandedText: 'Lire moins',
+                          style: cbMontserratRegular.copyWith(
+                            fontSize: SizeConfig.blockSizeHorizontal! * 3,
+                            color: Colors.grey.shade700,
+                          ),
+                          moreStyle:
+                              Theme.of(context).textTheme.labelLarge!.copyWith(
+                                    fontSize: SizeConfig.blockSizeHorizontal! * 3,
+                                    color: CbColors.cbPrimaryColor2,
+                                  ),
+                          lessStyle:
+                              Theme.of(context).textTheme.labelLarge!.copyWith(
+                                    fontSize: SizeConfig.blockSizeHorizontal! * 3,
+                                    color: CbColors.cbPrimaryColor2,
+                                  ),
+                        ),
 
-                      const SizedBox(height: 16),
-                    ],
+                        const SizedBox(height: 30),
+                      ],
+                    ),
                   ),
 
                   //Product Size
-                  ExpansionTile(
-                    tilePadding: const EdgeInsets.all(0),
-                    expandedAlignment: Alignment.centerLeft,
-                    title: Text(
-                      'Taille',
-                      style: cbMontserratBold.copyWith(
-                        fontSize: SizeConfig.blockSizeHorizontal! * 3,
-                      ),
+                  Card(
+                    elevation: 2,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    children: [],
+                    margin: const EdgeInsets.only(
+                      top: 5,
+                      bottom: 5,
+                      left: 0,
+                      right: 0,
+                    ),
+                    child: ExpansionTile(
+                      tilePadding: const EdgeInsets.all(0),
+                      expandedAlignment: Alignment.centerLeft,
+                      title: Text(
+                        'Taille',
+                        style: cbMontserratBold.copyWith(
+                          fontSize: SizeConfig.blockSizeHorizontal! * 3,
+                        ),
+                      ),
+                      children: [],
+                    ),
                   ),
 
                   //Product Color
-                  ExpansionTile(
-                    tilePadding: const EdgeInsets.all(0),
-                    expandedAlignment: Alignment.centerLeft,
-                    title: Text(
-                      'Couleur',
-                      style: cbMontserratBold.copyWith(
-                        fontSize: SizeConfig.blockSizeHorizontal! * 3,
-                      ),
+                  Card(
+                    elevation: 2,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    children: [],
+                    margin: const EdgeInsets.only(
+                      top: 5,
+                      bottom: 5,
+                      left: 0,
+                      right: 0,
+                    ),
+                    child: ExpansionTile(
+                      tilePadding: const EdgeInsets.all(0),
+                      expandedAlignment: Alignment.centerLeft,
+                      title: Text(
+                        'Couleur',
+                        style: cbMontserratBold.copyWith(
+                          fontSize: SizeConfig.blockSizeHorizontal! * 3,
+                        ),
+                      ),
+                      children: [],
+                    ),
                   ),
 
-                  const SizedBox(height: 16),
-                  Divider(height: 1, color: Colors.grey.shade300),
+                  //const SizedBox(height: 16),
+                  //Divider(height: 1, color: Colors.grey.shade300),
 
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 24),
                   const ProDetailsHeaderWidget(
                     label: '  Produits similaires  ',
                   ),

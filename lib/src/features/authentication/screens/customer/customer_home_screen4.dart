@@ -38,8 +38,8 @@ class CustomerHomeScreen extends StatefulWidget {
 class _CustomerHomeScreenState extends State<CustomerHomeScreen>
     with SingleTickerProviderStateMixin {
   final List<AssetImage> _carouselImages = [
-    AssetImage(CbImageStrings.cbC1),
-    AssetImage(CbImageStrings.cbC2),
+    const AssetImage(CbImageStrings.cbC1),
+    const AssetImage(CbImageStrings.cbC2),
   ];
 
   late TabController tabController;
@@ -78,12 +78,8 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen>
             );
           },
         ),
-        title: Text(
-          'CashBack',
-          style: cbMontserratBold.copyWith(
-            fontSize: SizeConfig.blockSizeHorizontal! * 3.5,
-            color: CbColors.cbBlack,
-          ),
+        title: const AppBarTitle(
+          title: 'CashBack',
         ),
         centerTitle: true,
         actions: [

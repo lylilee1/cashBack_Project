@@ -51,16 +51,17 @@ class AppBarTitle extends StatelessWidget {
 }
 
 class AppBarBackButton extends StatelessWidget {
+  final Color? iconColor;
   const AppBarBackButton({
-    Key? key,
+    Key? key, this.iconColor,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      icon: const Icon(
+      icon: Icon(
         Icons.arrow_back_ios_new,
-        color: Colors.black,
+        color: iconColor ?? CbColors.cbBlack,
       ),
       onPressed: () {
         Navigator.pop(context);

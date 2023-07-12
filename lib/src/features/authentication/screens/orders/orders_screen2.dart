@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../constants/colors.dart';
+import '../login/customer_signin_screen.dart';
 import '../payment/payment_screen2.dart';
 
 class PlaceOrderScreen extends StatefulWidget {
@@ -39,7 +40,14 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
         }
 
         if (snapshot.hasData && !snapshot.data!.exists) {
-          return const Text("Document does not exist");
+          return const CustomerSignInScreen();
+        }
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Material(
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
         }
 
         if (snapshot.connectionState == ConnectionState.done) {
@@ -303,8 +311,10 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
             ),
           );
         }
-        return const Center(
-          child: CircularProgressIndicator(),
+        return const Material(
+          child: Center(
+            child: CircularProgressIndicator(),
+          ),
         );
       },
     );

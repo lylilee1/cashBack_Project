@@ -3,8 +3,15 @@ import 'package:cashback/src/features/authentication/screens/customer/minor_scre
 import 'package:cashback/src/features/authentication/screens/customer/minor_screen/past_orders_screen.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../common_widgets/app_bar/appBarWidget.dart';
+import '../../../../../constants/app_styles.dart';
+import '../../../../../constants/size_config.dart';
+import '../../search/search_screen.dart';
+
 class CustomerOrders extends StatefulWidget {
-  const CustomerOrders({Key? key}) : super(key: key);
+  final Widget? back;
+  const CustomerOrders({Key? key, this.back}) : super(key: key);
+  static String routeName = '/customerOrders';
 
   @override
   State<CustomerOrders> createState() => _CustomerOrdersState();
@@ -33,8 +40,34 @@ class _CustomerOrdersState extends State<CustomerOrders>
     var size = MediaQuery.of(context).size;
     var height = size.height;
     var width = size.width;
+    SizeConfig().init(context);
 
     return Scaffold(
+      //app bar
+      appBar: AppBar(
+        backgroundColor: CbColors.cbPrimaryColor2,
+        elevation: 0,
+        leading: widget.back,
+        title: const AppBarTitle(
+          title: 'Mes commandes',
+          iconColor: CbColors.cbWhiteColor,
+        ),
+        centerTitle: true,
+        actions: [
+          AppBarButton(
+            prefixIcon: Icons.search,
+            iconColor: CbColors.cbWhiteColor,
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const SearchScreen(),
+                ),
+              );
+            },
+          ),
+        ],
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
