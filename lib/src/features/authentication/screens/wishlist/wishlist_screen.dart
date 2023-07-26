@@ -40,46 +40,6 @@ class _WishlistScreenState extends State<WishlistScreen> {
       child: ScaffoldMessenger(
         key: _scaffoldkey,
         child: Scaffold(
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerFloat,
-          floatingActionButton: context.watch<Wish>().getWishItems.isNotEmpty
-              ? GestureDetector(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: [
-                  //add to cart button
-                  Expanded(
-                    child: SizedBox(
-                      height: 50,
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        style: ButtonStyle(
-                          shape: MaterialStateProperty.all(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                          ),
-                          backgroundColor: MaterialStateProperty.all(
-                            CbColors.cbPrimaryColor2,
-                          ),
-                        ),
-                        child: Text(
-                          'passer à la caisse'.toUpperCase(),
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          )
-              : const SizedBox(),
           //app bar
           appBar: AppBar(
             backgroundColor: CbColors.cbPrimaryColor2,
@@ -154,11 +114,11 @@ class _WishlistScreenState extends State<WishlistScreen> {
                                         decoration: BoxDecoration(
                                           color: Colors.white,
                                           borderRadius:
-                                          BorderRadius.circular(20.0),
+                                              BorderRadius.circular(20.0),
                                           boxShadow: [
                                             BoxShadow(
                                               color:
-                                              Colors.grey.withOpacity(0.2),
+                                                  Colors.grey.withOpacity(0.2),
                                               spreadRadius: 2.5,
                                               blurRadius: 5,
                                               offset: const Offset(0,
@@ -167,8 +127,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
                                           ],
                                         ),
                                         child: Padding(
-                                          padding:
-                                          const EdgeInsets.all(10),
+                                          padding: const EdgeInsets.all(10),
                                           child: Row(
                                             children: [
                                               SizedBox(
@@ -183,15 +142,24 @@ class _WishlistScreenState extends State<WishlistScreen> {
                                                       child: Stack(
                                                         children: [
                                                           CachedNetworkImage(
-                                                            imageUrl: product.imagesUrl.first,
-                                                            placeholder: (context, url) => const CircularProgressIndicator(),
-                                                            imageBuilder: (context, imageProvider) => Container(
+                                                            imageUrl: product
+                                                                .imagesUrl
+                                                                .first,
+                                                            placeholder: (context,
+                                                                    url) =>
+                                                                const CircularProgressIndicator(),
+                                                            imageBuilder: (context,
+                                                                    imageProvider) =>
+                                                                Container(
                                                               width: 60,
                                                               height: 60,
-                                                              decoration: BoxDecoration(
-                                                                image: DecorationImage(
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                image:
+                                                                    DecorationImage(
                                                                   //fit: BoxFit.cover,
-                                                                  image: imageProvider,
+                                                                  image:
+                                                                      imageProvider,
                                                                 ),
                                                               ),
                                                             ),
@@ -201,12 +169,23 @@ class _WishlistScreenState extends State<WishlistScreen> {
                                                             child: Container(
                                                               width: 60,
                                                               height: 60,
-                                                              decoration: BoxDecoration(
-                                                                borderRadius: BorderRadius.circular(5),
-                                                                border: Border.all(
-                                                                  color: CbColors.cbPrimaryColor2.withOpacity(0.2),
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            5),
+                                                                border:
+                                                                    Border.all(
+                                                                  color: CbColors
+                                                                      .cbPrimaryColor2
+                                                                      .withOpacity(
+                                                                          0.2),
                                                                 ),
-                                                                color: CbColors.cbPrimaryColor2.withOpacity(0.1),
+                                                                color: CbColors
+                                                                    .cbPrimaryColor2
+                                                                    .withOpacity(
+                                                                        0.1),
                                                               ),
                                                             ),
                                                           ),
@@ -229,9 +208,11 @@ class _WishlistScreenState extends State<WishlistScreen> {
                                                           Text(
                                                             product.name,
                                                             maxLines: 2,
-                                                            overflow: TextOverflow
-                                                                .ellipsis,
-                                                            style: Theme.of(context)
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                            style: Theme.of(
+                                                                    context)
                                                                 .textTheme
                                                                 .displayLarge!
                                                                 .copyWith(
@@ -243,24 +224,26 @@ class _WishlistScreenState extends State<WishlistScreen> {
                                                           //Price
                                                           RichText(
                                                             text: TextSpan(
-                                                              text: product.price
+                                                              text: product
+                                                                  .price
                                                                   .toStringAsFixed(
                                                                       0),
-                                                              style:
-                                                                  Theme.of(context)
-                                                                      .textTheme
-                                                                      .displayLarge!
-                                                                      .copyWith(
-                                                                        fontSize:
-                                                                            height *
-                                                                                0.02,
-                                                                        color: CbColors
-                                                                            .cbPrimaryColor2,
-                                                                        fontWeight:
-                                                                            FontWeight
-                                                                                .bold,
-                                                                      ),
-                                                              children: <TextSpan>[
+                                                              style: Theme.of(
+                                                                      context)
+                                                                  .textTheme
+                                                                  .displayLarge!
+                                                                  .copyWith(
+                                                                    fontSize:
+                                                                        height *
+                                                                            0.02,
+                                                                    color: CbColors
+                                                                        .cbPrimaryColor2,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                  ),
+                                                              children: <
+                                                                  TextSpan>[
                                                                 TextSpan(
                                                                   text: ' FCFA',
                                                                   style: Theme.of(
@@ -274,8 +257,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
                                                                         color: CbColors
                                                                             .cbPrimaryColor2,
                                                                         fontWeight:
-                                                                            FontWeight
-                                                                                .bold,
+                                                                            FontWeight.bold,
                                                                       ),
                                                                 ),
                                                               ],
@@ -306,8 +288,8 @@ class _WishlistScreenState extends State<WishlistScreen> {
                                                                   product);
                                                         },
                                                         child: const Align(
-                                                          alignment:
-                                                              Alignment.topRight,
+                                                          alignment: Alignment
+                                                              .topRight,
                                                           child: Icon(
                                                             Icons.close,
                                                             color: CbColors
@@ -319,12 +301,11 @@ class _WishlistScreenState extends State<WishlistScreen> {
                                                       context
                                                                   .watch<Cart>()
                                                                   .getitems
-                                                                  .firstWhereOrNull(
-                                                                      (element) =>
-                                                                          element
-                                                                              .documentId ==
-                                                                          product
-                                                                              .documentId) !=
+                                                                  .firstWhereOrNull((element) =>
+                                                                      element
+                                                                          .documentId ==
+                                                                      product
+                                                                          .documentId) !=
                                                               null
                                                           ? const SizedBox()
                                                           : InkWell(
@@ -337,14 +318,20 @@ class _WishlistScreenState extends State<WishlistScreen> {
                                                                     ? print('already in cart')
                                                                     : */
                                                                 context
-                                                                    .read<Cart>()
+                                                                    .read<
+                                                                        Cart>()
                                                                     .addItem(
-                                                                      product.brand,
-                                                                      product.model,
-                                                                      product.name,
-                                                                      product.price,
+                                                                      product
+                                                                          .brand,
+                                                                      product
+                                                                          .model,
+                                                                      product
+                                                                          .name,
+                                                                      product
+                                                                          .price,
                                                                       1,
-                                                                      product.qntty,
+                                                                      product
+                                                                          .qntty,
                                                                       product
                                                                           .imagesUrl,
                                                                       product
@@ -355,7 +342,8 @@ class _WishlistScreenState extends State<WishlistScreen> {
                                                                           .isFavorite,
                                                                     );
                                                               },
-                                                              child: const Align(
+                                                              child:
+                                                                  const Align(
                                                                 alignment: Alignment
                                                                     .bottomRight,
                                                                 child: Icon(
@@ -390,63 +378,98 @@ class _WishlistScreenState extends State<WishlistScreen> {
               //empty cart view
               : Material(
                   child: SafeArea(
-                    child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Wishlist vide',
-                            style: Theme.of(context).textTheme.displayLarge,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 8.0, horizontal: 40.0),
-                            child: Text(
-                              'La page que vous recherchez n\'existe pas ou a été déplacée.',
-                              style: Theme.of(context).textTheme.displaySmall,
-                              textAlign: TextAlign.center,
+                    child: Column(
+                      children: [
+                        Column(
+                          children: [
+                            const SizedBox(
+                              height: SizeConfig.kPadding20,
                             ),
-                          ),
-                          SizedBox(height: height * 0.05),
+                            //empty Wishlist image
+                            Icon(
+                              Icons.favorite_border,
+                              size: height * 0.1,
+                              color: CbColors.cbPrimaryColor2.withOpacity(0.2),
+                            ),
+                            SizedBox(height: SizeConfig.blockSizeVertical! * 2),
+                            Text(
+                              'Votre wishlist est vide',
+                              style: cbMontserratBold.copyWith(
+                                fontSize: SizeConfig.blockSizeHorizontal! * 5,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: SizeConfig.kPadding8,
+                        ),
 
-                          //continue shopping button
-                          SizedBox(
-                            width: width * 0.8,
-                            height: 50,
-                            child: ElevatedButton(
-                              onPressed: () async {
-                                Navigator.canPop(context)
-                                    ? Navigator.pop(context)
-                                    :
-                                    // Navigate to the home screen
-                                    await Future.delayed(
-                                            const Duration(microseconds: 100))
-                                        .whenComplete(() =>
-                                            Navigator.pushReplacementNamed(
-                                                context, MainScreen.routeName));
-                              },
-                              style: ButtonStyle(
-                                shape: MaterialStateProperty.all(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                ),
-                                backgroundColor: MaterialStateProperty.all(
-                                  CbColors.cbPrimaryColor2,
+                        Padding(
+                          padding: const EdgeInsets.all(30.0),
+                          child: Divider(
+                            height: 0.05,
+                            color: CbColors.cbPrimaryColor2.withOpacity(0.2),
+                            thickness: 1,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            left: 15,
+                            right: 15,
+                          ),
+                          child: Row(
+                            mainAxisAlignment:
+                            MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Réglons ça !',
+                                textAlign: TextAlign.start,
+                                style: cbMontserratBold.copyWith(
+                                  fontSize: SizeConfig.blockSizeHorizontal! * 5,
                                 ),
                               ),
-                              child: Text(
-                                'Continuer vos achats'.toUpperCase(),
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: height * 0.05),
+
+                        //continue shopping button
+                        SizedBox(
+                          width: width * 0.8,
+                          height: 50,
+                          child: ElevatedButton(
+                            onPressed: () async {
+                              Navigator.canPop(context)
+                                  ? Navigator.pop(context)
+                                  :
+                                  // Navigate to the home screen
+                                  await Future.delayed(
+                                          const Duration(microseconds: 100))
+                                      .whenComplete(() =>
+                                          Navigator.pushReplacementNamed(
+                                              context, MainScreen.routeName));
+                            },
+                            style: ButtonStyle(
+                              shape: MaterialStateProperty.all(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
                                 ),
+                              ),
+                              backgroundColor: MaterialStateProperty.all(
+                                CbColors.cbPrimaryColor2,
+                              ),
+                            ),
+                            child: Text(
+                              'Continuer vos achats'.toUpperCase(),
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 ),

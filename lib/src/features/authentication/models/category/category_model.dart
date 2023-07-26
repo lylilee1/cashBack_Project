@@ -1,14 +1,16 @@
-
-
 import 'package:cashback/src/constants/colors.dart';
 import 'package:cashback/src/features/authentication/screens/subcategory/subcategory_products.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../constants/app_styles.dart';
+import '../../../../constants/size_config.dart';
 
 class SliderBar extends StatelessWidget {
   const SliderBar({
     super.key,
     required this.height,
-    required this.width, required this.mainCategoryName,
+    required this.width,
+    required this.mainCategoryName,
   });
 
   final double height;
@@ -17,6 +19,8 @@ class SliderBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
+
     return SizedBox(
       height: height * 0.8,
       width: width * 0.05,
@@ -25,9 +29,9 @@ class SliderBar extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             color: Colors.grey.shade200.withOpacity(0.5),
-            borderRadius: BorderRadius.only(
-              topRight: Radius.circular(30),
-              bottomRight: Radius.circular(30),
+            borderRadius: const BorderRadius.only(
+              topRight: Radius.circular(20),
+              bottomRight: Radius.circular(20),
             ),
           ),
           child: RotatedBox(
@@ -35,31 +39,34 @@ class SliderBar extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                mainCategoryName == 'automobile'? const Text('') :
-                Text(
-                  '<<',
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline6!
-                      .copyWith(color: Colors.black, letterSpacing: 10),
-                ),
+                mainCategoryName == 'automobile'
+                    ? const Text('')
+                    : Text(
+                        '<<',
+                  style: cbMontserratRegular.copyWith(
+                    fontSize: SizeConfig.blockSizeHorizontal! * 4,
+                    color: CbColors.cbBlack,
+                    letterSpacing: 10,
+                  ),
+                      ),
                 Text(
                   mainCategoryName.toUpperCase(),
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleSmall!
-                      .copyWith(
-                      color: CbColors.cbPrimaryColor2,
-                      letterSpacing: 10),
+                  style: cbMontserratRegular.copyWith(
+                    fontSize: SizeConfig.blockSizeHorizontal! * 3,
+                    color: CbColors.cbPrimaryColor2,
+                    letterSpacing: 10,
+                  ),
                 ),
-                mainCategoryName == 'men'? const Text('') :
-                Text(
-                  '>>',
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline6!
-                      .copyWith(color: Colors.black, letterSpacing: 10),
-                ),
+                mainCategoryName == 'men'
+                    ? const Text('')
+                    : Text(
+                        '>>',
+                        style: cbMontserratRegular.copyWith(
+                          fontSize: SizeConfig.blockSizeHorizontal! * 4,
+                          color: CbColors.cbBlack,
+                          letterSpacing: 10,
+                        ),
+                      ),
               ],
             ),
           ),
@@ -131,10 +138,10 @@ class CategoryHeaderLabel extends StatelessWidget {
       padding: const EdgeInsets.all(15.0),
       child: Text(
         headerLabel,
-        style: Theme.of(context)
-            .textTheme
-            .displayMedium!
-            .copyWith(color: CbColors.cbPrimaryColor2, letterSpacing: 1.5),
+        style: Theme.of(context).textTheme.displayMedium!.copyWith(
+              color: CbColors.cbPrimaryColor2,
+              letterSpacing: 1.5,
+            ),
       ),
     );
   }

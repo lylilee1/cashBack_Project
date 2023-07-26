@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import '../../../../common_widgets/app_bar/appBarWidget.dart';
 import '../../../../constants/app_styles.dart';
 import '../customer/minor_screen/customer_order1.dart';
+import '../product/product_details_screen7.dart';
 
 class ProfileScreen extends StatefulWidget {
   final String documentId;
@@ -40,11 +41,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
       builder:
           (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
         if (snapshot.hasError) {
-          return const Text("Something went wrong");
+          return const Text("Quelque chose s'est mal passé");
         }
 
         if (snapshot.hasData && !snapshot.data!.exists) {
-          return const Text("Document does not exist");
+          return const Text("Le document n'existe pas");
         }
 
         if (snapshot.connectionState == ConnectionState.done) {
@@ -175,7 +176,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           //const _ProfileInfoRow()
 
                           //Account Info Title
-                          SizedBox(
+                          const ProDetailsHeaderWidget(
+                            label: '  Mon compte  ',
+                          ),
+                         /* SizedBox(
                             height: 40,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -190,9 +194,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ),
                                 Text(
                                   'Mon compte',
-                                  style: cbMontserratBold.copyWith(
+                                  style: TextStyle(
+                                    fontFamily: 'Intro Inline',
                                     fontSize:
-                                        SizeConfig.blockSizeHorizontal! * 5,
+                                    SizeConfig.blockSizeHorizontal! * 5,
                                     color: CbColors.cbPrimaryColor2,
                                   ),
                                 ),
@@ -206,13 +211,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ),
                               ],
                             ),
-                          ),
+                          ),*/
 
                           //Account
                           Padding(
                             padding: const EdgeInsets.symmetric(
                               horizontal: 5,
-                              vertical: 15,
+                              vertical: 0,
                             ),
                             child: Container(
                               decoration: BoxDecoration(
@@ -433,44 +438,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           //const _ProfileInfoRow()
 
                           //Help Title
-                          SizedBox(
-                            height: 40,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const SizedBox(
-                                  height: 40,
-                                  width: 50,
-                                  child: Divider(
-                                    color: CbColors.cbPrimaryColor2,
-                                    thickness: 1,
-                                  ),
-                                ),
-                                Text(
-                                  'Aide',
-                                  style: cbMontserratBold.copyWith(
-                                    fontSize:
-                                        SizeConfig.blockSizeHorizontal! * 5,
-                                    color: CbColors.cbPrimaryColor2,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 40,
-                                  width: 50,
-                                  child: Divider(
-                                    color: CbColors.cbPrimaryColor2,
-                                    thickness: 1,
-                                  ),
-                                ),
-                              ],
-                            ),
+                          const ProDetailsHeaderWidget(
+                            label: '  Aide  ',
                           ),
 
                           //Call us
                           Padding(
                             padding: const EdgeInsets.symmetric(
                               horizontal: 5,
-                              vertical: 15,
+                              vertical: 0,
                             ),
                             child: Container(
                               decoration: BoxDecoration(

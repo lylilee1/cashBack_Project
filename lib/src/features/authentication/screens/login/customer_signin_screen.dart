@@ -36,63 +36,53 @@ class _CustomerSignInScreenState extends State<CustomerSignInScreen> {
   bool passwordNotVisible = true;
 
   void signIn() async {
+    setState(() {
+      processing = true;
+    });
 
-      setState(() {
-        processing = true;
-      });
+    if (_formKey.currentState!.validate()) {
+      try {
+        _formKey.currentState!.save();
 
-      if (_formKey.currentState!.validate()) {
-        try {
-          _formKey.currentState!.save();
+        await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: _email,
+          password: _password,
+        );
 
-          await FirebaseAuth.instance.signInWithEmailAndPassword(
-            email: _email,
-            password: _password,
-          );
-          await FirebaseAuth.instance.currentUser!.reload();
-          if (FirebaseAuth.instance.currentUser!.emailVerified) {
+        // Remove the code to check if the user's email has been verified.
 
-          //code to clear the form after submitting
-          _formKey.currentState!.reset();
-          setState(() {
-            //code to stop the progress indicator
-            processing = false;
-          });
-
-          await Future.delayed(const Duration(microseconds: 100),).whenComplete(() => Navigator.pushReplacementNamed(context, MainScreen.routeName)
-            //Navigator.pushReplacementNamed(context, ProfileScreen.routeName)
-          );
-          }
-          else {
-            MyMessageHandler.showSnackBar(
-                _scaffoldkey, 'please verify your email address');
-            setState(() {
-              processing = false;
-              sendEmailVerification = true;
-            });
-          }
-
-        } on FirebaseAuthException catch (e) {
-          if (e.code == 'user-not-found') {
-            setState(() {
-              processing = false;
-            });
-            MyMessageHandler.showSnackBar(
-                _scaffoldkey, 'No user found for that email.');
-          } else if (e.code == 'wrong-password') {
-            setState(() {
-              processing = false;
-            });
-            MyMessageHandler.showSnackBar(
-                _scaffoldkey, 'Wrong password provided for that user.');
-          }
-        }
-      } else {
+        // Clear the form and navigate to the Main screen.
+        _formKey.currentState!.reset();
         setState(() {
           processing = false;
         });
-        MyMessageHandler.showSnackBar(_scaffoldkey, 'please fill all the fields');
+        await Future.delayed(
+          const Duration(microseconds: 100),
+        ).whenComplete(
+              () => //Navigator.pop(context),
+          Navigator.pushReplacementNamed(context, MainScreen.routeName)
+        );
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'user-not-found') {
+          setState(() {
+            processing = false;
+          });
+          MyMessageHandler.showSnackBar(
+              _scaffoldkey, 'No user found for that email.');
+        } else if (e.code == 'wrong-password') {
+          setState(() {
+            processing = false;
+          });
+          MyMessageHandler.showSnackBar(
+              _scaffoldkey, 'Wrong password provided for that user.');
+        }
       }
+    } else {
+      setState(() {
+        processing = false;
+      });
+      MyMessageHandler.showSnackBar(_scaffoldkey, 'please fill all the fields');
+    }
   }
 
   @override

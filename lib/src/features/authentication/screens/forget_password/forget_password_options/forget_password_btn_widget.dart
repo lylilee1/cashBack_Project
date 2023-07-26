@@ -1,7 +1,8 @@
-
-
+import 'package:cashback/src/constants/app_styles.dart';
 import 'package:cashback/src/constants/sizes.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../../constants/size_config.dart';
 
 class ForgetPasswordBtnWidget extends StatelessWidget {
   const ForgetPasswordBtnWidget({
@@ -24,7 +25,7 @@ class ForgetPasswordBtnWidget extends StatelessWidget {
         padding: const EdgeInsets.all(20.0),
         decoration: BoxDecoration(
           color: Colors.grey.shade200,
-          borderRadius: BorderRadius.circular(10.0),
+          borderRadius: BorderRadius.circular(20.0),
         ),
         child: Row(
           children: [
@@ -38,11 +39,15 @@ class ForgetPasswordBtnWidget extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: Theme.of(context).textTheme.headline6,
+                  style: cbMontserratBold.copyWith(
+                    fontSize: SizeConfig.blockSizeHorizontal! * 3.5,
+                  ),
                 ),
                 Text(
                   subTitle,
-                  style: Theme.of(context).textTheme.bodyText2,
+                  style: cbMontserratRegular.copyWith(
+                    fontSize: SizeConfig.blockSizeHorizontal! * 3.5,
+                  ),
                 ),
               ],
             ),

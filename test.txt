@@ -1,0 +1,72 @@
+
+                      
+                      Container(
+                        width: double.infinity,
+                        height: 166,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          image: DecorationImage(
+                            image: AssetImage(
+                                'assets/images/junior_high_chair-min.png'),
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            gradient: LinearGradient(
+                              colors: [
+                                Color(0xFFFF961F).withOpacity(0.7),
+                                Colors.yellow.withOpacity(0.7),
+                              ],
+                            ),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Row(
+                              children: [
+                                const Expanded(
+                                  child: Image(
+                                    image: AssetImage(
+                                        'assets/images/junior_high_chair-min.png'),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Column(
+                                    children: [
+                                      RichText(
+                                        text: TextSpan(
+                                          style: cbMontserratBold.copyWith(
+                                            color: CbColors.cbWhiteColor,
+                                          ),
+                                          children: [
+                                            TextSpan(
+                                              text: 'Réductions jusqu\'à \n',
+                                              style:
+                                                  cbMontserratRegular.copyWith(
+                                                color: CbColors.cbBlack,
+                                                fontSize: 16,
+                                              ),
+                                            ),
+                                            TextSpan(
+                                              text: '30 %',
+                                              style:
+                                                  cbMontserratRegular.copyWith(
+                                                color: CbColors.cbWhiteColor,
+                                                fontSize: 28,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      //Call To Action
+
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),

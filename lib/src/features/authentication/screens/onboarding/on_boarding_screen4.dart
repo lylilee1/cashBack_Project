@@ -18,26 +18,27 @@ class OnBoardingScreen extends StatelessWidget {
     return Scaffold(
       body: OnboardingPagePresenter(pages: [
         OnboardingPageModel(
-          title: 'Bienvenue sur Cashback',
+          title: 'Bienvenue sur Cashback.',
           //Fast, Fluid and Secure
           description:
-              'Achetez et vendez vos articles remis à neuf et d\'occasion abordables',
+              'Acheter et de vendre des produits d\’occasions d\’excellente qualité et neufs en toute simplicité',
           //description: 'Profitez du meilleur du pays dans la paume de vos mains.',
           imageUrl: CbImageStrings.cbOnBoardingImage1,
-          bgColor: CbColors.cbOnBoardingPage2Color,
+          bgColor: CbColors.cbPrimaryColor2,
         ),
         OnboardingPageModel(
-          title: 'Connect with your friends.',
-          description: 'Connect with your friends anytime anywhere.',
-          imageUrl: CbImageStrings.cbOnBoardingImage2,
-          bgColor: CbColors.cbOnBoardingPage3Color,
-        ),
-        OnboardingPageModel(
-          title: 'Bookmark your favourites',
-          description:
-              'Bookmark your favourite quotes to read at a leisure time.',
+          title: 'Articles vérifiés et garantis.',
+          description: 'Nous nous engageons à offrir des produits d’occasion d’excellente qualité.',
           imageUrl: CbImageStrings.cbOnBoardingImage3,
-          bgColor: CbColors.cbBlueLight,
+          bgColor: CbColors.cbPrimaryColor3,
+        ),
+        OnboardingPageModel(
+          title: 'La sécurité des transactions assurée.',
+          textColor: CbColors.cbBlack,
+          description:
+              'Notre objectif est de garantir des transactions sécurisées.',
+          imageUrl: CbImageStrings.cbOnBoardingImage2,
+          bgColor: CbColors.cbWhiteColor,
         ),
         /*
         OnboardingPageModel(
@@ -164,7 +165,7 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
                           height: 8,
                           margin: const EdgeInsets.all(2.0),
                           decoration: BoxDecoration(
-                              color: Colors.white,
+                              color: widget.pages[_currentPage].textColor,
                               borderRadius: BorderRadius.circular(10.0)),
                         ))
                     .toList(),
@@ -185,7 +186,11 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
                       onPressed: () {
                         widget.onSkip?.call();
                       },
-                      child: const Text("Skip"),
+                      child: Text("Sauter",
+                          style: cbMontserratBold.copyWith(
+                            fontSize: SizeConfig.blockSizeHorizontal! * 3.5,
+                            color: widget.pages[_currentPage].textColor,
+                          )),
                     ),
                     processing == true
                         ? const CircularProgressIndicator(
@@ -193,10 +198,13 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
                           )
                         : TextButton(
                             style: TextButton.styleFrom(
-                                visualDensity: VisualDensity.comfortable,
-                                foregroundColor: Colors.white,
-                                textStyle: const TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.bold)),
+                              visualDensity: VisualDensity.comfortable,
+                              foregroundColor: widget.pages[_currentPage].textColor,
+                              textStyle: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                             onPressed: () async {
                               if (_currentPage == widget.pages.length - 1) {
                                 setState(() {
@@ -234,9 +242,15 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
                                   print('Error signing in anonymously: $e');
                                   // Show error message to the user
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content:
-                                          Text('Error signing in anonymously.'),
+                                    SnackBar(
+                                      content: Text(
+                                        'Error signing in anonymously.',
+                                        style: cbMontserratRegular.copyWith(
+                                          fontSize:
+                                              SizeConfig.blockSizeHorizontal! *
+                                                  3.5,
+                                        ),
+                                      ),
                                     ),
                                   );
                                 }
@@ -251,10 +265,15 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
                             child: Row(
                               children: [
                                 Text(
-                                  _currentPage == widget.pages.length - 1
-                                      ? "Finish"
-                                      : "Next",
-                                ),
+                                    _currentPage == widget.pages.length - 1
+                                        ? "Terminer"
+                                        : "Suivant",
+                                    style: cbMontserratBold.copyWith(
+                                      fontSize:
+                                          SizeConfig.blockSizeHorizontal! * 3.5,
+                                      color:
+                                          widget.pages[_currentPage].textColor,
+                                    )),
                                 const SizedBox(width: 8),
                                 Icon(_currentPage == widget.pages.length - 1
                                     ? Icons.done

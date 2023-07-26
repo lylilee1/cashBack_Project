@@ -42,7 +42,7 @@ class CustomerSignUpScreen extends StatefulWidget {
 class _CustomerSignUpScreenState extends State<CustomerSignUpScreen> {
   final _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldMessengerState> _scaffoldkey =
-      GlobalKey<ScaffoldMessengerState>();
+  GlobalKey<ScaffoldMessengerState>();
 
   late String _uid;
   late String _name;
@@ -59,7 +59,7 @@ class _CustomerSignUpScreenState extends State<CustomerSignUpScreen> {
   dynamic _pickedImageError;
 
   CollectionReference customers =
-      FirebaseFirestore.instance.collection('customers');
+  FirebaseFirestore.instance.collection('customers');
 
   //function to validate the form
   void signUp() async {
@@ -122,9 +122,9 @@ class _CustomerSignUpScreenState extends State<CustomerSignUpScreen> {
         await Future.delayed(
           const Duration(microseconds: 100),
         ).whenComplete(
-            () => //if the user is successfully registered, then navigate to the home screen
-                Navigator.pushReplacementNamed(
-                    context, CustomerSignInScreen.routeName));
+                () => //if the user is successfully registered, then navigate to the home screen
+            Navigator.pushReplacementNamed(
+                context, CustomerSignInScreen.routeName));
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
           //code to stop the progress indicator
@@ -220,7 +220,7 @@ class _CustomerSignUpScreenState extends State<CustomerSignUpScreen> {
                     Text(
                       'Create an account',
                       style:
-                          Theme.of(context).textTheme.displayLarge!.copyWith(),
+                      Theme.of(context).textTheme.displayLarge!.copyWith(),
                     ),
                     const SizedBox(
                       height: 30,
@@ -348,11 +348,11 @@ class _CustomerSignUpScreenState extends State<CustomerSignUpScreen> {
                     processing == true
                         ? const CircularProgressIndicator()
                         : AuthMainButton(
-                            label: CbTextStrings.cbSignup,
-                            onPressed: () {
-                              signUp();
-                            },
-                          ),
+                      label: CbTextStrings.cbSignup,
+                      onPressed: () {
+                        signUp();
+                      },
+                    ),
 
                     //already have an account
                     HaveAccount(
@@ -361,7 +361,7 @@ class _CustomerSignUpScreenState extends State<CustomerSignUpScreen> {
                       onPressed: () async {
                         await Future.delayed(const Duration(milliseconds: 500))
                             .whenComplete(() => Navigator.pushReplacementNamed(
-                                context, CustomerSignInScreen.routeName));
+                            context, CustomerSignInScreen.routeName));
                       },
                     ),
                   ],

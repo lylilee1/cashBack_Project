@@ -43,7 +43,7 @@ class AppBarTitle extends StatelessWidget {
     return Text(
       title,
       style: cbMontserratBold.copyWith(
-        fontSize: SizeConfig.blockSizeHorizontal! * 3.5,
+        fontSize: SizeConfig.blockSizeHorizontal! * 4,
         color: iconColor ?? CbColors.cbBlack,
       ),
     );

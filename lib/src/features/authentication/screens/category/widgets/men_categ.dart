@@ -25,8 +25,8 @@ class MenCategory extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CategoryHeaderLabel(
-                    headerLabel: 'hommes',
+                  const CategoryHeaderLabel(
+                    headerLabel: 'Hommes',
                   ),
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.68,

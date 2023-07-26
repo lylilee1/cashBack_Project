@@ -140,8 +140,9 @@ class _CustomerOrdersState extends State<CustomerOrders>
                                       ]
                                     : null,
                               ),
-                              child: const Text(
+                              child: Text(
                                 'En cours',
+                                style: cbMontserratBold,
                               ),
                             ),
 
@@ -166,8 +167,9 @@ class _CustomerOrdersState extends State<CustomerOrders>
                                       ]
                                     : null,
                               ),
-                              child: const Text(
+                              child: Text(
                                 'Passées',
+                                style: cbMontserratBold,
                               ),
                             ),
                           ],

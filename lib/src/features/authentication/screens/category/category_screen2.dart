@@ -1,4 +1,5 @@
 import 'package:cashback/src/common_widgets/app_bar/appBarWidget.dart';
+import 'package:cashback/src/constants/app_styles.dart';
 import 'package:cashback/src/constants/colors.dart';
 import 'package:cashback/src/constants/text_strings.dart';
 import 'package:cashback/src/features/authentication/screens/category/widgets/kids_categ.dart';
@@ -50,7 +51,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     SizeConfig().init(context);
-    
+
     return Scaffold(
       //app bar
       appBar: AppBar(
@@ -72,7 +73,6 @@ class _CategoryScreenState extends State<CategoryScreen> {
         ),
         centerTitle: true,
         actions: [
-
           //cart icon
           badges.Badge(
             showBadge: context.watch<Cart>().getitems.isEmpty ? false : true,
@@ -80,9 +80,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
             badgeContent: Text(
               context.watch<Cart>().getitems.length.toString(),
               style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                fontSize: 10,
-                color: CbColors.cbWhiteColor,
-              ),
+                    fontSize: 10,
+                    color: CbColors.cbWhiteColor,
+                  ),
             ),
             badgeAnimation: const badges.BadgeAnimation.rotation(
               animationDuration: Duration(seconds: 1),
@@ -154,14 +154,14 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 child: Text(
                   items[index].label,
                   style: items[index].isSelected == true
-                      ? Theme.of(context)
-                          .textTheme
-                          .titleSmall!
-                          .copyWith(color: Colors.black)
-                      : Theme.of(context)
-                          .textTheme
-                          .labelMedium!
-                          .copyWith(color: Colors.black),
+                      ? cbMontserratBold.copyWith(
+                          color: Colors.black,
+                          fontSize: SizeConfig.blockSizeHorizontal! * 3,
+                        )
+                      : cbMontserratRegular.copyWith(
+                          color: Colors.black,
+                          fontSize: SizeConfig.blockSizeHorizontal! * 3,
+                        ),
                 ),
               ),
             ),

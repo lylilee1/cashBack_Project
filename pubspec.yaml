@@ -120,10 +120,10 @@ flutter:
     - assets/images/svg23/
     - assets/images/errors/
     - assets/images/user_images/
-    - assets/images/articles/men/
+    - assets/images/articles/hommes/
     - assets/images/forget_password/
-    - assets/images/articles/women/
-    - assets/images/articles/kids/
+    - assets/images/articles/femmes/
+    - assets/images/articles/enfants/
     - assets/images/articles/electronics/
     - assets/images/articles/beauty/
     - assets/images/articles/homegarden/

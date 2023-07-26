@@ -70,7 +70,7 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen>
         elevation: 0,
         leading: AppBarButton(
           prefixIcon: Icons.search,
-          //iconColor: CbColors.cbWhiteColor,
+          iconColor: CbColors.cbBlack,
           onTap: () {
             Navigator.push(
               context,
@@ -79,15 +79,18 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen>
           },
         ),
         title: const AppBarTitle(
-          title: 'CashBack',
+          title: 'CASHBACK',
         ),
         centerTitle: true,
         actions: [
           //user profile icon
           const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8.0),
-            child: CircleAvatar(
-              child: _ProfileIcon(),
+            padding: EdgeInsets.only(
+              bottom: 5,
+            ),
+            child: Icon(
+              Icons.person_outline_rounded,
+              color: CbColors.cbBlack,
             ),
           ),
 
@@ -98,10 +101,10 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen>
             badgeContent: Text(
               context.watch<Cart>().getitems.length.toString(),
               style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                fontSize: 10,
-                //color: CbColors.cbWhiteColor,
-                color: CbColors.cbBlack,
-              ),
+                    fontSize: 10,
+                    //color: CbColors.cbWhiteColor,
+                    color: CbColors.cbBlack,
+                  ),
             ),
             badgeAnimation: const badges.BadgeAnimation.rotation(
               animationDuration: Duration(seconds: 1),
@@ -137,9 +140,30 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen>
             child: Stack(
               children: [
                 SafeArea(
-                  top: true,
                   child: Column(
                     children: [
+                      //show real value and attrack customers
+                      Container(
+                        width: double.infinity,
+                        height: size.height * 0.03,
+                        decoration: const BoxDecoration(
+                          color: CbColors.cbPrimaryColor2,
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Livraison 48h/72h offerte dès 165000 fcfa d\'achat'
+                                  .toUpperCase(),
+                              style: cbMontserratRegular.copyWith(
+                                color: CbColors.cbWhiteColor,
+                                fontSize: 10,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
                       //Slider Images
                       CarouselSlider(
                         items: _carouselImages
@@ -257,73 +281,11 @@ class RepeatedTab extends StatelessWidget {
     return Tab(
       child: Text(
         label,
-        style: TextStyle(color: Colors.grey.shade600),
+        style: cbMontserratBold.copyWith(
+          fontSize: SizeConfig.blockSizeHorizontal! * 3.5,
+          color: Colors.grey.shade600,
+        ),
       ),
-    );
-  }
-}
-
-final List<String> _menuItems = <String>[
-  'Particulier',
-  'Entreprise',
-  'Sign Out',
-];
-
-enum Menu { itemOne, itemTwo, itemThree }
-
-class _ProfileIcon extends StatelessWidget {
-  const _ProfileIcon({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return PopupMenuButton<Menu>(
-      itemBuilder: (BuildContext context) {
-        return _menuItems.map((String item) {
-          Menu menu;
-          switch (item) {
-            case 'Particulier':
-              menu = Menu.itemOne;
-              break;
-            case 'Entreprise':
-              menu = Menu.itemTwo;
-              break;
-            case 'Sign Out':
-              menu = Menu.itemThree;
-              break;
-            default:
-              throw ArgumentError('Invalid menu item: $item');
-          }
-          return PopupMenuItem<Menu>(
-            value: menu,
-            child: Text(item),
-          );
-        }).toList();
-      },
-      icon: const Icon(
-        FontAwesomeIcons.user,
-        color: Colors.white,
-      ),
-      onSelected: (Menu result) async {
-        switch (result) {
-          case Menu.itemOne:
-            Navigator.pushReplacementNamed(
-                context, CustomerSignInScreen.routeName);
-            //Navigator.push(context, MaterialPageRoute(builder: (context) => const CustomerSignInScreen()));
-            break;
-          case Menu.itemTwo:
-            // navigate to screen for Entreprise
-            Navigator.pushReplacementNamed(
-                context, SupplierSignInScreen.routeName);
-            //Navigator.push(context, MaterialPageRoute(builder: (context) => const SupplierSignInScreen()));
-            break;
-          case Menu.itemThree:
-            // perform sign out action
-            await FirebaseAuth.instance.signOut();
-            //Navigator.pop(context);
-            Navigator.pushReplacementNamed(context, MainScreen.routeName);
-            break;
-        }
-      },
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:cashback/src/constants/app_styles.dart';
 import 'package:cashback/src/constants/colors.dart';
 import 'package:cashback/src/constants/image_strings.dart';
 import 'package:cashback/src/features/authentication/screens/cart/cart_screen.dart';
@@ -9,10 +10,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../../../../constants/size_config.dart';
 import '../customer/customer_home_screen4.dart';
+import '../forget_password/forget_password_options/forget_password_btn_widget.dart';
 import '../profile/profile_screen6.dart';
 //import '../profile/profile_screen2.dart';
-
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -45,7 +47,9 @@ class _MainScreenState extends State<MainScreen> {
     },
     //ProfileScreen
     {
-      'page': ProfileScreen(documentId: FirebaseAuth.instance.currentUser!.uid,),
+      'page': ProfileScreen(
+        documentId: FirebaseAuth.instance.currentUser!.uid,
+      ),
       'title': 'profile Screen',
       'icon': const Icon(FontAwesomeIcons.user),
     },
@@ -75,7 +79,6 @@ class _MainScreenState extends State<MainScreen> {
         backgroundColor: CbColors.cbPrimaryColor2,
         //mini: true,
       ),*/
-
 
       floatingActionButton: Container(
         height: 64,
@@ -109,7 +112,65 @@ class _MainScreenState extends State<MainScreen> {
             ),
           ),
           child: RawMaterialButton(
-            onPressed: () {},
+            onPressed: () {
+              showModalBottomSheet(
+                context: context,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
+                  ),
+                ),
+                builder: (context) => Container(
+                  padding: const EdgeInsets.all(30.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Connexion / Inscription',
+                        style: cbMontserratBold.copyWith(
+                          fontSize: SizeConfig.blockSizeHorizontal! * 5,
+                        ),
+                      ),
+                      Text(
+                        'Connecter-vous ou créer un compte',
+                        style: cbMontserratRegular.copyWith(
+                          fontSize: SizeConfig.blockSizeHorizontal! * 3.5,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: SizeConfig.kPadding32,
+                      ),
+
+                      // -- Customer SignIn Screen Btn --
+                      ForgetPasswordBtnWidget(
+                        btnIcon: Icons.account_circle_sharp,
+                        title: 'Particulier',
+                        subTitle: 'Saisissez votre identifiant',
+                        onTap: () {
+                          Navigator.pop(context);
+                          Navigator.pushNamed(context, '/CustomerSignIn');
+                        },
+                      ),
+                      const SizedBox(
+                        height: SizeConfig.kPadding24,
+                      ),
+
+                      // -- Supplier SingIn Screen Btn --
+                      ForgetPasswordBtnWidget(
+                        btnIcon: Icons.supervised_user_circle_sharp,
+                        title: 'Entreprise',
+                        subTitle: 'Saisissez votre identifiant',
+                        onTap: () {
+                          Navigator.pop(context);
+                          Navigator.pushNamed(context, '/SupplierSignIn');
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
             shape: const CircleBorder(),
             fillColor: const Color(0xff404c57),
             child: Padding(

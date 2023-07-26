@@ -851,10 +851,12 @@ class ProDetailsHeaderWidget extends StatelessWidget {
           ),
           Text(
             label,
-            style: Theme.of(context)
-                .textTheme
-                .displayLarge!
-                .copyWith(fontSize: 20),
+            style: TextStyle(
+              fontFamily: 'Intro Inline',
+              fontSize:
+              SizeConfig.blockSizeHorizontal! * 5,
+              color: CbColors.cbPrimaryColor2,
+            ),
           ),
           const SizedBox(
             height: 20,
