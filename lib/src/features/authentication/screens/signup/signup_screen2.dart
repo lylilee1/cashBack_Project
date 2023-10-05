@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:cashback/src/common_widgets/form/auth_widget.dart';
 import 'package:cashback/src/common_widgets/snackBar/snackBarWidget.dart';
 import 'package:cashback/src/constants/colors.dart';
-import 'package:cashback/src/constants/sizes.dart';
 import 'package:cashback/src/constants/text_strings.dart';
 import 'package:cashback/src/features/authentication/screens/main/main_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -134,7 +133,7 @@ class _CustomerSignUpState extends State<CustomerSignUp> {
                                 Navigator.pushReplacementNamed(
                                     context, MainScreen.routeName);
                               },
-                              icon: Icon(Icons.home_work,
+                              icon: const Icon(Icons.home_work,
                                   color: CbColors.cbPrimaryColor2, size: 30),
                             ),
                           ],
@@ -165,7 +164,7 @@ class _CustomerSignUpState extends State<CustomerSignUp> {
                             children: [
                               //pick from camera
                               Container(
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                   borderRadius: BorderRadius.only(
                                     topLeft: Radius.circular(15),
                                     topRight: Radius.circular(15),
@@ -176,14 +175,14 @@ class _CustomerSignUpState extends State<CustomerSignUp> {
                                   onPressed: () {
                                     _pickImageFromCamera();
                                   },
-                                  icon: Icon(Icons.camera_alt_outlined,
+                                  icon: const Icon(Icons.camera_alt_outlined,
                                       color: Colors.white, size: 30),
                                 ),
                               ),
-                              SizedBox(height: 5),
+                              const SizedBox(height: 5),
                               //pick from gallery
                               Container(
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                   borderRadius: BorderRadius.only(
                                     bottomLeft: Radius.circular(15),
                                     bottomRight: Radius.circular(15),
@@ -194,7 +193,7 @@ class _CustomerSignUpState extends State<CustomerSignUp> {
                                   onPressed: () {
                                     _pickImageFromGallery();
                                   },
-                                  icon: Icon(Icons.image_outlined,
+                                  icon: const Icon(Icons.image_outlined,
                                       color: Colors.white, size: 30),
                                 ),
                               ),

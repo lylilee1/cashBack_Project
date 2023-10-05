@@ -347,7 +347,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                     ),
                                   ),
                                   Text(
-                                    totalPaid.toStringAsFixed(0) + ' XAF',
+                                    '${totalPaid.toStringAsFixed(0)} XAF',
                                     style: Theme.of(context)
                                         .textTheme
                                         .displaySmall!
@@ -375,7 +375,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                     ),
                                   ),
                                   Text(
-                                    totalPrice.toStringAsFixed(0) + ' XAF',
+                                    '${totalPrice.toStringAsFixed(0)} XAF',
                                     style: Theme.of(context)
                                         .textTheme
                                         .displaySmall!
@@ -399,7 +399,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                     ),
                                   ),
                                   Text(
-                                    shippingCoast.toStringAsFixed(0) + ' XAF',
+                                    '${shippingCoast.toStringAsFixed(0)} XAF',
                                     style: Theme.of(context)
                                         .textTheme
                                         .displaySmall!
@@ -452,8 +452,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                 },
                                 title:
                                 const Text('Payer par Visa ou Mastercard'),
-                                subtitle: Row(
-                                  children: const [
+                                subtitle: const Row(
+                                  children: [
                                     Icon(
                                       Icons.payment,
                                       color: CbColors.cbPrimaryColor2,
@@ -478,8 +478,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                   });
                                 },
                                 title: const Text('Paiement par Paypal'),
-                                subtitle: Row(
-                                  children: const [
+                                subtitle: const Row(
+                                  children: [
                                     Icon(
                                       FontAwesomeIcons.paypal,
                                       color: CbColors.cbPrimaryColor2,

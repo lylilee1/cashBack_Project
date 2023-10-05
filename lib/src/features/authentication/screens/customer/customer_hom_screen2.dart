@@ -1,7 +1,6 @@
 
 import 'package:cashback/src/constants/image_strings.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class CustomerHomeScreen extends StatefulWidget {
   static String routeName = '/customer_home';
@@ -34,8 +33,8 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
               children: [
                 for(int i = 0; i < 2; i++)
                   Container(
-                    margin: EdgeInsets.only(right: 10),
-                    padding: EdgeInsets.only(left: 10,),
+                    margin: const EdgeInsets.only(right: 10),
+                    padding: const EdgeInsets.only(left: 10,),
                     height: size.height * 0.21,
                     width: size.width * 1,
                     decoration: BoxDecoration(

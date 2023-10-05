@@ -94,7 +94,7 @@ class _CustomerOrdersState extends State<CustomerOrders>
                         child: TabBar(
                           isScrollable: false,
                           controller: tabController,
-                          indicatorColor: Colors.grey!.withOpacity(0.8),
+                          indicatorColor: Colors.grey.withOpacity(0.8),
                           indicator: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(20),
@@ -109,7 +109,7 @@ class _CustomerOrdersState extends State<CustomerOrders>
                             ],
                           ),
                           labelColor: Colors.white,
-                          unselectedLabelColor: Colors.white!.withOpacity(0.5),
+                          unselectedLabelColor: Colors.white.withOpacity(0.5),
                           indicatorSize: TabBarIndicatorSize.label,
                           onTap: (value) {
                             setState(() {
@@ -126,8 +126,8 @@ class _CustomerOrdersState extends State<CustomerOrders>
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
                                 color: selectedValue == 0
-                                    ? CbColors.cbPrimaryColor2!.withOpacity(0.5)
-                                    : Colors.grey!.withOpacity(0.8),
+                                    ? CbColors.cbPrimaryColor2.withOpacity(0.5)
+                                    : Colors.grey.withOpacity(0.8),
                                 borderRadius: BorderRadius.circular(20),
                                 boxShadow: selectedValue == 0
                                     ? [
@@ -153,8 +153,8 @@ class _CustomerOrdersState extends State<CustomerOrders>
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
                                 color: selectedValue == 1
-                                    ? CbColors.cbPrimaryColor2!.withOpacity(0.5)
-                                    : Colors.grey!.withOpacity(0.8),
+                                    ? CbColors.cbPrimaryColor2.withOpacity(0.5)
+                                    : Colors.grey.withOpacity(0.8),
                                 borderRadius: BorderRadius.circular(20),
                                 boxShadow: selectedValue == 1
                                     ? [

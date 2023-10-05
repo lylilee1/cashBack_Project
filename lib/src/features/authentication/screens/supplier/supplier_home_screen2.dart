@@ -10,7 +10,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../customer/customer_home_screen4.dart';
 import '../dashboard/dashboard_screen2.dart';
-import 'package:badges/badges.dart' as badges;
 
 class SupplierHomeScreen extends StatefulWidget {
   const SupplierHomeScreen({Key? key}) : super(key: key);

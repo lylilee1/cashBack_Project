@@ -12,7 +12,6 @@ import 'package:cashback/src/features/authentication/screens/signup/customer_sig
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../profile/profile_screen2.dart';
 
 class CustomerSignInScreen extends StatefulWidget {
   const CustomerSignInScreen({Key? key}) : super(key: key);

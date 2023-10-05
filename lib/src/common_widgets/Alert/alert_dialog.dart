@@ -1,7 +1,6 @@
 
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
 class MyAlertDialog {
   static void showMyDialog(
@@ -17,13 +16,13 @@ class MyAlertDialog {
         content: Text(content),
         actions: <CupertinoDialogAction>[
           CupertinoDialogAction(
-            child: const Text('Non'),
             onPressed: onPressedNo,
+            child: const Text('Non'),
           ),
           CupertinoDialogAction(
-            child: const Text('Oui'),
             isDestructiveAction: true,
             onPressed: onPressedYes,
+            child: const Text('Oui'),
           ),
         ],
       ),

@@ -1,5 +1,4 @@
 import 'package:cashback/src/constants/colors.dart';
-import 'package:cashback/src/features/authentication/controllers/cart/cart_controller.dart';
 import 'package:cashback/src/features/authentication/controllers/wishlist/wishlist_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -133,7 +132,7 @@ class _ProductModelState extends State<ProductModel> {
                       children: [
                         //Price
                         Text(
-                          widget.products['price'].toStringAsFixed(0) + ' \XAF',
+                          widget.products['price'].toStringAsFixed(0) + ' XAF',
                           style:
                           Theme.of(context).textTheme.titleLarge!.copyWith(
                             color: CbColors.cbPrimaryColor2,

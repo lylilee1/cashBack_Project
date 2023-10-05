@@ -120,16 +120,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       height: height * 0.06,
                       child: ElevatedButton(
                         onPressed: () {},
-                        child: const Text(
-                          'Edit Profile',
-                          style: TextStyle(color: Colors.white),
-                        ),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: CbColors.cbPrimaryColor2,
                           side: BorderSide.none,
                           /*shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),*/
+                        ),
+                        child: const Text(
+                          'Edit Profile',
+                          style: TextStyle(color: Colors.white),
                         ),
                       ),
                     ),
@@ -246,8 +246,8 @@ class barDividerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 40),
+    return const Padding(
+      padding: EdgeInsets.symmetric(horizontal: 40),
       child: Divider(
         color: CbColors.cbPrimaryColor2,
         thickness: 1,
@@ -288,7 +288,7 @@ class ProfileMenuWidget2 extends StatelessWidget {
         ),
         subtitle: Text(
           subTitle!,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.black,
             fontSize: 11,
             //fontWeight: FontWeight.bold,

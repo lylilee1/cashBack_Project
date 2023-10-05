@@ -173,7 +173,7 @@ class DeliveredOrdersScreen extends StatelessWidget {
                       width: double.infinity,
                       height: height * 0.2,
                       decoration: BoxDecoration(
-                        color: CbColors.cbPrimaryColor2!.withOpacity(0.2),
+                        color: CbColors.cbPrimaryColor2.withOpacity(0.2),
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),

@@ -28,7 +28,7 @@ class OTPScreen extends StatelessWidget {
                 style: Theme.of(context).textTheme.headline6,
               ),
               const SizedBox(height: CbSizings.cbDefaultSize + 10.0),
-              Text(
+              const Text(
                 "${CbTextStrings.cbOtpMessage}useremail@orixaslinks.com",
                 textAlign: TextAlign.center,
               ),
@@ -49,7 +49,7 @@ class OTPScreen extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {},
-                  child: Text(CbTextStrings.cbNext),
+                  child: const Text(CbTextStrings.cbNext),
                 ),
               ),
             ],

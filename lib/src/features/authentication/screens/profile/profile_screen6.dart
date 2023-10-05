@@ -82,7 +82,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   colors: [
                                     /*Color(0xff0043ba),
                                     Color(0xff006df1),*/
-                                    CbColors.cbPrimaryColor2!.withOpacity(0.4),
+                                    CbColors.cbPrimaryColor2.withOpacity(0.4),
                                     CbColors.cbPrimaryColor2,
                                   ]),
                               borderRadius: const BorderRadius.only(

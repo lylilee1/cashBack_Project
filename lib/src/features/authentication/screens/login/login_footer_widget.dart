@@ -1,5 +1,4 @@
 import 'package:cashback/src/constants/image_strings.dart';
-import 'package:cashback/src/constants/sizes.dart';
 import 'package:cashback/src/constants/text_strings.dart';
 import 'package:cashback/src/features/authentication/screens/signup/signup_screen.dart';
 import 'package:flutter/material.dart';

@@ -1,7 +1,6 @@
 import 'package:cashback/src/constants/colors.dart';
 import 'package:cashback/src/constants/sizes.dart';
 import 'package:cashback/src/constants/text_strings.dart';
-import 'package:cashback/src/features/authentication/screens/supplier/upload_product_screen.dart';
 import 'package:flutter/material.dart';
 
 class AuthMainButton extends StatelessWidget {
@@ -21,7 +20,7 @@ class AuthMainButton extends StatelessWidget {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           primary: CbColors.cbPrimaryColor2,
-          padding: EdgeInsets.symmetric(vertical: CbSizings.cbFormHeight -10),
+          padding: const EdgeInsets.symmetric(vertical: CbSizings.cbFormHeight -10),
           /*shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),*/

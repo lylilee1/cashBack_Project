@@ -38,7 +38,7 @@ class _UploadProductsScreenState extends State<UploadProductsScreen> {
 
   final ImagePicker _picker = ImagePicker();
   List<XFile>? _imagesFileList = [];
-  List<String>? _imagesUrlList = [];
+  final List<String> _imagesUrlList = [];
   dynamic _pickedImageError;
 
   //function to pick image from gallery
@@ -94,7 +94,7 @@ class _UploadProductsScreenState extends State<UploadProductsScreen> {
             onPressed: () {
               _pickProductImages();
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.add_to_photos_rounded,
               color: Colors.black,
               size: 50,
@@ -187,13 +187,13 @@ class _UploadProductsScreenState extends State<UploadProductsScreen> {
                         SizedBox(
                           height: width * 0.4,
                           width: width * 0.4,
-                          child: Column(
+                          child: const Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Column(
                                 children: [
-                                  const Text(
+                                  Text(
                                     'choix catégorie',
                                     style: TextStyle(color: Colors.red),
                                   ),
@@ -218,7 +218,7 @@ class _UploadProductsScreenState extends State<UploadProductsScreen> {
                               ),
                               Column(
                                 children: [
-                                  const Text(
+                                  Text(
                                     'choix sous-catégorie',
                                     style: TextStyle(color: Colors.red),
                                   ),
@@ -265,7 +265,7 @@ class _UploadProductsScreenState extends State<UploadProductsScreen> {
                           hintLabel: 'Ajouter prix',
                           emptyFieldError: 'Saisir le prix du produit',
                           textType:
-                          TextInputType.numberWithOptions(decimal: true),
+                          const TextInputType.numberWithOptions(decimal: true),
                           iconImage: Icons.attach_money,
                           iconImage2: Icons.attach_money,
                           //onPressed: () {},
@@ -291,7 +291,7 @@ class _UploadProductsScreenState extends State<UploadProductsScreen> {
                       ],
                     ),
 
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     //brand and model
@@ -378,7 +378,7 @@ class _UploadProductsScreenState extends State<UploadProductsScreen> {
                       ],
                     ),
 
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     //size and weight
@@ -493,7 +493,7 @@ class _UploadProductsScreenState extends State<UploadProductsScreen> {
                   ? const CircularProgressIndicator(
                 color: Colors.black,
               )
-                  : Icon(Icons.upload, color: Colors.black),
+                  : const Icon(Icons.upload, color: Colors.black),
               //backgroundColor: kPrimaryColor,
             ),
           ],

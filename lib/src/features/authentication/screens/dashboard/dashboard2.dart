@@ -1,12 +1,11 @@
 import 'package:cashback/src/constants/colors.dart';
 import 'package:cashback/src/constants/image_strings.dart';
-import 'package:cashback/src/constants/sizes.dart';
 import 'package:cashback/src/constants/text_strings.dart';
 import 'package:cashback/src/features/authentication/models/dashboard/carousel_model.dart';
 import 'package:flutter/material.dart';
 
 class Dashboard extends StatefulWidget {
-  Dashboard({Key? key}) : super(key: key);
+  const Dashboard({Key? key}) : super(key: key);
 
   @override
   State<Dashboard> createState() => _DashboardState();
@@ -16,6 +15,7 @@ class _DashboardState extends State<Dashboard> {
   final PageController pageController = PageController();
   int currentIndex = 0;
 
+  @override
   Widget build(BuildContext context) {
     final list = DashboardCarouselModel.list;
     final size = MediaQuery.of(context).size;
@@ -365,7 +365,7 @@ class _DashboardState extends State<Dashboard> {
           child: Column(
             children: [
               //search bar
-              MySearchBar(),
+              const MySearchBar(),
 
               //carousel slider
               Container(
@@ -380,7 +380,7 @@ class _DashboardState extends State<Dashboard> {
                         margin: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(18),
-                          image: DecorationImage(
+                          image: const DecorationImage(
                             image: AssetImage(CbImageStrings.cbC1),
                             fit: BoxFit.cover,
                           ),
@@ -413,7 +413,19 @@ class MySearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(20),
+      margin: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: CbColors.cbWhiteColor,
+        borderRadius: BorderRadius.circular(16.0),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            //spreadRadius: 5,
+            blurRadius: 30,
+            offset: const Offset(0, 14), // changes position of shadow
+          ),
+        ],
+      ),
       child: Stack(
         alignment: Alignment.centerRight,
         children: [
@@ -421,8 +433,8 @@ class MySearchBar extends StatelessWidget {
             decoration: InputDecoration(
               hintText: 'Search',
               fillColor: CbColors.cbWhiteColor,
-              prefixIcon: Padding(
-                padding: const EdgeInsets.all(12.0),
+              prefixIcon: const Padding(
+                padding: EdgeInsets.all(12.0),
                 child: Icon(Icons.search),
               ),
               border: OutlineInputBorder(
@@ -441,18 +453,6 @@ class MySearchBar extends StatelessWidget {
               borderRadius: BorderRadius.circular(8.0),
             ),
             child: const Icon(Icons.mic, color: Colors.black),
-          ),
-        ],
-      ),
-      decoration: BoxDecoration(
-        color: CbColors.cbWhiteColor,
-        borderRadius: BorderRadius.circular(16.0),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            //spreadRadius: 5,
-            blurRadius: 30,
-            offset: const Offset(0, 14), // changes position of shadow
           ),
         ],
       ),

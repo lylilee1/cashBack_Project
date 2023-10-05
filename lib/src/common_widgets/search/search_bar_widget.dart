@@ -17,7 +17,7 @@ class SearchBoxWidget extends StatelessWidget {
           color: Colors.grey,
         ),*/
         fillColor: CbColors.cbWhiteColor,
-        prefixIcon: Padding(
+        prefixIcon: const Padding(
           padding: EdgeInsets.all(12),
           child: Icon(
             Icons.search,

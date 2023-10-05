@@ -24,7 +24,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     var height = size.height;
     var width = size.width;
 
-    final Stream<QuerySnapshot> _productsStream = FirebaseFirestore.instance
+    final Stream<QuerySnapshot> productsStream = FirebaseFirestore.instance
         .collection('products')
         .where('maincateg', isEqualTo: widget.prodList['maincateg'])
         .where('subcateg', isEqualTo: widget.prodList['subcateg'])

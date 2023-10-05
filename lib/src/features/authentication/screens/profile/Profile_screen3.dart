@@ -1,11 +1,6 @@
 import 'package:cashback/src/common_widgets/app_bar/appBarWidget.dart';
-import 'package:cashback/src/constants/colors.dart';
-import 'package:cashback/src/constants/image_strings.dart';
 import 'package:cashback/src/constants/text_strings.dart';
-import 'package:cashback/src/features/authentication/screens/customer/customer_orders.dart';
-import 'package:cashback/src/features/authentication/screens/main/main_screen2.dart';
 import 'package:cashback/src/features/authentication/screens/search/search_screen.dart';
-import 'package:cashback/src/features/authentication/screens/wishlist/wishlist_screen.dart';
 import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -31,7 +26,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           prefixIcon: Icons.notifications,
           onTap: () {},
         ),
-        title: AppBarTitle(
+        title: const AppBarTitle(
           title: CbTextStrings.cbAppName,
         ),
         centerTitle: true,
@@ -54,9 +49,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.all(20),
-          child: Column(
+          child: const Column(
             children: [
-              const Center(
+              Center(
                 child: CircleAvatar(
                   radius: 70,
                   backgroundImage: AssetImage(
@@ -64,12 +59,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ),
               ),
-              const SizedBox(
+              SizedBox(
                 height: 10,
               ),
               Text('Elvis NDONG ESSONO'),
               Text('superAdmin@cashback.com'),
-              const SizedBox(
+              SizedBox(
                 height: 10,
               ),
             ],

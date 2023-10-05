@@ -1,4 +1,3 @@
-import 'package:cashback/src/constants/colors.dart';
 //import 'package:cashback/src/features/authentication/models/product/product_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';

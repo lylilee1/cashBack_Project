@@ -10,6 +10,7 @@ class Wish extends ChangeNotifier {
 
   int? get WishItemCount {
     _list.length;
+    return null;
   }
 
   Future<void> addWishItem(

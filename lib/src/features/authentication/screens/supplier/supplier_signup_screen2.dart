@@ -84,7 +84,7 @@ class _SupplierSignUpScreenState extends State<SupplierSignUpScreen> {
 
         firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
             .ref('supp-images/$_email.jpg');
-        await ref.putFile(File(_imageFile!.path),);
+        ref.putFile(File(_imageFile!.path),);
         _uid = FirebaseAuth.instance.currentUser!.uid;
 
 

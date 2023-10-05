@@ -150,7 +150,7 @@ class _ProductModelState extends State<ProductModel> {
                   children: [
                     //Price
                     Text(
-                      widget.products['price'].toStringAsFixed(0) + ' \XAF',
+                      widget.products['price'].toStringAsFixed(0) + ' XAF',
                       style: Theme.of(context).textTheme.titleLarge!.copyWith(
                         color: CbColors.cbPrimaryColor2,
                         fontWeight: FontWeight.bold,

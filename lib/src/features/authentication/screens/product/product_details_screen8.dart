@@ -1,16 +1,11 @@
-import 'dart:ui';
 
 import 'package:cashback/src/constants/colors.dart';
 import 'package:cashback/src/constants/image_strings.dart';
-import 'package:cashback/src/constants/text_strings.dart';
-import 'package:cashback/src/features/authentication/models/product/product_model.dart';
 import 'package:cashback/src/features/authentication/screens/customer/minor_screen/full_screen_view.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
-import 'package:staggered_grid_view_flutter/widgets/staggered_grid_view.dart';
-import 'package:staggered_grid_view_flutter/widgets/staggered_tile.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
   final dynamic prodList;
@@ -33,7 +28,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     var height = size.height;
     var width = size.width;
 
-    final Stream<QuerySnapshot> _productsStream = FirebaseFirestore.instance
+    final Stream<QuerySnapshot> productsStream = FirebaseFirestore.instance
         .collection('products')
         .where('maincateg', isEqualTo: widget.prodList['maincateg'])
         .where('subcateg', isEqualTo: widget.prodList['subcateg'])
@@ -154,13 +149,13 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             border: Border.all(
                               width: 3,
                               //color: CbColors.cbPrimaryColor2,
-                              color: Color(0xff404c57),
+                              color: const Color(0xff404c57),
                             ),
                           ),
                           child: SvgPicture.asset(
                             CbImageStrings.cbIconMenu,
                             //color: CbColors.cbPrimaryColor2,
-                            color: Color(0xff404c57),
+                            color: const Color(0xff404c57),
                           ),
                         ),
                       ),
@@ -307,8 +302,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Row(
-                              children: const [
+                            const Row(
+                              children: [
                                 Text(
                                   'Casts',
                                   style: TextStyle(
@@ -341,9 +336,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                     ),
                                     transform:
                                     Matrix4.translationValues(-6, 0, 0),
-                                    child: Stack(
+                                    child: const Stack(
                                       clipBehavior: Clip.none,
-                                      children: const [
+                                      children: [
                                         /*MaskedImage(
                                           asset: Constants.kMaskCast,
                                           mask: Constants.kMaskCast,
@@ -384,9 +379,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                     ),
                                     transform:
                                     Matrix4.translationValues(-6, 0, 0),
-                                    child: Stack(
+                                    child: const Stack(
                                       clipBehavior: Clip.none,
-                                      children: const [
+                                      children: [
                                         /*MaskedImage(
                                           asset: Constants.kMaskCast,
                                           mask: Constants.kMaskCast,
@@ -435,9 +430,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                     ),
                                     transform:
                                     Matrix4.translationValues(-6, 0, 0),
-                                    child: Stack(
+                                    child: const Stack(
                                       clipBehavior: Clip.none,
-                                      children: const [
+                                      children: [
                                         /*MaskedImage(
                                           asset: Constants.kMaskCast,
                                           mask: Constants.kMaskCast,
@@ -478,9 +473,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                     ),
                                     transform:
                                     Matrix4.translationValues(-6, 0, 0),
-                                    child: Stack(
+                                    child: const Stack(
                                       clipBehavior: Clip.none,
-                                      children: const [
+                                      children: [
                                         /*MaskedImage(
                                           asset: Constants.kMaskCast,
                                           mask: Constants.kMaskCast,

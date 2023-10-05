@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cashback/src/constants/colors.dart';
 import 'package:cashback/src/constants/image_strings.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -21,7 +20,7 @@ class OnBoardingScreen extends StatelessWidget {
           title: 'Bienvenue sur Cashback.',
           //Fast, Fluid and Secure
           description:
-              'Acheter et de vendre des produits d\’occasions d\’excellente qualité et neufs en toute simplicité',
+              'Acheter et de vendre des produits d’occasions d’excellente qualité et neufs en toute simplicité',
           //description: 'Profitez du meilleur du pays dans la paume de vos mains.',
           imageUrl: CbImageStrings.cbOnBoardingImage1,
           bgColor: CbColors.cbPrimaryColor2,

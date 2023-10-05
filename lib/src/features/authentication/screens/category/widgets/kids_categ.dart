@@ -23,7 +23,7 @@ class KidsCategory extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CategoryHeaderLabel(
+                  const CategoryHeaderLabel(
                     headerLabel: 'enfants',
                   ),
                   SizedBox(

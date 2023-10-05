@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:cashback/src/common_widgets/form/auth_widget.dart';
 import 'package:cashback/src/common_widgets/snackBar/snackBarWidget.dart';
-import 'package:cashback/src/constants/categoryData.dart';
 import 'package:cashback/src/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -172,7 +171,7 @@ class _UploadProductsScreenState extends State<UploadProductsScreen> {
             onPressed: () {
               _pickProductImages();
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.add_to_photos_rounded,
               color: Colors.black,
               size: 50,
@@ -361,8 +360,8 @@ class _UploadProductsScreenState extends State<UploadProductsScreen> {
                                       value: mainCategValue,
                                       items: categ.map<DropdownMenuItem<String>>((value) {
                                         return DropdownMenuItem(
-                                          child: Text(value),
                                           value: value,
+                                          child: Text(value),
                                         );
                                       }).toList(),
                                       onChanged: (String? value) {
@@ -401,8 +400,8 @@ class _UploadProductsScreenState extends State<UploadProductsScreen> {
                                       value: subCategValue,
                                       items: subCategList.map<DropdownMenuItem<String>>((value) {
                                         return DropdownMenuItem(
-                                          child: Text(value),
                                           value: value,
+                                          child: Text(value),
                                         );
                                       }).toList(),
                                       onChanged: (String? value) {
@@ -431,7 +430,7 @@ class _UploadProductsScreenState extends State<UploadProductsScreen> {
                           hintLabel: 'Ajouter prix',
                           emptyFieldError: 'Saisir le prix du produit',
                           textType:
-                          TextInputType.numberWithOptions(decimal: true),
+                          const TextInputType.numberWithOptions(decimal: true),
                           iconImage: Icons.attach_money,
                           iconImage2: Icons.attach_money,
                           //onPressed: () {},

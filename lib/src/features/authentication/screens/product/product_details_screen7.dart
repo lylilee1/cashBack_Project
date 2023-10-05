@@ -1,4 +1,3 @@
-import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cashback/src/common_widgets/app_bar/appBarWidget.dart';
@@ -67,7 +66,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
     var onSale = widget.prodList['discount'];
 
-    final Stream<QuerySnapshot> _productsStream = FirebaseFirestore.instance
+    final Stream<QuerySnapshot> productsStream = FirebaseFirestore.instance
         .collection('products')
         .where('maincateg', isEqualTo: widget.prodList['maincateg'])
         .where('subcateg', isEqualTo: widget.prodList['subcateg'])
@@ -533,7 +532,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                               ),
                                             ),
                                             TextSpan(
-                                              text: ' \XAF',
+                                              text: ' XAF',
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .displayLarge!
@@ -567,7 +566,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                                 ),
                                               ),
                                               TextSpan(
-                                                text: ' \XAF',
+                                                text: ' XAF',
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .displayLarge!
@@ -611,7 +610,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                                     ),
                                               ),
                                               TextSpan(
-                                                text: ' \XAF',
+                                                text: ' XAF',
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .displayLarge!
@@ -640,7 +639,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                           ),
                                         ),
                                         TextSpan(
-                                          text: ' \XAF',
+                                          text: ' XAF',
                                           style: Theme.of(context)
                                               .textTheme
                                               .displayLarge!
@@ -736,7 +735,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           fontSize: SizeConfig.blockSizeHorizontal! * 3,
                         ),
                       ),
-                      children: [],
+                      children: const [],
                     ),
                   ),
 
@@ -761,7 +760,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           fontSize: SizeConfig.blockSizeHorizontal! * 3,
                         ),
                       ),
-                      children: [],
+                      children: const [],
                     ),
                   ),
 
@@ -776,7 +775,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   //Similar items
                   SizedBox(
                     child: StreamBuilder<QuerySnapshot>(
-                      stream: _productsStream,
+                      stream: productsStream,
                       builder: (BuildContext context,
                           AsyncSnapshot<QuerySnapshot> snapshot) {
                         if (snapshot.hasError) {

@@ -31,7 +31,7 @@ class SignUpFooterWidget extends StatelessWidget {
             Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) =>  CustomerSignInScreen(),
+                  builder: (context) =>  const CustomerSignInScreen(),
                 ));
           },
           child: Text.rich(

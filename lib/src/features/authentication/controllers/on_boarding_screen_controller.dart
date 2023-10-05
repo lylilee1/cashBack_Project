@@ -3,10 +3,7 @@ import 'package:get/get.dart';
 import 'package:liquid_swipe/PageHelpers/LiquidController.dart';
 
 import '../../../constants/colors.dart';
-import '../../../constants/image_strings.dart';
-import '../../../constants/text_strings.dart';
 import '../models/onboarding_screen_model.dart';
-import '../screens/onboarding/on_boarding_page_widget.dart';
 
 class OnBoardingScreenController extends GetxController{
 

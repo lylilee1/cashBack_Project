@@ -1,7 +1,6 @@
 import 'package:cashback/src/common_widgets/app_bar/appBarWidget.dart';
 import 'package:cashback/src/constants/app_styles.dart';
 import 'package:cashback/src/constants/colors.dart';
-import 'package:cashback/src/constants/text_strings.dart';
 import 'package:cashback/src/features/authentication/screens/category/widgets/kids_categ.dart';
 import 'package:cashback/src/features/authentication/screens/category/widgets/men_categ.dart';
 import 'package:cashback/src/features/authentication/screens/category/widgets/women_categ.dart';
@@ -189,9 +188,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
         },
         scrollDirection: Axis.vertical,
         children: [
-          MenCategory(),
-          WomenCategory(),
-          KidsCategory(),
+          const MenCategory(),
+          const WomenCategory(),
+          const KidsCategory(),
           Center(
             child: Text(
               '4 category',

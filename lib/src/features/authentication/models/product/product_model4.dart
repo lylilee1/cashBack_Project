@@ -54,7 +54,7 @@ class _ProductModelState extends State<ProductModel> {
         },
         child: Column(
           children: [
-            Container(
+            SizedBox(
               width: (width - 50) / 2,
               height: 205,
               child: Stack(
@@ -114,7 +114,7 @@ class _ProductModelState extends State<ProductModel> {
                   //Image
                   Positioned(
                     top: 5,
-                    child: Container(
+                    child: SizedBox(
                       width: (width - 50) / 2,
                       height: 150,
                       child:
@@ -343,7 +343,7 @@ class _ProductModelState extends State<ProductModel> {
                                           )
                                         : const TextSpan(),
                                     TextSpan(
-                                      text: ' \XAF',
+                                      text: ' XAF',
                                       style: cbMontserratBold.copyWith(
                                         fontSize:
                                             SizeConfig.blockSizeHorizontal! * 4,

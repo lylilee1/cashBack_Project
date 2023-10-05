@@ -1,5 +1,4 @@
 import 'package:cashback/src/common_widgets/app_bar/appBarWidget.dart';
-import 'package:cashback/src/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 List<String> label = [
@@ -36,23 +35,23 @@ class DashboardScreen extends StatelessWidget {
                 (index) {
               return Container(
                 decoration: BoxDecoration(
-                  color: Color(0xff453658),
+                  color: const Color(0xff453658),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.person,
                       color: Colors.white,
                       size: 50,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Text(
                       label[index],
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 18,
                       ),

@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cashback/src/constants/colors.dart';
 import 'package:cashback/src/constants/image_strings.dart';
 import 'package:flutter/material.dart';
@@ -13,8 +12,8 @@ class CustomerHomeScreen extends StatefulWidget {
 class _CustomerHomeScreenState extends State<CustomerHomeScreen>
     with SingleTickerProviderStateMixin {
   final List<AssetImage> _carouselImages = [
-    AssetImage(CbImageStrings.cbC1),
-    AssetImage(CbImageStrings.cbC2),
+    const AssetImage(CbImageStrings.cbC1),
+    const AssetImage(CbImageStrings.cbC2),
   ];
 
   late TabController tabController;
@@ -137,7 +136,7 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen>
           indicatorSize: TabBarIndicatorSize.label,
           indicatorColor: CbColors.cbPrimaryColor2,
           indicatorWeight: 5,
-          tabs: [
+          tabs: const [
             RepeatedTab(
               label: 'Men',
             ),
@@ -181,7 +180,7 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen>
         Expanded(
           child: TabBarView(
             controller: tabController,
-            children: [
+            children: const [
               Center(
                 child: Text('Men Screen'),
               ),
@@ -244,18 +243,18 @@ class PromoBox extends StatelessWidget {
     return Stack(
       children: [
         Container(
-          margin: EdgeInsets.only(right: 5.0),
+          margin: const EdgeInsets.only(right: 5.0),
           width: MediaQuery.of(context).size.width - 30,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5.0),
-            image: DecorationImage(
+            image: const DecorationImage(
               image: AssetImage(CbImageStrings.cbC2),
               fit: BoxFit.cover,
             ),
           ),
         ),
         Container(
-          margin: EdgeInsets.only(right: 5.0),
+          margin: const EdgeInsets.only(right: 5.0),
           width: MediaQuery.of(context).size.width - 30,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5.0),
@@ -273,7 +272,7 @@ class PromoBox extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                 ),
-                SizedBox(height: 15.0),
+                const SizedBox(height: 15.0),
                 Text(
                   'On All Products',
                   style: Theme.of(context).textTheme.headline6!.copyWith(

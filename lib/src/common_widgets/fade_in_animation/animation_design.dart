@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../features/authentication/models/fade_in_animation_model.dart';
 
-import '../../constants/image_strings.dart';
 import '../../features/authentication/controllers/fade_in_animation_controller.dart';
 
 class CbFadeInAnimation extends StatelessWidget {

@@ -2,7 +2,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cashback/src/common_widgets/app_bar/appBarWidget.dart';
 import 'package:cashback/src/constants/colors.dart';
 import 'package:cashback/src/constants/image_strings.dart';
-import 'package:cashback/src/constants/text_strings.dart';
 import 'package:cashback/src/features/authentication/controllers/cart/cart_controller.dart';
 import 'package:cashback/src/features/authentication/screens/customer/minor_screen/accessories_gallery_screen.dart';
 import 'package:cashback/src/features/authentication/screens/customer/minor_screen/automoto_gallery_screen.dart';
@@ -13,19 +12,14 @@ import 'package:cashback/src/features/authentication/screens/customer/minor_scre
 import 'package:cashback/src/features/authentication/screens/customer/minor_screen/sport_gallery_screen.dart';
 import 'package:cashback/src/features/authentication/screens/customer/minor_screen/women_gallery_screen.dart';
 import 'package:cashback/src/features/authentication/screens/customer/minor_screen/men_gallery_screen.dart';
-import 'package:cashback/src/features/authentication/screens/login/customer_signin_screen.dart';
 import 'package:cashback/src/features/authentication/screens/search/search_screen.dart';
-import 'package:cashback/src/features/authentication/screens/supplier/supplier_signin_screen2.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:provider/provider.dart';
 
 import '../../../../constants/app_styles.dart';
 import '../../../../constants/size_config.dart';
 import '../cart/cart_screen3.dart';
-import '../main/main_screen2.dart';
 
 class CustomerHomeScreen extends StatefulWidget {
   const CustomerHomeScreen({Key? key}) : super(key: key);
@@ -184,42 +178,41 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen>
                       ),
 
                       //Categories
-                      Container(
-                        child: TabBar(
-                          isScrollable: true,
-                          controller: tabController,
-                          indicatorSize: TabBarIndicatorSize.label,
-                          indicatorColor: CbColors.cbPrimaryColor2,
-                          indicatorWeight: 5,
-                          tabs: const [
-                            RepeatedTab(
-                              label: 'Hommes',
-                            ),
-                            RepeatedTab(
-                              label: 'Femmes',
-                            ),
-                            RepeatedTab(
-                              label: 'Enfants',
-                            ),
-                            RepeatedTab(
-                              label: 'Electroniques',
-                            ),
-                            RepeatedTab(
-                              label: 'Accessoires',
-                            ),
-                            RepeatedTab(
-                              label: 'Maison & Jardin',
-                            ),
-                            RepeatedTab(
-                              label: 'Automobiles',
-                            ),
-                            RepeatedTab(
-                              label: 'Sport & Loisirs',
-                            ),
-                            RepeatedTab(
-                              label: 'Autres',
-                            ),
-                            /*Tab(
+                      TabBar(
+                        isScrollable: true,
+                        controller: tabController,
+                        indicatorSize: TabBarIndicatorSize.label,
+                        indicatorColor: CbColors.cbPrimaryColor2,
+                        indicatorWeight: 5,
+                        tabs: const [
+                          RepeatedTab(
+                            label: 'Hommes',
+                          ),
+                          RepeatedTab(
+                            label: 'Femmes',
+                          ),
+                          RepeatedTab(
+                            label: 'Enfants',
+                          ),
+                          RepeatedTab(
+                            label: 'Electroniques',
+                          ),
+                          RepeatedTab(
+                            label: 'Accessoires',
+                          ),
+                          RepeatedTab(
+                            label: 'Maison & Jardin',
+                          ),
+                          RepeatedTab(
+                            label: 'Automobiles',
+                          ),
+                          RepeatedTab(
+                            label: 'Sport & Loisirs',
+                          ),
+                          RepeatedTab(
+                            label: 'Autres',
+                          ),
+                          /*Tab(
                 child: Container(
                   width: double.infinity,
                   height: size.height * 0.05,
@@ -230,12 +223,11 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen>
                   ),
                 ),
               ),*/
-                          ],
-                        ),
+                        ],
                       ),
 
                       //Categories Products
-                      Container(
+                      SizedBox(
                         /*decoration: BoxDecoration(
                           color: CbColors.cbPrimaryColor2.withOpacity(0.05),  //CbColors.cbPrimaryColor2,Colors.grey.withOpacity(0.2),
                           borderRadius: BorderRadius.circular(15),

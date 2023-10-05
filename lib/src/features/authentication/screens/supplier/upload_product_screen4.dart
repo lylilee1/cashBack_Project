@@ -36,7 +36,7 @@ class _UploadProductsScreenState extends State<UploadProductsScreen> {
 
   final ImagePicker _picker = ImagePicker();
   List<XFile>? _imagesFileList = [];
-  List<String>? _imagesUrlList = [];
+  final List<String> _imagesUrlList = [];
   dynamic _pickedImageError;
 
   //function to pick image from gallery
@@ -92,7 +92,7 @@ class _UploadProductsScreenState extends State<UploadProductsScreen> {
             onPressed: () {
               _pickProductImages();
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.add_to_photos_rounded,
               color: Colors.black,
               size: 50,
@@ -210,10 +210,10 @@ class _UploadProductsScreenState extends State<UploadProductsScreen> {
                       //Price
                       CustomeSmallTextField(
                         size: size,
-                        hintText: 'Prix ..\FCFA',
+                        hintText: 'Prix ..FCFA',
                         labelText: 'Prix',
                         textInputType:
-                            TextInputType.numberWithOptions(decimal: true),
+                            const TextInputType.numberWithOptions(decimal: true),
                         emptyFieldError: 'Saisir le prix du produit',
                         onChanged: (value) {
                           _price = double.parse(value!);
@@ -322,7 +322,7 @@ class _UploadProductsScreenState extends State<UploadProductsScreen> {
                         hintText: 'Saisir Poids',
                         labelText: 'Poids',
                         textInputType:
-                            TextInputType.numberWithOptions(decimal: true),
+                            const TextInputType.numberWithOptions(decimal: true),
                         emptyFieldError: 'Saisir le poids du produit',
                         onChanged: (value) {
                           _proWeight = double.parse(value!);
@@ -342,7 +342,7 @@ class _UploadProductsScreenState extends State<UploadProductsScreen> {
                       return null;
                     },
                     onChanged: (value) {
-                      _proMarketDesc = value!;
+                      _proMarketDesc = value;
                     },
                     keyboardType: TextInputType.text,
                     decoration: InputDecoration(
@@ -378,7 +378,7 @@ class _UploadProductsScreenState extends State<UploadProductsScreen> {
                       return null;
                     },
                     onChanged: (value) {
-                      _proDescription = value!;
+                      _proDescription = value;
                     },
                     keyboardType: TextInputType.text,
                     maxLength: 800,
@@ -458,7 +458,7 @@ class _UploadProductsScreenState extends State<UploadProductsScreen> {
                   ? const CircularProgressIndicator(
                       color: Colors.black,
                     )
-                  : Icon(Icons.upload, color: Colors.black),
+                  : const Icon(Icons.upload, color: Colors.black),
               //backgroundColor: kPrimaryColor,
             ),
           ],

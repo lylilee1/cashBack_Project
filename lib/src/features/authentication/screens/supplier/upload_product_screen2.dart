@@ -90,7 +90,7 @@ class _UploadProductsScreenState extends State<UploadProductsScreen> {
             onPressed: () {
               _pickProductImages();
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.add_to_photos_rounded,
               color: Colors.black,
               size: 50,
@@ -208,7 +208,7 @@ class _UploadProductsScreenState extends State<UploadProductsScreen> {
         'subcateg': subCategValue,
         'price': _price,
         'discount': 0,
-        'instock': _quantity!,
+        'instock': _quantity,
         'proname': _proName!,
         'prodesc': _proDescription!,
         'promarketing': _proMarketDesc,
@@ -414,8 +414,8 @@ class _UploadProductsScreenState extends State<UploadProductsScreen> {
                                           .map<DropdownMenuItem<String>>(
                                               (value) {
                                         return DropdownMenuItem(
-                                          child: Text(value),
                                           value: value,
+                                          child: Text(value),
                                         );
                                       }).toList(),
                                       onChanged: (String? value) {
@@ -442,8 +442,8 @@ class _UploadProductsScreenState extends State<UploadProductsScreen> {
                                           .map<DropdownMenuItem<String>>(
                                               (value) {
                                         return DropdownMenuItem(
-                                          child: Text(value),
                                           value: value,
+                                          child: Text(value),
                                         );
                                       }).toList(),
                                       onChanged: (String? value) {
@@ -472,7 +472,7 @@ class _UploadProductsScreenState extends State<UploadProductsScreen> {
                           hintLabel: 'Ajouter prix',
                           emptyFieldError: 'Saisir le prix du produit',
                           textType:
-                              TextInputType.numberWithOptions(decimal: true),
+                              const TextInputType.numberWithOptions(decimal: true),
                           iconImage: Icons.attach_money,
                           iconImage2: Icons.attach_money,
                           //onPressed: () {},
@@ -594,7 +594,7 @@ class _UploadProductsScreenState extends State<UploadProductsScreen> {
                   ? const CircularProgressIndicator(
                       color: Colors.black,
                     )
-                  : Icon(Icons.upload, color: Colors.black),
+                  : const Icon(Icons.upload, color: Colors.black),
               //backgroundColor: kPrimaryColor,
             ),
           ],

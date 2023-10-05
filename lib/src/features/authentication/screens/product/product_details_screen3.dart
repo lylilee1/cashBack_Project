@@ -18,10 +18,10 @@ class ProductDetailsScreen extends StatefulWidget {
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: CustomScrollView(
         slivers: <Widget>[
-          const RecipeDetailAppBar(),
+          RecipeDetailAppBar(),
         ],
       ),
     );

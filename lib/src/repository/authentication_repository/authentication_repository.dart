@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 class AuthenticationRepository extends GetxController{
@@ -5,6 +6,6 @@ class AuthenticationRepository extends GetxController{
 
   //Variables
   final _auth = FirebaseAuth.instance;
-  final User? firebaseUser;
+  late final User? firebaseUser;
 
 }

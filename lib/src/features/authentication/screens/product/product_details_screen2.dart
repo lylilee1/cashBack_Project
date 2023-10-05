@@ -30,7 +30,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     var height = size.height;
     var width = size.width;
 
-    final Stream<QuerySnapshot> _productsStream = FirebaseFirestore.instance
+    final Stream<QuerySnapshot> productsStream = FirebaseFirestore.instance
         .collection('products')
         .where('maincateg', isEqualTo: widget.prodList['maincateg'])
         .where('subcateg', isEqualTo: widget.prodList['subcateg'])
@@ -114,7 +114,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             onPressed: () {
                               Navigator.pop(context);
                             },
-                            icon: Icon(Icons.share, color: Colors.white, size: 15,),
+                            icon: const Icon(Icons.share, color: Colors.white, size: 15,),
                                 /*
                             SvgPicture.asset(
                               CbImageStrings.cbSvgFrontArrow,
@@ -130,7 +130,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -143,17 +143,17 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         ),
                         Row(
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.star,
                               color: CbColors.cbPrimaryColor2,
                               size: 20,
                             ),
-                            Icon(
+                            const Icon(
                               Icons.star,
                               color: CbColors.cbPrimaryColor2,
                               size: 20,
                             ),
-                            Icon(
+                            const Icon(
                               Icons.star,
                               color: Colors.grey,
                               size: 20,
@@ -174,7 +174,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       style:
                           Theme.of(context).textTheme.titleMedium!.copyWith(),
                     ),
-                    SizedBox(height: 25),
+                    const SizedBox(height: 25),
 
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -191,7 +191,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                       color: CbColors.cbPrimaryColor2),
                             ),
                             Text(
-                              ' \XAF',
+                              ' XAF',
                               style: Theme.of(context)
                                   .textTheme
                                   .displayLarge!
@@ -252,13 +252,13 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 25),
+                    const SizedBox(height: 25),
 
                     //devilery time process
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.delivery_dining_outlined,
                           color: CbColors.cbPrimaryColor2,
                           size: 22,
@@ -272,7 +272,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 25),
+                    const SizedBox(height: 25),
 
                     //item description title
                     /* ProDetailsHeaderWidget(
@@ -291,7 +291,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       style:
                           Theme.of(context).textTheme.titleMedium!.copyWith(),
                     ),
-                    SizedBox(height: 25),
+                    const SizedBox(height: 25),
 
                     //recommended item title
                     /* ProDetailsHeaderWidget(
@@ -306,7 +306,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     ),
                     SizedBox(
                       child: StreamBuilder<QuerySnapshot>(
-                        stream: _productsStream,
+                        stream: productsStream,
                         builder: (BuildContext context,
                             AsyncSnapshot<QuerySnapshot> snapshot) {
                           if (snapshot.hasError) {
@@ -354,7 +354,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             width: width * 0.5,
             decoration: BoxDecoration(
               color: Colors.grey[200],
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(10.0),
                 bottomLeft: Radius.circular(10.0),
               ),
@@ -380,7 +380,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       ),
                 ),
                 Text(
-                  '\XAF',
+                  'XAF',
                   style: Theme.of(context).textTheme.displaySmall!.copyWith(
                         color: CbColors.cbPrimaryColor2, //Colors.white,
                       ),
@@ -393,7 +393,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           Container(
             height: height * 0.05,
             width: width * 0.5,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: CbColors.cbPrimaryColor2,
               borderRadius: BorderRadius.only(
                 topRight: Radius.circular(10.0),
@@ -437,7 +437,7 @@ class ProDetailsHeaderWidget extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(
+          const SizedBox(
             height: 20,
             width: 30,
             child: Divider(
@@ -452,7 +452,7 @@ class ProDetailsHeaderWidget extends StatelessWidget {
                 .displayLarge!
                 .copyWith(fontSize: 20),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
             width: 30,
             child: Divider(

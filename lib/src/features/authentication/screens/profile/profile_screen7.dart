@@ -6,7 +6,6 @@ import 'package:cashback/src/features/authentication/screens/profile/update_prof
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import '../customer/minor_screen/customer_order1.dart';
 
@@ -75,7 +74,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   colors: [
                                     /*Color(0xff0043ba),
                                     Color(0xff006df1),*/
-                                    CbColors.cbPrimaryColor2!.withOpacity(0.4),
+                                    CbColors.cbPrimaryColor2.withOpacity(0.4),
                                     CbColors.cbPrimaryColor2,
                                   ]),
                               borderRadius: const BorderRadius.only(

@@ -1,15 +1,10 @@
 import 'package:cashback/src/common_widgets/app_bar/appBarWidget.dart';
 import 'package:cashback/src/constants/colors.dart';
-import 'package:cashback/src/constants/image_strings.dart';
 import 'package:cashback/src/constants/text_strings.dart';
-import 'package:cashback/src/features/authentication/models/product/product_model.dart';
 import 'package:cashback/src/features/authentication/screens/search/search_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
-import 'package:staggered_grid_view_flutter/widgets/staggered_grid_view.dart';
-import 'package:staggered_grid_view_flutter/widgets/staggered_tile.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
   final dynamic prodList;
@@ -32,7 +27,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     var height = size.height;
     var width = size.width;
 
-    final Stream<QuerySnapshot> _productsStream = FirebaseFirestore.instance
+    final Stream<QuerySnapshot> productsStream = FirebaseFirestore.instance
         .collection('products')
         .where('maincateg', isEqualTo: widget.prodList['maincateg'])
         .where('subcateg', isEqualTo: widget.prodList['subcateg'])
@@ -59,7 +54,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           icon: const Icon(Icons.menu),
           color: Colors.black,
         ),*/
-        title: AppBarTitle(
+        title: const AppBarTitle(
           title: CbTextStrings.cbAppName,
         ),
         centerTitle: true,
@@ -99,7 +94,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               ),
               child: Stack(
                 children: [
-                  Container(
+                  SizedBox(
                     height: height * 0.35,
                     width: width,
                     child: Swiper(
@@ -110,13 +105,13 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           fit: BoxFit.cover,
                         );
                       },
-                      pagination: SwiperPagination(
+                      pagination: const SwiperPagination(
                         builder: DotSwiperPaginationBuilder(
                           color: Colors.grey,
                           activeColor: CbColors.cbPrimaryColor2,
                         ),
                       ),
-                      control: SwiperControl(
+                      control: const SwiperControl(
                         color: Colors.white,
                       ),
                     ),

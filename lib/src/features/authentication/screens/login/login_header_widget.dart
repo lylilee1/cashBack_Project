@@ -13,9 +13,9 @@ class LoginHeaderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: const [
+      children: [
         FormHeaderWidget(
             image: cbWelcomeImage1,
             title: CbTextStrings.cbLoginTitle,

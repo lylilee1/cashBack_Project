@@ -1,15 +1,4 @@
-import 'package:cashback/src/common_widgets/Alert/alert_dialog.dart';
-import 'package:cashback/src/common_widgets/app_bar/appBarWidget.dart';
-import 'package:cashback/src/constants/colors.dart';
-import 'package:cashback/src/constants/image_strings.dart';
-import 'package:cashback/src/constants/text_strings.dart';
-import 'package:cashback/src/features/authentication/screens/cart/cart_screen.dart';
-import 'package:cashback/src/features/authentication/screens/customer/customer_orders.dart';
-import 'package:cashback/src/features/authentication/screens/main/main_screen2.dart';
-import 'package:cashback/src/features/authentication/screens/search/search_screen.dart';
-import 'package:cashback/src/features/authentication/screens/wishlist/wishlist_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatefulWidget {

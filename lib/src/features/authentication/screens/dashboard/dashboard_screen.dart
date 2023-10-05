@@ -23,11 +23,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
               color: Colors.grey[200]?.withOpacity(0.8),
               borderRadius: BorderRadius.circular(30.0),
             ),
-            child: Row(
+            child: const Row(
               children: [
-                const Icon(Icons.search),
-                const SizedBox(width: 10.0),
-                const Text('Search'),
+                Icon(Icons.search),
+                SizedBox(width: 10.0),
+                Text('Search'),
               ],
             ),
           ),

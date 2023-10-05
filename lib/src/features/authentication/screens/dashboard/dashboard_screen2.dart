@@ -2,7 +2,6 @@ import 'package:cashback/src/common_widgets/Alert/alert_dialog.dart';
 import 'package:cashback/src/common_widgets/app_bar/appBarWidget.dart';
 import 'package:cashback/src/features/authentication/screens/dashboard/screens/edit_business_screen.dart';
 import 'package:cashback/src/features/authentication/screens/dashboard/screens/manage_products_screen.dart';
-import 'package:cashback/src/features/authentication/screens/dashboard/screens/my_store_screen.dart';
 import 'package:cashback/src/features/authentication/screens/dashboard/screens/suppl_orders_screen.dart';
 import 'package:cashback/src/features/authentication/screens/dashboard/screens/supplier_statics_screen.dart';
 import 'package:cashback/src/features/authentication/screens/supplier/supplier_balance_screen.dart';
@@ -30,9 +29,9 @@ List<IconData> icons = [
 
 List<Widget> pages = [
   //MyStoreScreen(),
-  SupplierOrdersScreen(),
-  EditBusinessScreen(),
-  ManageProductsScreen(),
+  const SupplierOrdersScreen(),
+  const EditBusinessScreen(),
+  const ManageProductsScreen(),
   SupplierBalanceScreen(),
   SupplierStaticsScreen(),
 ];
@@ -70,7 +69,7 @@ IconButton(
                 },
               );
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.logout,
               color: Colors.black,
             ),
@@ -117,7 +116,7 @@ IconButton(
                       color: Colors.black,
                       size: 50,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Text(

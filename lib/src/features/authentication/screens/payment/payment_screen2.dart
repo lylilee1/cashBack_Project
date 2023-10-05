@@ -346,7 +346,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                         ),
                                   ),
                                   Text(
-                                    totalPaid.toStringAsFixed(0) + ' XAF',
+                                    '${totalPaid.toStringAsFixed(0)} XAF',
                                     style: Theme.of(context)
                                         .textTheme
                                         .displaySmall!
@@ -374,7 +374,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                         ),
                                   ),
                                   Text(
-                                    totalPrice.toStringAsFixed(0) + ' XAF',
+                                    '${totalPrice.toStringAsFixed(0)} XAF',
                                     style: Theme.of(context)
                                         .textTheme
                                         .displaySmall!
@@ -398,7 +398,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                         ),
                                   ),
                                   Text(
-                                    shippingCoast.toStringAsFixed(0) + ' XAF',
+                                    '${shippingCoast.toStringAsFixed(0)} XAF',
                                     style: Theme.of(context)
                                         .textTheme
                                         .displaySmall!
@@ -462,8 +462,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                         _selectedValue = value!;
                                       });
                                     },
-                                    title: Row(
-                                      children: const [
+                                    title: const Row(
+                                      children: [
                                         Icon(
                                           FontAwesomeIcons.cashRegister,
                                           //size: 35,
@@ -507,8 +507,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                         _selectedValue = value!;
                                       });
                                     },
-                                    title: Row(
-                                      children: const [
+                                    title: const Row(
+                                      children: [
                                         Icon(
                                           FontAwesomeIcons.ccVisa,
                                         ),
@@ -551,8 +551,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                         _selectedValue = value!;
                                       });
                                     },
-                                    title: Row(
-                                      children: const [
+                                    title: const Row(
+                                      children: [
                                         Icon(
                                           FontAwesomeIcons.paypal,
                                         ),
@@ -592,8 +592,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                         _selectedValue = value!;
                                       });
                                     },
-                                    title: Row(
-                                      children: const [
+                                    title: const Row(
+                                      children: [
                                         Icon(
                                           FontAwesomeIcons.googlePay,
                                           size: 35,
@@ -634,8 +634,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                         _selectedValue = value!;
                                       });
                                     },
-                                    title: Row(
-                                      children: const [
+                                    title: const Row(
+                                      children: [
                                         Icon(
                                           FontAwesomeIcons.applePay,
                                           size: 35,

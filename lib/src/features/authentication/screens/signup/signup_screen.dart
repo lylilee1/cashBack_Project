@@ -7,7 +7,6 @@ import 'package:cashback/src/features/authentication/screens/customer/customer_h
 import 'package:cashback/src/features/authentication/screens/signup/widget/signup_form_widget.dart';
 import 'package:flutter/material.dart';
 
-import 'widget/signup_footer_widget.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -23,12 +22,12 @@ class SignUpScreen extends StatelessWidget {
             padding: const EdgeInsets.all(CbSizings.cbDefaultSize),
             child: Column(
               children: [
-                FormHeaderWidget(
+                const FormHeaderWidget(
                   image: cbWelcomeImage1,
                   title: CbTextStrings.cbSignUpTitle,
                   subTitle: CbTextStrings.cbSignUpSubTitle,
                 ),
-                SignUpFormWidget(),
+                const SignUpFormWidget(),
                 FormFooterWidget(
                   size: size,
                   image: CbImageStrings.cbGoogleLogoImage,

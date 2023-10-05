@@ -12,7 +12,6 @@ import 'package:cashback/src/features/authentication/screens/supplier/supplier_s
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../profile/profile_screen2.dart';
 
 class SupplierSignInScreen extends StatefulWidget {
   const SupplierSignInScreen({Key? key}) : super(key: key);

@@ -17,7 +17,7 @@ class PlaceOrderScreen extends StatefulWidget {
 }
 
 class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
-  int _selectedValue = 1;
+  final int _selectedValue = 1;
   late String _orderId;
   CollectionReference customers =
       FirebaseFirestore.instance.collection('customers');

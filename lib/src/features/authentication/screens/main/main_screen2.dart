@@ -1,11 +1,8 @@
 import 'package:cashback/src/constants/colors.dart';
-import 'package:cashback/src/constants/image_strings.dart';
 import 'package:cashback/src/features/authentication/screens/category/category_screen2.dart';
 import 'package:cashback/src/features/authentication/screens/customer/customer_home_screen.dart';
 import 'package:cashback/src/features/authentication/screens/profile/Profile_screen3.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -144,7 +141,7 @@ class _MainScreenState extends State<MainScreen> {
         child: PageView(
           controller: myPage,
           physics: const NeverScrollableScrollPhysics(),
-          children: <Widget>[
+          children: const <Widget>[
             //pages
             CustomerHomeScreen(),
             CategoryScreen(),
@@ -238,7 +235,7 @@ class CustomBottomBar extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Icon(iconData, color: iconColor),
-          SizedBox(height: 5),
+          const SizedBox(height: 5),
           Text(title,
               style: Theme
                   .of(context)

@@ -4,8 +4,6 @@ import 'package:cashback/src/features/authentication/screens/forget_password/for
 import 'package:cashback/src/features/authentication/screens/forget_password/forget_password_options/forget_password_btn_widget.dart';
 import 'package:cashback/src/features/authentication/screens/forget_password/forget_password_phone/forget_password_phone.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 void buildShowModalBottomSheet(BuildContext context) {
   showModalBottomSheet(
@@ -39,7 +37,7 @@ void buildShowModalBottomSheet(BuildContext context) {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => ForgetPasswordMailScreen(),
+                  builder: (context) => const ForgetPasswordMailScreen(),
                 ),
               );
             },
@@ -54,7 +52,7 @@ void buildShowModalBottomSheet(BuildContext context) {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => ForgetPasswordPhoneScreen(),
+                  builder: (context) => const ForgetPasswordPhoneScreen(),
                 ),
               );
             },

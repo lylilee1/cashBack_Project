@@ -29,7 +29,7 @@ class _SupplierSignInScreenState extends State<SupplierSignInScreen> {
   bool processing = false;
 
   bool _isPasswordVisible = false;
-  bool _rememberMe = false;
+  final bool _rememberMe = false;
 
   void signIn() async {
     setState(

@@ -1,7 +1,5 @@
 import 'package:cashback/src/constants/categoryData.dart';
-import 'package:cashback/src/constants/colors.dart';
 import 'package:cashback/src/features/authentication/models/category/category_model.dart';
-import 'package:cashback/src/features/authentication/screens/subcategory/subcategory_products.dart';
 import 'package:flutter/material.dart';
 
 class MenCategory extends StatelessWidget {
@@ -26,7 +24,7 @@ class MenCategory extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const CategoryHeaderLabel(
-                    headerLabel: 'Hommes',
+                    headerLabel: 'hommes',
                   ),
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.68,

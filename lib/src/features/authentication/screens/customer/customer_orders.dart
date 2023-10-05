@@ -267,7 +267,7 @@ class _CustomerOrdersState extends State<CustomerOrders> {
                                                               //FontWeight.bold,
                                                         ),
                                                   ),
-                                                  Text(
+                                                  const Text(
                                                     'data',
                                                   ),
                                                 ],

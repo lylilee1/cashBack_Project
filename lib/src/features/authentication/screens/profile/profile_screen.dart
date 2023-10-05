@@ -1,6 +1,5 @@
 import 'package:cashback/src/common_widgets/app_bar/appBarWidget.dart';
 import 'package:cashback/src/constants/colors.dart';
-import 'package:cashback/src/constants/image_strings.dart';
 import 'package:cashback/src/constants/text_strings.dart';
 import 'package:cashback/src/features/authentication/screens/customer/customer_orders.dart';
 import 'package:cashback/src/features/authentication/screens/main/main_screen2.dart';
@@ -31,7 +30,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           prefixIcon: Icons.notifications,
           onTap: () {},
         ),
-        title: AppBarTitle(
+        title: const AppBarTitle(
           title: CbTextStrings.cbAppName,
         ),
         centerTitle: true,
@@ -84,8 +83,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
               const SizedBox(
                 height: 10,
               ),
-              Text('Elvis NDONG ESSONO'),
-              Text('superAdmin@cashback.com'),
+              const Text('Elvis NDONG ESSONO'),
+              const Text('superAdmin@cashback.com'),
               const SizedBox(
                 height: 10,
               ),
@@ -94,16 +93,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 height: height * 0.06,
                 child: ElevatedButton(
                   onPressed: () {},
-                  child: const Text(
-                    'Edit Profile',
-                    style: TextStyle(color: Colors.white),
-                  ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: CbColors.cbPrimaryColor2,
                     side: BorderSide.none,
                     /*shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),*/
+                  ),
+                  child: const Text(
+                    'Edit Profile',
+                    style: TextStyle(color: Colors.white),
                   ),
                 ),
               ),
@@ -134,7 +133,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         icon: Icons.person,
                         onPressed: () {},
                       ),
-                      barDividerWidget(),
+                      const barDividerWidget(),
                     ],
                   ),
                 ),
@@ -163,7 +162,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           );
                         },
                       ),
-                      barDividerWidget(),
+                      const barDividerWidget(),
                     ],
                   ),
                 ),
@@ -219,7 +218,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         icon: Icons.feedback,
                         onPressed: () {},
                       ),
-                      barDividerWidget(),
+                      const barDividerWidget(),
                     ],
                   ),
                 ),
@@ -262,7 +261,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         icon: Icons.local_shipping,
                         onPressed: () {},
                       ),
-                      barDividerWidget(),
+                      const barDividerWidget(),
                     ],
                   ),
                 ),
@@ -327,8 +326,8 @@ class barDividerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 40),
+    return const Padding(
+      padding: EdgeInsets.symmetric(horizontal: 40),
       child: Divider(
         color: CbColors.cbPrimaryColor2,
         thickness: 1,
@@ -369,7 +368,7 @@ class ProfileMenuWidget2 extends StatelessWidget {
         ),
         subtitle: Text(
           subTitle!,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.black,
             fontSize: 11,
             //fontWeight: FontWeight.bold,

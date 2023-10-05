@@ -25,7 +25,7 @@ class ForgetPasswordOptionPageWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(height: CbSizings.cbDefaultSize * 4),
+        const SizedBox(height: CbSizings.cbDefaultSize * 4),
         FormHeaderWidget(
           image: image,
           title: title,
@@ -34,7 +34,7 @@ class ForgetPasswordOptionPageWidget extends StatelessWidget {
           heightBetween: CbSizings.cbDefaultSize,
           textAlign: TextAlign.center,
         ),
-        SizedBox(height: CbSizings.cbFormHeight),
+        const SizedBox(height: CbSizings.cbFormHeight),
         Form(
           child: Column(
             children: [
@@ -50,7 +50,7 @@ class ForgetPasswordOptionPageWidget extends StatelessWidget {
                   prefixIcon: Icon(prefixIcon),
                 ),
               ),
-              SizedBox(height: CbSizings.cbDefaultSize - 10),
+              const SizedBox(height: CbSizings.cbDefaultSize - 10),
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(

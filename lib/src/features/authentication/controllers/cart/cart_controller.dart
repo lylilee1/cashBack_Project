@@ -24,6 +24,7 @@ class Cart extends ChangeNotifier {
 
   int? get itemCount {
     _list.length;
+    return null;
   }
 
   void addItem(

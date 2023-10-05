@@ -23,11 +23,11 @@ class WelcomeScreen extends StatelessWidget {
             ),
 
           ),
-          SizedBox(height: 40,),
+          const SizedBox(height: 40,),
           Expanded(
               child: Column(
                 children: [
-                  Text('Welcome to CashBack',
+                  const Text('Welcome to CashBack',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -41,7 +41,7 @@ class WelcomeScreen extends StatelessWidget {
                     ),
                     child: RichText(
                       textAlign: TextAlign.center,
-                      text: TextSpan(
+                      text: const TextSpan(
                         text: 'Read our ',
                         style: TextStyle(
                           color: CbColors.cbGreyDark,
@@ -89,29 +89,29 @@ class WelcomeScreen extends StatelessWidget {
                         onPressed: (){},
                         style: ElevatedButton.styleFrom(
                           backgroundColor: CbColors.cbBlueLight,
-                          foregroundColor: Color(0xFF111B21),
+                          foregroundColor: const Color(0xFF111B21),
                           splashFactory: NoSplash.splashFactory,
                           elevation: 0,
                           shadowColor: Colors.transparent,
                         ),
-                        child: Text(
+                        child: const Text(
                             'AGREE AND CONTINUE'
                         )
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 50,
                   ),
                   Material(
-                    color: Color(0xFF111B21),
+                    color: const Color(0xFF111B21),
                     borderRadius: BorderRadius.circular(20),
                     child: InkWell(
                       onTap: (){},
                       borderRadius: BorderRadius.circular(20),
                       splashFactory: NoSplash.splashFactory,
-                      highlightColor: Color(0xFF111B21),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      highlightColor: const Color(0xFF111B21),
+                      child: const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [

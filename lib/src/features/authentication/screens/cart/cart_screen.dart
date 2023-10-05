@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:cashback/src/common_widgets/counter/counter.dart';
 
-import '../customer/customer_home_screen4.dart';
 
 class CartScreen extends StatefulWidget {
   final Widget? back;

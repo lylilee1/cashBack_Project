@@ -9,7 +9,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import '../../../../constants/app_styles.dart';
 import '../../../../constants/size_config.dart';
 
 import '../main/main_screen.dart';

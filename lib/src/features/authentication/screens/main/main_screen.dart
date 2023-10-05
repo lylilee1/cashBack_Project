@@ -1,9 +1,7 @@
 import 'package:cashback/src/constants/app_styles.dart';
 import 'package:cashback/src/constants/colors.dart';
 import 'package:cashback/src/constants/image_strings.dart';
-import 'package:cashback/src/features/authentication/screens/cart/cart_screen.dart';
 import 'package:cashback/src/features/authentication/screens/category/category_screen2.dart';
-import 'package:cashback/src/features/authentication/screens/search/search_screen.dart';
 import 'package:cashback/src/features/authentication/screens/wishlist/wishlist_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

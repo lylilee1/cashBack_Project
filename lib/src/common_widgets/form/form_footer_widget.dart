@@ -1,6 +1,3 @@
-import 'package:cashback/src/constants/image_strings.dart';
-import 'package:cashback/src/constants/text_strings.dart';
-import 'package:cashback/src/features/authentication/screens/login/login_screen.dart';
 import 'package:flutter/material.dart';
 
 class FormFooterWidget extends StatelessWidget {

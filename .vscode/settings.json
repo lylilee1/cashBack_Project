@@ -1,0 +1,7 @@
+{
+    "ai.completions.enabled": true,
+    "editor.quickSuggestions": {
+        "comments": "on",
+        "strings": "on"
+    }
+}

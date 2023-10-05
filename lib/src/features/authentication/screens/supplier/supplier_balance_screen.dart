@@ -1,5 +1,4 @@
 import 'package:cashback/src/common_widgets/app_bar/appBarWidget.dart';
-import 'package:cashback/src/common_widgets/buttons/yellow_button.dart';
 import 'package:cashback/src/constants/colors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -77,7 +76,7 @@ class SupplierBalanceScreen extends StatelessWidget {
                               borderRadius: BorderRadius.circular(20)),
                           child: MaterialButton(
                             onPressed: () {},
-                            child: Text(
+                            child: const Text(
                               'obtenir mon argent',
                               style: TextStyle(
                                 color: Colors.white,
